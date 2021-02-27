@@ -1,0 +1,36 @@
+.addToList {
+	position: relative;
+	top: -10px;
+	align-self: flex-end;
+	cursor: pointer;
+	text-decoration: underline;
+	color: var(--link-color);
+	font-size: var(--smallSize);
+
+	&:hover {
+		color: var(--link-hover-color);
+	}
+}
+
+.formBox .formList {
+	margin: 10px 0 30px 30px;
+	display: flex;
+
+	.formListItem {
+		direction: ltr;
+		margin: 10px 5px 10px 0;
+		padding-right: 5px;
+		cursor: pointer;
+		color: var(--link-color);
+		font-size: var(--smallSize);
+		border-right: var(--boxes-border);
+
+		&:hover {
+			color: var(--link-hover-color);
+		}
+
+		&:last-child {
+			border: 0;
+		}
+	}
+}

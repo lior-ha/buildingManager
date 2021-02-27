@@ -1,0 +1,18 @@
+.contactInfoBox {
+	margin-left: var(--smallSize);
+
+	li {
+		margin-bottom: var(--smallSize);
+	}
+
+	.cards {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+
+		.card {
+			min-width: 250px;
+			margin-bottom: 30px;
+		}
+	}
+}

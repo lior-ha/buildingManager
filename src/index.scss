@@ -1,0 +1,58 @@
+@import '_reset';
+
+body {
+	background-color: var(--main-bg-color);
+	color: var(--text-color);
+	height: 100vh;
+	margin: 0;
+	//padding: 70px 0 0;
+}
+
+A {
+	color: var(--link-color);
+	&:hover {
+		color: var(--link-hover-color);
+	}
+}
+
+.genTitle {
+	margin-bottom: var(--smallSize);
+	font-size: var(--largeSize);
+	color: var(--title-color);
+}
+
+.contentBox {
+	background-color: var(--boxes-bg-color);
+	border: var(--boxes-border);
+	padding: var(--boxes-padding);
+	margin: var(--boxes-margin);
+}
+
+.appWrapper.loading {
+	text-align: center;
+}
+
+h1 {
+	font-size: 2.5em;
+	font-weight: 700;
+}
+
+h2 {
+	font-size: 2em;
+	font-weight: 700;
+	margin-bottom: 20px;
+}
+
+.ltr {
+	direction: ltr !important;
+	display: inline-block;
+}
+
+.rtl {
+	direction: rtl !important;
+	display: inline-block;
+}
+
+.fullWidth {
+	width: 100%;
+}

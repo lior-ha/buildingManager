@@ -1,0 +1,57 @@
+.custom-button {
+	align-items: center;
+	background-color: var(--main-light-color);
+	border: 1px solid var(--main-light-color);
+	color: var(--sub-dark-color);
+	cursor: pointer;
+	font-family: var(--main-font-family);
+	font-size: var(--smallSize);
+	font-weight: 700;
+	height: 50px;
+	letter-spacing: 0.5px;
+	line-height: 50px;
+	min-width: 165px;
+	padding: 0 35px;
+	text-align: center;
+	width: auto;
+
+	&:hover {
+		background-color: var(--sub-dark-color);
+		color: var(--main-light-color);
+		border: 1px solid var(--main-light-color);
+	}
+
+	&.google-sign-in {
+		background-color: #4285f4;
+		color: white;
+		border: 1px solid #4285f4;
+
+		&:hover {
+			background-color: #357ae8;
+			border: 1px solid #357ae8;
+		}
+	}
+
+	&.red {
+		background-color: #f44242;
+		color: var(--sub-dark-color);
+		border: 1px solid #f44242;
+
+		&:hover {
+			background-color: #e83535;
+			border: 1px solid #e83535;
+		}
+	}
+
+	&.green {
+		background-color: #42f45a;
+		color: var(--sub-dark-color);
+		border: 1px solid #42f45a;
+
+		&:hover {
+			background-color: #35e83e;
+			border: 1px solid #35e83e;
+			color: var(--sub-dark-color);
+		}
+	}
+}

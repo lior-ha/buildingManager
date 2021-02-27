@@ -1,0 +1,21 @@
+.statusBox {
+	.total {
+		direction: ltr;
+		text-align: right;
+		font-size: var(--hugeSize);
+
+		&.plusSum {
+			color: var(--plus-color);
+		}
+
+		&.minusSum {
+			color: var(--minus-color);
+		}
+	}
+
+	.title {
+		margin: 0 0 var(--smallSize);
+		font-size: var(--largeSize);
+		color: var(--title-color);
+	}
+}

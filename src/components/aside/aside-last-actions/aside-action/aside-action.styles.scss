@@ -1,0 +1,43 @@
+.asideAction {
+	margin: 0 0 var(--smallSize);
+	padding-bottom: var(--smallSize);
+	text-align: right;
+	border-bottom: var(--boxes-border);
+
+	&:last-child {
+		margin: 0;
+		padding: 0;
+		border-bottom: 0;
+	}
+
+	P {
+		margin: 0;
+	}
+
+	.line {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.sum {
+		margin: var(--smallSize) 0 0;
+		direction: ltr;
+		font-size: var(--largeSize);
+	}
+
+	.incSrc {
+		align-self: flex-end;
+		font-size: var(--smallSize);
+	}
+
+	&.income {
+		.sum {
+			color: var(--plus-color);
+		}
+	}
+	&.expense {
+		.sum {
+			color: var(--minus-color);
+		}
+	}
+}

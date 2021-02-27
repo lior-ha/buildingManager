@@ -1,0 +1,16 @@
+.formWrapper {
+	display: flex;
+
+	&.half .formBox {
+		width: 45vw;
+	}
+
+	&.full .formBox {
+		width: 90vw;
+	}
+
+	.buttonsGroup {
+		display: flex;
+		justify-content: space-between;
+	}
+}

@@ -1,0 +1,36 @@
+.linkListItem {
+	border: 1px solid var(--text-color);
+	display: inline-block;
+	font-weight: 500;
+	margin: var(--smallSize);
+	padding: var(--smallSize);
+	text-align: center;
+	width: 15%;
+
+	&:hover {
+		background-color: var(--text-color);
+		border-color: var(--text-color);
+		color: var(--main-dark-color);
+	}
+
+	&.paid {
+		border-color: var(--plus-color);
+		color: var(--plus-color);
+
+		&:hover {
+			background-color: var(--plus-color);
+			border-color: var(--main-dark-color);
+			color: var(--main-dark-color);
+		}
+	}
+
+	&.debt {
+		border-color: var(--minus-color);
+		color: var(--minus-color);
+
+		&:hover {
+			background-color: var(--minus-color);
+			color: var(--main-dark-color);
+		}
+	}
+}

@@ -1,0 +1,23 @@
+.asideBox {
+	text-align: center;
+	position: relative;
+	height: 65vh;
+	overflow: auto;
+
+	.title,
+	.closeTab {
+		margin: 0 0 var(--smallSize);
+		font-size: var(--largeSize);
+		color: var(--title-color);
+	}
+
+	.top {
+		text-align: right;
+		border-bottom: 1px solid #fff;
+		margin-bottom: 20px;
+	}
+
+	.closeTab {
+		cursor: pointer;
+	}
+}

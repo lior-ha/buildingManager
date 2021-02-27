@@ -1,0 +1,23 @@
+.formBox {
+	width: 25vw;
+
+	form {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.title {
+		margin: 10px 0;
+	}
+
+	.buttons {
+		.custom-button {
+			width: 100%;
+			margin-left: 30px;
+		}
+	}
+
+	.group {
+		display: flex;
+	}
+}

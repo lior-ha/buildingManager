@@ -1,0 +1,31 @@
+.mainHeader {
+	background-color: var(--sub-dark-color);
+	border-bottom: 1px solid var(--mid-dark-color);
+	display: flex;
+	flex-direction: row;
+	//margin-bottom: var(--midSize);
+	padding: 0 var(--midSize);
+	position: sticky;
+	z-index: 5;
+	right: 0;
+	top: 0;
+	width: 100%;
+}
+
+.tab {
+	border-left: 1px solid var(--mid-dark-color);
+	line-height: 50px;
+	color: var(--text-color);
+	padding: 0 var(--midSize);
+	text-decoration: none;
+	cursor: pointer;
+
+	&:hover {
+		color: white;
+	}
+
+	&.end {
+		margin: 0 auto 0 0;
+		border: 0;
+	}
+}

@@ -6,16 +6,18 @@ import { useBuilding } from './hooks/building.hook';
 
 import { authContext } from './context/auth.context';
 
+import Layout from './hoc/layout/layout.hoc';
+
 import Homepage from './pages/homepage/homepage.component';
 import ProfilePage from './pages/profile-page/profile-page.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
+import SignOut from  './pages/sign-in-and-sign-up/sign-out/sign-out.component';
 import AddBuilding from './pages/add-building/add-building.component';
 import AddApartment from './pages/add-apartment/add-apartment.component';
 import AddPaymentPage from './pages/add-payment/add-payment.component';
 
 import Loader from './components/UI/loader/loader.component'
 
-import Header from './components/header/header.component';
 import PageTitle from './components/page-title/page-title.component';
 
 import './index.scss';
@@ -31,19 +33,17 @@ const App = () => {
             </div>
         )
     }
+
     let routes = (
-        <Fragment>
-            <Header />
-            <Switch>
-                <Route path='/' component={SignInAndSignUpPage} />
-            </Switch>
-        </Fragment>
+        <Switch>
+            <Route path='/' component={SignInAndSignUpPage} />
+        </Switch>
     )
+
     if (user) {
         routes =  (
             <Fragment>
                 <authContext.Provider value={{ user, building }}>
-                    <Header />
                     <PageTitle address={buildingData} />
                     <Switch>
                         <Route exact path='/' component={Homepage} />
@@ -51,6 +51,7 @@ const App = () => {
                         <Route path='/mainAdmin/addApartment' component={AddApartment} />
                         <Route path='/mainAdmin/addPayment' component={AddPaymentPage} />
                         <Route path='/building/:profileId' component={ProfilePage} /> 
+                        <Route path='/signout' component={SignOut} /> 
                         <Route exact path='/signin' render={() => 
                             user ? 
                                 (<Redirect to="/" />) 
@@ -64,9 +65,9 @@ const App = () => {
         );
     }
     return (
-        <div className="appWrapper">
+        <Layout isAuthenticated={user}>
             {routes}
-        </div>
+        </Layout>
     );
 
 }

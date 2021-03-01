@@ -1,4 +1,4 @@
-.mainWrapper {
+.appWrapper .mainWrapper {
 	display: grid;
 	grid-template-columns: var(--midSize) auto 20% var(--midSize);
 	column-gap: 1%;
@@ -21,4 +21,11 @@ aside {
 	min-width: 250px;
 	grid-area: aside;
 	grid-column-start: 3;
+}
+
+@media (max-width: 1000px) {
+	.appWrapper .mainWrapper {
+		display: flex;
+		flex-direction: column;
+	}
 }

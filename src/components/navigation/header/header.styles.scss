@@ -1,0 +1,22 @@
+.mainHeader {
+	height: 50px;
+}
+
+.desktopOnly {
+	background-color: var(--sub-dark-color);
+	border-bottom: 1px solid var(--mid-dark-color);
+	display: flex;
+	flex-direction: row;
+	padding: 0 var(--midSize);
+	position: sticky;
+	z-index: 5;
+	right: 0;
+	top: 0;
+	width: 100%;
+}
+
+@media (max-width: 1000px) {
+	.desktopOnly {
+		display: none;
+	}
+}

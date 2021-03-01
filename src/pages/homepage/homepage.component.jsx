@@ -5,8 +5,6 @@ import AsideLastActions from '../../components/aside/aside-last-actions/aside-la
 import StatusBox from '../../components/status-box/status-box.components';
 import IncomePayments from '../../components/income-payments/income-payments.components';
 
-import './homepage.styles.scss';
-
 const Homepage = props => {
     const {paymentLoading, payments} = usePayments();
     const {apartmentsLoading, apartmentsData} = useApartments();

@@ -10,7 +10,6 @@ import AddTenantForm from '../../components/add-tenants-form/add-tenants-form.co
 import ApartmentContactsList from '../../components/apartment-contacts-list/apartment-contacts-list.component';
 import FormBox from '../../components/form-box/form-box.component';
 
-import './add-apartment.styles.scss';
 import CustomButton from '../../components/custom-button/custom-button.component';
 
 const AddApartment = () => {
@@ -79,7 +78,7 @@ const AddApartment = () => {
     // Aside Data
     return (
         <main className="mainWrapper biggerAside">
-            <section className="formWrapper half">
+            <section className="formWrapper">
                 {/* APARTMENT FORM */}
                 {formVisible.form1 && 
                     <FormBox 

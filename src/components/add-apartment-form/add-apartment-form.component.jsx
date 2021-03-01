@@ -12,8 +12,9 @@ const AddTenantForm = props => {
 
     const nextForm = e => {
         e.preventDefault();
-        handleEvent(e); //?
+        
         if (apartmentData.apartment !== '' && apartmentData.apartmentName !== '') {
+            handleEvent(e); //?
             props.getApartmentData(apartmentData)
             props.setFormVisible({form1: false, form2: true, sumAndApprove: false});
         }

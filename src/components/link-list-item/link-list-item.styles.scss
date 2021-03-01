@@ -5,7 +5,7 @@
 	margin: var(--smallSize);
 	padding: var(--smallSize);
 	text-align: center;
-	width: 15%;
+	min-width: 15%;
 
 	&:hover {
 		background-color: var(--text-color);

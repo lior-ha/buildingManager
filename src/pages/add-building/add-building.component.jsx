@@ -6,8 +6,6 @@ import { useSession } from '../../context/auth.context';
 import AddBuildingForm from '../../components/add-building-form/add-building-form.component';
 import FormBox from '../../components/form-box/form-box.component';
 
-import './add-building.styles.scss';
-
 const AddBuilding = () => { 
     const { building } = useSession();
 
@@ -75,7 +73,7 @@ const AddBuilding = () => {
 
     return (
         <main className="mainWrapper">        
-            <section className="formWrapper half">
+            <section className="formWrapper">
                 <FormBox form={
                     <AddBuildingForm 
                         buildingData={buildingData}

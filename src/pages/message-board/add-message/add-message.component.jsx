@@ -11,6 +11,7 @@ const AddMessage = ({building, id, handleClick}) => {
         uid: '',
         content: '',
         suspended: false,
+        sticky: false,
         createdAt: '',
         lastUpdated: ''
     }

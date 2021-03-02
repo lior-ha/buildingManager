@@ -24,10 +24,10 @@ const MessageBoard = props => {
         } else if (value === 'addMsg') {
             setComp({
                 component:   <AddMessage 
-                            building={building} 
-                            id={id} 
-                            handleClick={props.handleClick}
-                        />,
+                                building={building} 
+                                id={id} 
+                                handleClick={handleClick}
+                            />,
                 title:  'addMsg'
             })
         }

@@ -1,5 +1,5 @@
 @mixin shrinkLabel {
-	top: -14px;
+	top: -17px;
 	font-size: 14px;
 	color: var(--text-color);
 }
@@ -19,7 +19,7 @@
 		border: none;
 		border-radius: 0;
 		border-bottom: 1px solid var(--link-color);
-		margin: 25px 0;
+		margin: 0 0 25px 0;
 		direction: ltr;
 
 		&.rtl {
@@ -34,6 +34,13 @@
 		&:focus ~ .form-input-label {
 			@include shrinkLabel();
 		}
+	}
+
+	.form-input-textarea {
+		border: 1px solid var(--link-color);
+		resize: none;
+		height: 100px;
+		font-family: var(--main-font-family);
 	}
 
 	input[type='password'] {

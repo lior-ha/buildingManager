@@ -1,15 +1,12 @@
 import { Fragment } from 'react';
 
-import { useContactInfo } from '../../hooks/contact-info.hook';
-
 import TenantsContactInfo from '../contact-info-box/contact-info-box.component';
 
 import Loading from '../UI/loader/loader.component';
 
 import './apartment-contacts-list.styles.scss';
 
-const ApartmentContactsList = ({apartmentId}) => {
-    const {tenantData, loading} = useContactInfo(apartmentId);
+const ApartmentContactsList = ({tenantData, loading}) => {
     return (
         <div>
             <div className="contacts">

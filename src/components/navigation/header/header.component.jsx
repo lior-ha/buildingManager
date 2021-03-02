@@ -7,7 +7,7 @@ const Header = props => {
     
     return (
         <header className="mainHeader">
-            <div class="logo"></div>
+            <div className="logo"></div>
             <SideBarToggle clicked={props.sideBarToggleClicked} />
             <nav className="desktopOnly">
                 <NavItems isAuth={props.isAuth} />

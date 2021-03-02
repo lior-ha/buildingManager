@@ -43,6 +43,12 @@ h2 {
 	margin-bottom: 20px;
 }
 
+h3 {
+	font-size: 1.4em;
+	font-weight: 700;
+	margin-bottom: 10px;
+}
+
 .ltr {
 	direction: ltr !important;
 	display: inline-block;
@@ -55,6 +61,12 @@ h2 {
 
 .fullWidth {
 	width: 100%;
+}
+
+.withButton {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: var(--smallSize);
 }
 
 @import 'shared/forms.styles.scss';

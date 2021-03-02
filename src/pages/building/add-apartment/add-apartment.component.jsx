@@ -1,16 +1,16 @@
 import { useState, useEffect } from 'react';
 
-import { useApartments } from '../../hooks/apartments.hook';
-import { addApartments, updateApartments } from '../../firebase/firebase.utils';
-import { useSession } from '../../context/auth.context';
+import { useApartments } from '../../../hooks/apartments.hook';
+import { addItems, updateItems } from '../../../firebase/firebase.utils';
+import { useSession } from '../../../context/auth.context';
 
-import AsideTenantsList from '../../components/aside/aside-tenants-list/aside-tenants-list.component';
-import AddApartmentForm from '../../components/add-apartment-form/add-apartment-form.component';
-import AddTenantForm from '../../components/add-tenants-form/add-tenants-form.component';
-import ApartmentContactsList from '../../components/apartment-contacts-list/apartment-contacts-list.component';
-import FormBox from '../../components/form-box/form-box.component';
+import AsideTenantsList from '../../../components/aside/aside-tenants-list/aside-tenants-list.component';
+import AddApartmentForm from '../../../components/add-apartment-form/add-apartment-form.component';
+import AddTenantForm from '../../../components/add-tenants-form/add-tenants-form.component';
+import ApartmentContactsList from '../../../components/apartment-contacts-list/apartment-contacts-list.component';
+import FormBox from '../../../components/form-box/form-box.component';
 
-import CustomButton from '../../components/custom-button/custom-button.component';
+import CustomButton from '../../../components/custom-button/custom-button.component';
 
 const AddApartment = () => {
     const { building } = useSession();
@@ -55,13 +55,13 @@ const AddApartment = () => {
         let unsub;
         if (formVisible.sumAndApprove) {
             if (!apartmentId) {
-                unsub = addApartments(`buildings/${building}/apartments`, apartmentData)
+                unsub = addItems(`buildings/${building}/apartments`, apartmentData)
                     .then((result) => {
                         setApartmentId(result);
                     })
                 
             } else {
-                unsub = updateApartments(`buildings/${building}/apartments`, apartmentId, apartmentData);
+                unsub = updateItems(`buildings/${building}/apartments`, apartmentId, apartmentData);
             }
         }
 

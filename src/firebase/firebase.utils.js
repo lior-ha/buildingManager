@@ -110,26 +110,24 @@ export const getAddress = (collections, building) => {
     return addressData();
 }
 
-export const getApartment = async (collectionKey, apartmentId) => {
+export const getItem = async (collectionKey, id) => {
     const collectionRef = firestore.collection(collectionKey);
-    const docRef = collectionRef.doc(apartmentId);
+    const docRef = collectionRef.doc(id);
     return docRef;
 }
 
-export const addApartments = async (collectionKey, objectsToAdd) => {
+export const addItems = async (collectionKey, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey);
     const newDocRef = collectionRef.doc();
     newDocRef.set(objectsToAdd);
     return newDocRef.id;;
 }
 
-export const updateApartments = async (collectionKey, apartmentId, objectsToAdd) => {
+export const updateItems = async (collectionKey, id, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey);
-    const docRef = collectionRef.doc(apartmentId);
+    const docRef = collectionRef.doc(id);
     docRef.update(objectsToAdd)
 }
-
-
 
 // BUILDINGS
 
@@ -150,18 +148,7 @@ export const updateApartments = async (collectionKey, apartmentId, objectsToAdd)
 //     return buildingId();
 // }
 
-export const addBuildings = async (collectionKey, objectsToAdd) => {
-    const collectionRef = firestore.collection(collectionKey);
-    const newDocRef = collectionRef.doc();
-    newDocRef.set(objectsToAdd);
-    return newDocRef.id;
-}
 
-export const updateBuildings = async (collectionKey, BuildingId, objectsToAdd) => {
-    const collectionRef = firestore.collection(collectionKey);
-    const docRef = collectionRef.doc(BuildingId);
-    docRef.update(objectsToAdd)
-}
 
 
 
@@ -183,24 +170,8 @@ export const convertPaymentsCollectionsSnapshotToMap = (paymentCollection, type)
 }
 
 
-export const getPayment = async (collectionKey, paymentId) => {
-    const collectionRef = firestore.collection(collectionKey);
-    const docRef = collectionRef.doc(paymentId);
-    return docRef;
-}
 
-export const addPayments = async (collectionKey, objectsToAdd) => {
-    const collectionRef = firestore.collection(collectionKey);
-    const newDocRef = collectionRef.doc();
-    newDocRef.set(objectsToAdd);
-    return newDocRef.id;;
-}
 
-export const updatePayments = async (collectionKey, paymentId, objectsToAdd) => {
-    const collectionRef = firestore.collection(collectionKey);
-    const docRef = collectionRef.doc(paymentId);
-    docRef.update(objectsToAdd)
-}
 
 
 export const auth = firebase.auth();

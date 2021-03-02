@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-import { usePayments } from '../../hooks/payments.hook';
-import { addPayments, updatePayments } from '../../firebase/firebase.utils';
-import { useSession } from '../../context/auth.context';
+import { usePayments } from '../../../hooks/payments.hook';
+import { addItems, updateItems } from '../../../firebase/firebase.utils';
+import { useSession } from '../../../context/auth.context';
 
-import FormBox from '../../components/form-box/form-box.component';
-import AddPaymentForm from '../../components/add-payment-form/add-payment-form.component';
-import AsideLastActions from '../../components/aside/aside-last-actions/aside-last-actions.component'
+import FormBox from '../../../components/form-box/form-box.component';
+import AddPaymentForm from '../../../components/add-payment-form/add-payment-form.component';
+import AsideLastActions from '../../../components/aside/aside-last-actions/aside-last-actions.component'
 
 const formSchemes = {
     income: {
@@ -81,13 +81,13 @@ const AddPaymentPage = () => {
         let unsub;
         if (paymentData.sum !== '') {
             if (!paymentId) {
-                unsub = addPayments(`buildings/${building}/${paymentData.type}s`, paymentData)
+                unsub = addItems(`buildings/${building}/${paymentData.type}s`, paymentData)
                     .then((result) => {
                         setPaymentId(result);
                     });
             
             } else {
-                unsub = updatePayments(`buildings/${building}/${paymentData.type}s`, paymentId, paymentData);
+                unsub = updateItems(`buildings/${building}/${paymentData.type}s`, paymentId, paymentData);
             }
         }
 

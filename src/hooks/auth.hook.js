@@ -9,7 +9,9 @@ export const useAuth = () => {
         const loading = true;
         const building = '';
         const user = firebase.auth().currentUser;
+        const id = '';
         return { 
+            id,
             user,
             building,
             loading
@@ -34,8 +36,10 @@ export const useAuth = () => {
                         }
                     });
                 });
+
+                //const userIdRef = 
             } else {
-                setState({ user: null, building: '', loading: false})
+                setState({ id: '', user: null, building: '', loading: false})
             }            
         });
 

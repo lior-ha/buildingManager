@@ -84,3 +84,19 @@ export const FormInputIntoList = ({
         </Fragment>
     )
 };
+
+
+export const FormTextArea = ({handleChange, rtl, label, ...otherProps}) => (
+    <div className="inputSet">
+        <textarea className={`form-input form-input-textarea ${rtl && 'rtl' }`} onChange={handleChange} {...otherProps} />
+        {
+            label ?
+            (<label className={`${otherProps.value ? 'shrink' : ''} form-input-label`}>
+                {label}
+            </label>)
+            :
+            null
+        }
+        
+    </div> 
+);

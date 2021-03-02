@@ -1,0 +1,19 @@
+.messageBox {
+	.subTitle {
+		font-size: var(--largeSize);
+
+		span {
+			font-weight: 700;
+		}
+	}
+
+	.date {
+		font-size: var(--smallSize);
+		margin: var(--smallSize) 0 var(--largeSize);
+		display: inline-block;
+	}
+
+	.content {
+		line-height: var(--midSize);
+	}
+}

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 
-import { addBuildings, updateBuildings } from '../../firebase/firebase.utils';
-import { useSession } from '../../context/auth.context';
+import { addItems, updateItems } from '../../../firebase/firebase.utils';
+import { useSession } from '../../../context/auth.context';
 
-import AddBuildingForm from '../../components/add-building-form/add-building-form.component';
-import FormBox from '../../components/form-box/form-box.component';
+import AddBuildingForm from '../../../components/add-building-form/add-building-form.component';
+import FormBox from '../../../components/form-box/form-box.component';
 
 const AddBuilding = () => { 
     const { building } = useSession();
@@ -57,14 +57,14 @@ const AddBuilding = () => {
             }
 
             if (!buildingId) {
-                unsub = addBuildings(`buildings`, newBuildingData)
+                unsub = addItems(`buildings`, newBuildingData)
                     .then((result) => {
                         //console.log('result', result);
                         setBuildingId(result);
                     });
             
             } else {
-                unsub = updateBuildings(`buildings`, buildingId, newBuildingData);
+                unsub = updateItems(`buildings`, buildingId, newBuildingData);
             }
             return unsub;
     }

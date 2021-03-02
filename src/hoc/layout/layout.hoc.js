@@ -17,7 +17,7 @@ const Layout = props => {
     }
     
     return (
-        <div class="appWrapper">
+        <div className="appWrapper">
             <Header 
                 sideBarToggleClicked={sideBarToggleClicked} 
                 isAuth={props.isAuthenticated} />

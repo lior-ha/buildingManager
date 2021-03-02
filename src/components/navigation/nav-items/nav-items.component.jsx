@@ -13,6 +13,7 @@ const NavItems = props => {
         navbar = <Fragment>
                     {alpha}
                     <NavItem link='/' exact>Homepage</NavItem>
+                    <NavItem link='/message-board'>לוח מודעות</NavItem>
                     <NavItem link='/mainAdmin/addPayment'>ניהול הכנסות/הוצאות</NavItem>
                     <NavItem link='/mainAdmin/addApartment'>ניהול דירות</NavItem>
                     <NavItem link='/mainAdmin/addBuilding'>הוספת בניין</NavItem>

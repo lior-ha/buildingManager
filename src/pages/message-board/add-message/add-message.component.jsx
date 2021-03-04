@@ -33,11 +33,12 @@ const AddMessage = ({building, id, handleClick}) => {
                 lastUpdated: date
             }
         }
+        console.log(id);
         setMessageData(prevState => ({
             ...prevState,
-            uid: id,
             ...data,
-            ...newDates
+            ...newDates,
+            uid: id
         }));
     }
 
@@ -57,7 +58,7 @@ const AddMessage = ({building, id, handleClick}) => {
         }        
         return unsub;
     }, [messageId, building, messageData, handleClick]) 
-
+    
     return (
         <FormBox form={
             <AddMessageForm 

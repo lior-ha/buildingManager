@@ -27,6 +27,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
         try {
             await userRef.set({
+                
                 displayName,
                 email,
                 createdAt,
@@ -41,17 +42,16 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 firebase.initializeApp(config);
 
-// Gets building data from DB
-export const getBuildingData = async (buildingId, additionalData) => {
-
-    const buildingRef = firestore.doc(`buildings/${buildingId}`);
-    const snapShot = await buildingRef.get();
-
+// Gets user data from DB
+export const getUserData = async (userId) => {
+    const userRef = firestore.doc(`users/${userId}`);
+    const snapShot = await userRef.get();
+    console.log(snapShot.data());
     if (snapShot.exists) {
         try {
-            return await snapShot.data()
-        } catch(error) {
-            console.log('error getting building: ', error.message)
+            return await snapShot.data();
+        } catch (error) {
+            console.log('error getting document', error.message)
         }
     } else {
         console.log("No such document!");
@@ -113,6 +113,7 @@ export const getAddress = (collections, building) => {
 export const getItem = async (collectionKey, id) => {
     const collectionRef = firestore.collection(collectionKey);
     const docRef = collectionRef.doc(id);
+    console.log(docRef)
     return docRef;
 }
 
@@ -149,9 +150,6 @@ export const updateItems = async (collectionKey, id, objectsToAdd) => {
 // }
 
 
-
-
-
 // PAYMENTS
 export const convertPaymentsCollectionsSnapshotToMap = (paymentCollection, type) => {
     const transformedBuildingPayment = paymentCollection.docs.map(doc => {
@@ -168,9 +166,6 @@ export const convertPaymentsCollectionsSnapshotToMap = (paymentCollection, type)
     });
     return transformedBuildingPayment;
 }
-
-
-
 
 
 

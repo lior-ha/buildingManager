@@ -1,18 +1,14 @@
-import { usePayments } from '../../../hooks/payments.hook';
-import { useMessage } from '../../../hooks/message.hook';
+import { getUserData } from '../../../firebase/firebase.utils';
 
-import AsideLastActions from '../../../components/aside/aside-last-actions/aside-last-actions.component';
 import MessageContent from '../../../components/message-board/message-content/message-content.component';
 
-const MessagePage = props => {
-    const {paymentLoading, payments} = usePayments();
-    const {messageData, loading} = useMessage(props.match.params.messageId);
+const MessagePage = ({messageData, handleClick}) => {
     
+    //const {messageData, loading} = useMessage(props.match.params.messageId);
+    const { user } = getUserData(messageData.uid)
+    //console.log(user);
     return (
-        <main className="mainWrapper">
-            <MessageContent loading={loading} messageData={messageData} />
-            <AsideLastActions loading={paymentLoading} payments={payments} />
-        </main>
+        <MessageContent messageData={messageData} />
     )
 }
 

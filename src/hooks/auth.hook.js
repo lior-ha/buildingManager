@@ -9,43 +9,39 @@ export const useAuth = () => {
         const loading = true;
         const building = '';
         const user = firebase.auth().currentUser;
-        const id = '';
         return { 
-            id,
             user,
             building,
             loading
         }
     });
 
-    const building = process.env.REACT_APP_TEMP_BUILIDNG_ID; // TEMP!!!
-
     // AuthUser
     useEffect(() => {
-        // listen for auth state changes
+
         const unsubscribe = auth.onAuthStateChanged(async userAuth => {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
                 userRef.onSnapshot(snapShot => {
                     setState({
                         id: snapShot.id,
-                        building,
+                        building: snapShot.data().buildings.find(() => !false),
                         loading: false,
                         user: {
+                            buildings: [...snapShot.data().buildings],
                             ...snapShot.data()
                         }
                     });
                 });
-
-                //const userIdRef = 
+                
+                
             } else {
-                setState({ id: '', user: null, building: '', loading: false})
+                setState({ user: null, building: '', loading: false})
             }            
         });
 
-        // unsubscribe to the listener when unmounting
-        return () => unsubscribe()
-    }, [building]);
-    
+        return unsubscribe;
+
+    }, []);
     return state
 }

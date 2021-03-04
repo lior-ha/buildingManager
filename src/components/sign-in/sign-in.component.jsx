@@ -1,61 +1,58 @@
-import React from 'react';
+import { useState } from 'react';
 
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 import { FormInputSingle } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-class SignIn extends React.Component {
-    constructor(props) {
-        super(props);
+const SignIn = () => {
+    const [ signInState, setSignInState ] = useState({ email: '', password: '' })
+    const { email, password } = signInState;
 
-        this.state = {
-            email: '',
-            password: ''
-        }
-    }
-
-    handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-
-        this.setState({ email:'', password:'' });
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            setSignInState({ email: '', password: '' })
+            
+        } catch (error) {
+            console.error(error)
+        }
+        setSignInState({ email:'', password:'' });
     }
 
-    handleEvent = e => {
+    const handleEvent = e => {
         const { value, name } = e.target;
-        this.setState({ [name]: value });
+        setSignInState({...signInState, [name]: value });
     }
 
-    render() {
-        return (
-            <form onSubmit={this.handleSubmit}>
-                <p className="title">התחבר עם המייל והסיסמא שלך</p>
-                <FormInputSingle 
-                    name="email"
-                    label="אימייל"
-                    type="email" 
-                    value={this.state.email} 
-                    handleChange={this.handleEvent}
-                    required 
-                />
-                <FormInputSingle 
-                    name="password" 
-                    label="סיסמא" 
-                    type="password" 
-                    value={this.state.password}
-                    handleChange={this.handleEvent}
-                    required
-                />
-                <div className="buttons">
-                    <CustomButton type="submit"> התחבר </CustomButton>
-                    <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
-                        התחבר עם גוגל
-                    </CustomButton>
-                </div>
-            </form>
-        )
-    }
-
+    return (
+        <form onSubmit={handleSubmit}>
+            <p className="title">התחבר עם המייל והסיסמא שלך</p>
+            <FormInputSingle 
+                name="email"
+                label="אימייל"
+                type="email" 
+                value={signInState.email} 
+                handleChange={handleEvent}
+                required 
+            />
+            <FormInputSingle 
+                name="password" 
+                label="סיסמא" 
+                type="password" 
+                value={signInState.password}
+                handleChange={handleEvent}
+                required
+            />
+            <div className="buttonsGroup">
+                <CustomButton type="submit"> התחבר </CustomButton>
+                <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+                    התחבר עם גוגל
+                </CustomButton>
+            </div>
+        </form>
+    )
 }
 
 export default SignIn;

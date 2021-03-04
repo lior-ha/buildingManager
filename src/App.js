@@ -11,8 +11,6 @@ import Layout from './hoc/layout/layout.hoc';
 import Homepage from './pages/homepage/homepage.component';
 
 import MessageBoard from './pages/message-board/message-board.components';
-import MessagePage from './pages/message-board/message-page/message-page.components';
-import AddMessagePage from './pages/message-board/add-message/add-message.component';
 
 import ProfilePage from './pages/building/profile-page/profile-page.component';
 import AddBuilding from './pages/building/add-building/add-building.component';
@@ -29,7 +27,7 @@ import PageTitle from './components/page-title/page-title.component';
 import './index.scss';
 
 const App = () => {
-    const { user, building, loading, id } = useAuth();
+    const { user, building, loading } = useAuth();
     const { buildingData, isLoading } = useBuilding(building);
     
     if (loading || isLoading) {
@@ -49,14 +47,13 @@ const App = () => {
     if (user) {
         routes =  (
             <Fragment>
-                <authContext.Provider value={{ user, building, id }}>
+                <authContext.Provider value={{ user, building }}>
                     <PageTitle address={buildingData} />
                     <Switch>
                         <Route exact path='/' component={Homepage} />
                         
                         <Route path='/message-board' exact component={MessageBoard} />
-                        <Route path='/message-board/addMessage' component={AddMessagePage} />
-                        <Route path='/message-board/:messageId' component={MessagePage} />
+                        <Route path='/message-board/:messageId' component={MessageBoard} />
                         <Route path='/mainAdmin/addApartment' component={AddApartment} />
                         <Route path='/mainAdmin/addPayment' component={AddPaymentPage} />
                         <Route path='/building/:profileId' component={ProfilePage} /> 

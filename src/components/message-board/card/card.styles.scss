@@ -1,21 +1,21 @@
 .messageBoard {
 	display: flex;
 	flex-wrap: wrap;
-}
 
-.card {
-	background-color: var(--boxes-bg-color);
-	border: var(--boxes-border);
-	padding: var(--boxes-padding);
-	margin: 0 0 var(--midSize) var(--midSize);
-	max-width: 20%;
-	text-decoration: none;
+	.card {
+		background-color: var(--boxes-bg-color);
+		border: var(--boxes-border);
+		padding: var(--boxes-padding);
+		margin: 0 0 var(--midSize) var(--midSize);
+		max-width: 20%;
+		text-decoration: none;
 
-	&.priority {
-		color: var(--title-color);
-		max-width: initial;
-		width: 45%;
-		order: -1;
+		&.priority {
+			color: var(--title-color);
+			max-width: initial;
+			width: 45%;
+			order: -1;
+		}
 	}
 }
 
@@ -26,10 +26,11 @@
 }
 
 @media (max-width: 400px) {
-	.card {
+	.messageBoard .card {
 		max-width: initial;
 		margin: 0 0 var(--smallSize) 0;
 		width: 100%;
+
 		&.priority {
 			width: 100%;
 		}

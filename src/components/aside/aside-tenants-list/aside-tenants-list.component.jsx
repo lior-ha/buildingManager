@@ -1,4 +1,3 @@
-import { useApartments } from '../../../hooks/apartments.hook';
 import AsideWrapper from '../aside-wrapper/aside-wrapper.component';
 import AsideTenant from './aside-tenant/aside-tenant.component';
 
@@ -8,17 +7,18 @@ const sortApts = (aptA, aptB) => {
     return aptA.apartment - aptB.apartment;
 }
 
-const AsideTenantsList = ({ building }) => {
-    const {apartmentsLoading, apartmentsData} = useApartments();
+const AsideTenantsList = ({ loading, apartments }) => {
     return (
-        <AsideWrapper extraClasses="lastTenants" title="דיירים">
-        {apartmentsData.length===0 ? 
-            <div>לא הוזנו דירות</div>        
+        <AsideWrapper extraClasses="lastTenants" title="דירות">
+        {loading ?
+            <Loading />
         :
-            apartmentsLoading ?
-                <Loading />
+
+            apartments.length===0 ? 
+                <div>לא הוזנו דירות</div>
             :
-                apartmentsData
+            
+                apartments
                 .sort(sortApts)
                 .map(({id, ...otherProps }) => (                    
                     <AsideTenant key={id} id={id} {...otherProps} />

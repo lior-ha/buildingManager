@@ -23,11 +23,19 @@ export const useAuth = () => {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
                 userRef.onSnapshot(snapShot => {
+                    const holdings = {...snapShot.data().holdings}
+                    let building, apt;
+                    for (let i in holdings) {
+                        building = i;
+                        apt = holdings[i];
+                    }
+                    
                     setState({
-                        id: snapShot.id,
-                        building: snapShot.data().buildings.find(() => !false),
+                        building: building,
                         loading: false,
                         user: {
+                            id: snapShot.id,
+                            apt: apt,
                             buildings: [...snapShot.data().buildings],
                             ...snapShot.data()
                         }
@@ -36,7 +44,7 @@ export const useAuth = () => {
                 
                 
             } else {
-                setState({ user: null, building: '', loading: false})
+                setState({ user: null, building: '', apt: '', loading: false})
             }            
         });
 

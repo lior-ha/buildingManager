@@ -3,9 +3,9 @@ import Loader from '../UI/loader/loader.component';
 
 import './contact-info-box.styles.scss';
 
-const TenantsContactInfo = ({apartmentData, type}) => (
+const TenantsContactInfo = ({tenantsData, apartmentData, type}) => (
     <div className="contentBox contactInfoBox">
-    { (!apartmentData) ?
+    { (!tenantsData) ?
         <Loader />
         :
         <Fragment>
@@ -15,7 +15,7 @@ const TenantsContactInfo = ({apartmentData, type}) => (
                 <p className="genTitle">בעל דירה</p>
             }
             <div className="cards">
-                {apartmentData[type].map((tenant, idx) => (
+                {tenantsData.map((tenant, idx) => (
                     <ul className="card" key={idx}>
                         <li>שם: {tenant.tenantFirstName} {tenant.tenantLastName}</li>
 

@@ -14,60 +14,50 @@ import CustomButton from '../../../components/custom-button/custom-button.compon
 
 const AddApartment = () => {
     const { building } = useSession();
-    const [ apartmentId, setApartmentId ] = useState(false);
-
-    const apartmentDataInitialState = {
-        apartment: '',
-        apartmentName: '',
-        tenants: [],
-        owners: []
-    }
-    const [ apartmentData, setApartmentData ] = useState(apartmentDataInitialState);
-
     const { apartmentsLoading, apartmentsData} = useApartments();
 
-    const formVisibleInitialState = {
-        form1: true,
-        form2: false,
-        sumAndApprove: false
-    }
+    const [ apartmentId, setApartmentId ] = useState(false);
+
+    const apartmentDataInitialState = {apartment: '', apartmentName: ''}
+    const [ apartmentData, setApartmentData ] = useState(apartmentDataInitialState);
+
+    const apartmentTenantsInitialState = {}
+    const [ apartmentTenants, setApartmentTenants ] = useState(apartmentTenantsInitialState);
+
+    const formVisibleInitialState = {form1: true, form2: false, sumAndApprove: false}
     const [ formVisible, setFormVisible ] = useState(formVisibleInitialState)
     
-    const getApartmentData = data => {
+    const getApartmentData = (data) => {
         setApartmentData(prevState => ({
             ...prevState,
             ...data
         }))
     }
 
-    const getTenantData = (data, type) => {
-        setApartmentData(prevState => {
-            const newArr = prevState[type];
-            newArr.push(data);
-            return ({
-                ...prevState,
-                [type]: [...newArr]
-            })
-        })
+    const getTenantData = (data) => {
+        setApartmentTenants(prevState => ({
+           ...prevState, 
+           ...data
+        }))
     }
     
     useEffect(() => {
-        let unsub;
         if (formVisible.sumAndApprove) {
             if (!apartmentId) {
-                unsub = addItems(`buildings/${building}/apartments`, apartmentData)
+                addItems(`buildings/${building}/apartments`, apartmentData)
                     .then((result) => {
                         setApartmentId(result);
                     })
                 
             } else {
-                unsub = updateItems(`buildings/${building}/apartments`, apartmentId, apartmentData);
+                updateItems(`buildings/${building}/apartments`, apartmentId, apartmentData);
+            }
+
+            if (apartmentId) {
+                addItems(`buildings/${building}/apartments/${apartmentId}/tenants`, apartmentTenants);
             }
         }
-
-        return unsub;
-    }, [formVisible, apartmentId, building, apartmentData]);
-
+    }, [formVisible, apartmentId, building, apartmentTenants, apartmentData]);
 
     const addNewApartment = () => {
         setApartmentData(apartmentDataInitialState);
@@ -110,7 +100,7 @@ const AddApartment = () => {
                         <CustomButton onClick={addNewApartment}>סיים והוסף דירה חדשה</CustomButton>
                     </div>}
             </section>
-            <AsideTenantsList loading={apartmentsLoading} building={building} apartments={apartmentsData} />
+            <AsideTenantsList loading={apartmentsLoading} apartments={apartmentsData} />
         </main>
     );
 };

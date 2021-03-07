@@ -29,7 +29,6 @@ import './index.scss';
 const App = () => {
     const { user, building, loading } = useAuth();
     const { buildingData, isLoading } = useBuilding(building);
-    
     if (loading || isLoading) {
         return (
             <div className="appWrapper loading">

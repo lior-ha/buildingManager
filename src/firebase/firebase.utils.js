@@ -110,11 +110,16 @@ export const getAddress = (collections, building) => {
     return addressData();
 }
 
-export const getItem = async (collectionKey, id) => {
-    const collectionRef = firestore.collection(collectionKey);
-    const docRef = collectionRef.doc(id);
-    console.log(docRef)
-    return docRef;
+// Converts Collection to object
+export const convertUserCollectionsSnapshotToMap = (collections, email) => {
+    const transformedCollection = collections.docs.map(doc => {
+        const obj = doc.data();
+        return {
+            id: doc.id,
+            ...obj
+        }
+    });
+    return transformedCollection;
 }
 
 export const addItems = async (collectionKey, objectsToAdd) => {

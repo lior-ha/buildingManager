@@ -5,10 +5,12 @@ import { addItems, updateItems } from '../../../firebase/firebase.utils';
 import FormBox from '../../../components/form-box/form-box.component';
 import AddMessageForm from '../../../components/add-message-form/add-message-form.component';
 
-const AddMessage = ({building, id, handleClick}) => {
+const AddMessage = ({building, id, apt, handleClick}) => {
+
     const messageDataInitiMessage = {
         title: '',
         uid: '',
+        aptId: '',
         content: '',
         suspended: false,
         sticky: false,
@@ -33,11 +35,12 @@ const AddMessage = ({building, id, handleClick}) => {
                 lastUpdated: date
             }
         }
-        console.log(id);
+        
         setMessageData(prevState => ({
             ...prevState,
             ...data,
             ...newDates,
+            aptId: apt,
             uid: id
         }));
     }
@@ -53,7 +56,7 @@ const AddMessage = ({building, id, handleClick}) => {
             } else {
                 unsub = updateItems(`buildings/${building}/message-board/`, messageId, messageData);
             }
-
+            
             handleClick('board');
         }        
         return unsub;

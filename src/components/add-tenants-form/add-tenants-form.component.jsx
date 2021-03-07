@@ -1,4 +1,4 @@
-import { useState, useCallback, Fragment } from 'react';
+import { useState, useEffect, useCallback, Fragment } from 'react';
 
 import {FormInputSingle, FormInputIntoList} from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -20,19 +20,13 @@ const AddTenantForm = props => {
 
     const initialPersonInfoState = {
         tenantFirstName: '', 
-        tenantLastName: '', 
+        tenantLastName: '',
+        tenantType: '',
         tenantPhones: [], 
         tenantEmails:[]
     };
     const [ personInfo, setPersonInfo] = useState(initialPersonInfoState);
 
-    const clearData = useCallback(
-        () => {
-            setFormInputs({ phone: '', email: ''});
-            setPersonInfo({tenantFirstName: '', tenantLastName: '', tenantPhones: [], tenantEmails:[]})
-        },
-        [setFormInputs, setPersonInfo],
-    );    
 
     const handleSubmit = tenantType => {
         // Get Some Validation
@@ -56,11 +50,32 @@ const AddTenantForm = props => {
         
 
         //if (!error) {
-            props.getTenantData(personInfo, tenantType);
-            props.setFormVisible({form1: false, form2: false, sumAndApprove: true});
-            clearData();
+            setPersonInfo(prevState => ({
+                ...prevState,
+                tenantType
+            }));
         //}
     }
+
+    const sendAndNext = useCallback(
+        () => {
+            props.getTenantData(personInfo);
+            props.setFormVisible({form1: false, form2: false, sumAndApprove: true});
+        },
+        [props, personInfo],
+    );
+    
+    useEffect(() => {
+        const clearData = () => {
+            setFormInputs({ phone: '', email: ''});
+            setPersonInfo({tenantFirstName: '', tenantLastName: '', tenantType: '', tenantPhones: [], tenantEmails:[]})
+        }
+
+        if (personInfo.tenantType !== ''){
+            sendAndNext();
+            clearData();
+        }
+    }, [personInfo.tenantType, sendAndNext])
 
 
     const updateList = (name, list) => {
@@ -130,6 +145,7 @@ const AddTenantForm = props => {
                         handleChange={handleMultiInputEvent}
                         updateList={updateList}
                         listToShow={personInfo.tenantPhones}
+                        listDir="ltr"
                     />
                 </div>
                 <div>
@@ -142,13 +158,14 @@ const AddTenantForm = props => {
                         handleChange={handleMultiInputEvent}
                         updateList={updateList}
                         listToShow={personInfo.tenantEmails}
+                        listDir="ltr"
                     />
                 </div>
             </div>
         </form>
         <div className="group buttons">
-            <CustomButton onClick={() => handleSubmit('tenants')}> הוסף כדייר </CustomButton>
-            <CustomButton onClick={() => handleSubmit('owners')}> הוסף כבעלים </CustomButton>
+            <CustomButton onClick={() => handleSubmit('tenant')}> הוסף כדייר </CustomButton>
+            <CustomButton onClick={() => handleSubmit('owner')}> הוסף כבעלים </CustomButton>
         </div>
         </Fragment>
     )

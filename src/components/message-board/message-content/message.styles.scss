@@ -16,4 +16,12 @@
 	.content {
 		line-height: var(--midSize);
 	}
+
+	.adminButtons {
+		text-align: left;
+
+		.custom-button {
+			margin-right: 10px;
+		}
+	}
 }

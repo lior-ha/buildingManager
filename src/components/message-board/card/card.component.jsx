@@ -5,12 +5,13 @@ import Loader from '../../UI/loader/loader.component';
 import './card.styles.scss'
 
 const Card = ({data, handleClick}) => {
-    let { tenantData } = useTenant(data.aptId, data.uid);
-    
+    const {tenantData, loading} = useTenant(data.aptId, data.uid);
+
     return (
         <Fragment>
-            {!tenantData ? <Loader /> : 
-                <div onClick={() => handleClick('messagePage', data, tenantData, data.aptId)}  className={`card ${data.sticky ? 'priority' : ''}`}>
+            {loading ? '' : 
+                <div onClick={() => handleClick('messagePage', data, tenantData, data.aptId)}  
+                    className={`card ${data.sticky ? 'priority' : ''} ${data.suspended ? 'suspended' : ''}`}>
                     <h3>{data.title}</h3>
                     מאת: {`${tenantData.tenantFirstName} ${tenantData.tenantLastName}`}
                 </div>

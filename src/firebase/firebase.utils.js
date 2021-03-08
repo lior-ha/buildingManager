@@ -135,6 +135,20 @@ export const updateItems = async (collectionKey, id, objectsToAdd) => {
     docRef.update(objectsToAdd)
 }
 
+export const removeItem = async (collectionKey, id, redirect) => {
+    const collectionRef = firestore.collection(collectionKey);
+    const docRef = collectionRef.doc(id);
+    console.log(collectionKey);
+    docRef.delete()
+        .then(() => {
+            console.log('Deleted')
+        })
+        .catch((error) => {
+            console.error("Error while deleting item: ", error);
+        });
+}
+
+
 // BUILDINGS
 
 // export const getBuilding = async (collectionKey, BuildingId) => {

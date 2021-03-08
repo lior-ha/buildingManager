@@ -1,25 +1,28 @@
 .custom-button {
 	align-items: center;
-	background-color: var(--main-light-color);
+	background-color: var(--main-light-color-dim);
 	border: 1px solid var(--main-light-color);
-	color: var(--sub-dark-color);
+	border-radius: 2px;
+	box-shadow: 2px 2px 3px var(--sub-dark-color);
+	color: var(--main-light-color);
 	cursor: pointer;
 	font-family: var(--main-font-family);
-	font-size: var(--smallSize);
-	font-weight: 700;
-	height: 50px;
+	font-size: var(--normalSize);
+	font-weight: 500;
+	height: 40px;
 	letter-spacing: 0.5px;
-	line-height: 50px;
-	min-width: 165px;
+	line-height: 40px;
+	min-width: 115px;
+	outline: none;
 	padding: 0 35px;
 	text-align: center;
 	text-decoration: none;
 	width: auto;
 
 	&:hover {
-		background-color: var(--sub-dark-color);
-		color: var(--main-light-color);
-		border: 1px solid var(--main-light-color);
+		transition: background-color 0.5s;
+		background-color: var(--main-light-color);
+		color: var(--sub-dark-color);
 	}
 
 	&.google-sign-in {
@@ -34,24 +37,24 @@
 	}
 
 	&.red {
-		background-color: #f44242;
-		color: var(--sub-dark-color);
+		background-color: rgba(244, 66, 66, 0.1);
 		border: 1px solid #f44242;
+		color: #f44242;
 
 		&:hover {
-			background-color: #e83535;
-			border: 1px solid #e83535;
+			background-color: rgba(244, 66, 66, 1);
+			color: var(--sub-dark-color);
 		}
 	}
 
 	&.green {
-		background-color: #42f45a;
-		color: var(--sub-dark-color);
-		border: 1px solid #42f45a;
+		background-color: rgba(53, 232, 62, 0.1);
+
+		border: 1px solid #35e83e;
+		color: #42f45a;
 
 		&:hover {
-			background-color: #35e83e;
-			border: 1px solid #35e83e;
+			background-color: rgba(53, 232, 62, 1);
 			color: var(--sub-dark-color);
 		}
 	}

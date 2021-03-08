@@ -1,7 +1,8 @@
 .pageTitle {
 	background-color: var(--sub-dark-color);
-	padding: var(--smallSize) var(--midSize);
-	margin-bottom: var(--smallSize);
+	box-shadow: 0 4px 5px var(--sub-dark-color);
 	font-size: var(--hugeSize);
 	font-weight: 500;
+	margin-bottom: var(--smallSize);
+	padding: var(--smallSize) var(--midSize);
 }

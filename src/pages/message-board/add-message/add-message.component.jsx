@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 import { addItems, updateItems } from '../../../firebase/firebase.utils';
 
 import FormBox from '../../../components/form-box/form-box.component';
 import AddMessageForm from '../../../components/add-message-form/add-message-form.component';
 
-const AddMessage = ({building, id, apt, handleClick}) => {
+const AddMessage = ({building, user, handleClick}) => {
 
     const messageDataInitiMessage = {
         title: '',
@@ -21,7 +21,7 @@ const AddMessage = ({building, id, apt, handleClick}) => {
     
     const [ messageId, setMessageId ] = useState('');
 
-    const getMessageData = data => {
+    const getMessageData =  data => {
         const now = new Date()
         const date = now.toISOString();
         let newDates;
@@ -40,8 +40,8 @@ const AddMessage = ({building, id, apt, handleClick}) => {
             ...prevState,
             ...data,
             ...newDates,
-            aptId: apt,
-            uid: id
+            aptId: user.apt,
+            uid: user.id
         }));
     }
 
@@ -53,9 +53,10 @@ const AddMessage = ({building, id, apt, handleClick}) => {
                     .then((result) => {
                         setMessageId(result);
                     });
-            } else {
-                unsub = updateItems(`buildings/${building}/message-board/`, messageId, messageData);
-            }
+            } 
+            // else {
+            //     unsub = updateItems(`buildings/${building}/message-board/`, messageId, messageData);
+            // }
             
             handleClick('board');
         }        
@@ -67,6 +68,7 @@ const AddMessage = ({building, id, apt, handleClick}) => {
             <AddMessageForm 
                 messageData={messageData}
                 getMessageData={getMessageData}
+                manager={user.type}
             />} 
             
         title="הוסף הודעה ללוח המודעות"

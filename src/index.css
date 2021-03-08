@@ -2,6 +2,7 @@
 	box-sizing: border-box;
 	--main-font-family: 'Rubik', Arial, Helvetica, sans-serif;
 	--smallSize: 0.8em;
+	--normalSize: 1em;
 	--midSize: 1.2em;
 	--largeSize: 1.4em;
 	--hugeSize: 2em;
@@ -10,7 +11,8 @@
 	--mid-dark-color: #454545;
 	--sub-dark-color: #181818;
 
-	--main-light-color: #dadada;
+	--main-light-color: rgba(218, 218, 218, 1);
+	--main-light-color-dim: rgba(218, 218, 218, 0.1);
 	--mid-light-color: #bababa;
 	--sub-light-color: #e7e7e7;
 
@@ -23,6 +25,7 @@
 	--minus-color: #ff0000;
 
 	--boxes-bg-color: var(--sub-dark-color);
+	--boxes-hover-bg-color: var(--mid-dark-color);
 	--boxes-border: 1px solid var(--mid-dark-color);
 	--boxes-padding: var(--midSize);
 	--boxes-margin: 0 0 var(--midSize) 0;

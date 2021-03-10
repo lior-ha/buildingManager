@@ -13,7 +13,7 @@ const ApartmentContactsList = ({tenantsData, loading, apartmentData}) => {
     useEffect(() => {
         setTenantsList([]);
         setOwnersList([]);
-    }, []);
+    }, [tenantsData]);
 
     useEffect(() => {
         let unsub;

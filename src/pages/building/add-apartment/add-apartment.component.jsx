@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useApartments } from '../../../hooks/apartments.hook';
 import { addItems, updateItems } from '../../../firebase/firebase.utils';
 import { useSession } from '../../../context/auth.context';
+import { useTenants } from '../../../hooks/tenants.hook';
 
 import AsideTenantsList from '../../../components/aside/aside-tenants-list/aside-tenants-list.component';
 import AddApartmentForm from '../../../components/add-apartment-form/add-apartment-form.component';
@@ -15,8 +16,10 @@ import CustomButton from '../../../components/custom-button/custom-button.compon
 const AddApartment = () => {
     const { building } = useSession();
     const { apartmentsLoading, apartmentsData} = useApartments();
-
+    
     const [ apartmentId, setApartmentId ] = useState(false);
+
+    const { tenantsData, loading } = useTenants(apartmentId);
 
     const apartmentDataInitialState = {apartment: '', apartmentName: ''}
     const [ apartmentData, setApartmentData ] = useState(apartmentDataInitialState);
@@ -94,7 +97,7 @@ const AddApartment = () => {
                 {formVisible.sumAndApprove && 
                     <div>
                         <div className="contacts">
-                            <ApartmentContactsList apartmentId={apartmentId} />
+                            <ApartmentContactsList apartmentData={apartmentData} tenantsData={tenantsData} loading={loading} />
                         </div>
                         <CustomButton onClick={() => setFormVisible({form1: false, form2: true, sumAndApprove: false})}>הזן דייר/בעלים נוסף בדירה</CustomButton>
                         <CustomButton onClick={addNewApartment}>סיים והוסף דירה חדשה</CustomButton>

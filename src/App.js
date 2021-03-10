@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from './hooks/auth.hook';
@@ -9,22 +9,20 @@ import { authContext } from './context/auth.context';
 import Layout from './hoc/layout/layout.hoc';
 
 import Homepage from './pages/homepage/homepage.component';
-
-import MessageBoard from './pages/message-board/message-board.components';
-
-import ProfilePage from './pages/building/profile-page/profile-page.component';
-import AddBuilding from './pages/building/add-building/add-building.component';
-import AddApartment from './pages/building/add-apartment/add-apartment.component';
-import AddPaymentPage from './pages/building/add-payment/add-payment.component';
-
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import SignOut from  './pages/sign-in-and-sign-up/sign-out/sign-out.component';
 
 import Loader from './components/UI/loader/loader.component'
-
 import PageTitle from './components/page-title/page-title.component';
 
 import './index.scss';
+
+
+const ProfilePage = lazy(() => import('./pages/building/profile-page/profile-page.component'));
+const AddBuilding = lazy(() => import('./pages/building/add-building/add-building.component'));
+const AddApartment = lazy(() => import('./pages/building/add-apartment/add-apartment.component'));
+const AddPaymentPage = lazy(() => import('./pages/building/add-payment/add-payment.component'));
+const MessageBoard = lazy(() => import('./pages/message-board/message-board.components'));
+const SignOut = lazy(() => import('./pages/sign-in-and-sign-up/sign-out/sign-out.component'));
 
 const App = () => {
     const { user, building, loading } = useAuth();
@@ -71,7 +69,9 @@ const App = () => {
     }
     return (
         <Layout isAuthenticated={user}>
-            {routes}
+            <Suspense fallback={<Loader />}>
+                {routes}
+            </Suspense>
         </Layout>
     );
 

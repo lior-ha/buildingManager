@@ -1,6 +1,5 @@
 import { Fragment } from 'react';
 import { useTenant } from '../../../hooks/tenants.hook';
-import Loader from '../../UI/loader/loader.component';
 
 import './card.styles.scss'
 
@@ -19,4 +18,9 @@ const Card = ({data, handleClick}) => {
         </Fragment>
     )
 }
+
+// Card.displayName = 'Board'
+// Card.whyDidYouRender = {
+//     logOnDifferentValues: true,
+// };
 export default Card; 

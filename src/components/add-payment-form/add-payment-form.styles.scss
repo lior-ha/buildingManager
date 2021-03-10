@@ -1,29 +1,11 @@
-.contentBox.red {
-	background-color: #380000;
-
-	.inputSet {
-		.form-input {
-			background: #380000;
-			background-color: #380000;
-		}
-	}
-
-	.custom-button {
-		margin-bottom: 10px;
-	}
+.contentBox.red .inputSet .form-input {
+	background-color: var(--pale-red-color-pale);
 }
 
-.contentBox.green {
-	background-color: #0d3800;
-
-	.inputSet {
-		.form-input {
-			background: #0d3800;
-			background-color: #0d3800;
-		}
-	}
-
-	.custom-button {
-		margin-bottom: 10px;
-	}
+.contentBox.green .inputSet .form-input {
+	background-color: var(--pale-green-color-pale);
+}
+.contentBox.red .custom-button,
+.contentBox.green .custom-button {
+	margin-bottom: 10px;
 }

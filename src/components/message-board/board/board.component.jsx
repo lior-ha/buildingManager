@@ -18,5 +18,8 @@ const Board = ({handleClick, messagesData, loading}) => {
         </div>
     )
 }
-
+// Board.displayName = 'Board'
+// Board.whyDidYouRender = {
+//     logOnDifferentValues: true,
+// };
 export default Board;

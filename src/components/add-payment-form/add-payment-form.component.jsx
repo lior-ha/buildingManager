@@ -7,6 +7,7 @@ import './add-payment-form.styles.scss';
 const AddPaymentForm = props => {
     const [ paymentDetails, setPaymentDetails ] = useState(props.paymentData);
 
+    const [ spec, setSpec ] = useState({class: '', text: ''});
     const [ formType, setFormType ] = useState('');
 
     const handleSubmit = e => {
@@ -19,6 +20,13 @@ const AddPaymentForm = props => {
     const onRadioChange = e => {
         const value = e.target.value;
         setFormType(value);
+        
+        if (value === 'expense') {
+            setSpec({ class: 'red', text: 'הוסף הוצאה'})
+        } else if (value === 'income') {
+            setSpec({ class: 'green', text: 'הוסף הכנסה'})
+        }
+
         setPaymentDetails(prevState => ({
             ...prevState,
             type: value
@@ -43,7 +51,7 @@ const AddPaymentForm = props => {
                 <label htmlFor="income" className="custom-button green">הכנסה</label>
                 <input type="radio" name="type" id="income" value="income" onChange={onRadioChange} />
             </div>
-            {formType==='expense' && 
+            {(formType==='expense' || formType==='income') && 
                 <Fragment>
                     <div className="group">
                         <FormInputSingle 
@@ -63,44 +71,24 @@ const AddPaymentForm = props => {
                             handleChange={handleSingleInputEvent}
                             required
                         />
+                        
                     </div>
-                    <CustomButton type="submit"> הוסף הוצאה </CustomButton>
+                    {formType==='income' && 
+                        <div className="group">
+                            <FormInputSingle
+                                name="incomeSource" 
+                                label="מקור הכנסה" 
+                                type="text" 
+                                value={paymentDetails.incomeSource}
+                                handleChange={handleSingleInputEvent}
+                                rtl
+                            />
+                        </div>                            
+                    }
+                    <CustomButton classes={spec.class} type="submit"> {spec.text} </CustomButton>
                 </Fragment>
             }
-            {formType==='income' && 
-                <Fragment>
-                    <div className="group">
-                        <FormInputSingle 
-                            name="description" 
-                            label="תיאור" 
-                            type="text" 
-                            value={paymentDetails.description}
-                            handleChange={handleSingleInputEvent}
-                            rtl
-                            required
-                        />
-                        <FormInputSingle 
-                            name="sum" 
-                            label="סכום" 
-                            type="number" 
-                            value={paymentDetails.sum}
-                            handleChange={handleSingleInputEvent}
-                            required
-                        />
-                    </div>
-                    <div className="group">
-                        <FormInputSingle
-                            name="incomeSource" 
-                            label="מקור הכנסה" 
-                            type="text" 
-                            value={paymentDetails.incomeSource}
-                            handleChange={handleSingleInputEvent}
-                            rtl
-                        />
-                    </div>
-                    <CustomButton type="submit"> הוסף הכנסה </CustomButton>
-                </Fragment>
-            }
+            
         </form>
     )
 }

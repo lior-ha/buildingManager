@@ -2,9 +2,6 @@ import { useState } from 'react';
 import { FormInputSingle, FormTextArea } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-
-
-
 const AddMessageForm = props => {
     let manager;
     if (props.manager === 'admin') {
@@ -74,5 +71,11 @@ const AddMessageForm = props => {
         </form>
     )
 }
+
+
+// AddMessageForm.displayName = 'AddMessage'
+// AddMessageForm.whyDidYouRender = {
+//     logOnDifferentValues: true,
+// };
 
 export default AddMessageForm;

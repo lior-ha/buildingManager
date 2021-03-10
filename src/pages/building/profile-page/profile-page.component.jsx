@@ -1,5 +1,4 @@
 import { Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
 
 import { usePayments } from '../../../hooks/payments.hook';
 import { useApartments } from '../../../hooks/apartments.hook';
@@ -31,4 +30,4 @@ const ProfilePage = props => {
     )
 };
 
-export default withRouter(ProfilePage);
+export default ProfilePage;

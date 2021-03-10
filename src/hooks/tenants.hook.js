@@ -42,14 +42,14 @@ export const useTenant = (apartmentId, tenantId) => {
     useEffect(() => {
         setTenantData({});
     },[])
-
+    
     useEffect(() => {
         const tenantsRef = firestore.collection(`buildings/${building}/apartments/${apartmentId}/tenants`);
 
         const unSubApts = tenantsRef
                 .onSnapshot(async snapshot => {
-                        const tenantOb = await convertCollectionsSnapshotToMap(snapshot, building);
-                        setTenantData(...tenantOb);
+                        const tenantObj = await convertCollectionsSnapshotToMap(snapshot, building);
+                        setTenantData(...tenantObj);
                         setLoading(false);
                     }, err => { setError(err) }
                 );

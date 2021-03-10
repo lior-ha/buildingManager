@@ -7,8 +7,17 @@
 	--largeSize: 1.4em;
 	--hugeSize: 2em;
 
+	--main-red-color: #ff0000;
+	--pale-red-color: rgb(162, 9, 9);
+	--pale-red-color-pale: rgba(162, 9, 9, 0.1);
+
+	--main-green-color: #00ff00;
+	--pale-green-color: rgb(19, 167, 62);
+	--pale-green-color-pale: rgba(19, 167, 62, 0.1);
+
 	--main-dark-color: #252525;
 	--mid-dark-color: #454545;
+
 	--sub-dark-color: #181818;
 
 	--main-light-color: rgba(218, 218, 218, 1);
@@ -17,12 +26,13 @@
 	--sub-light-color: #e7e7e7;
 
 	--main-bg-color: var(--main-dark-color);
+
 	--title-color: #24aeff;
 	--text-color: var(--main-light-color);
 	--link-color: var(--mid-light-color);
 	--link-hover-color: var(--sub-light-color);
-	--plus-color: #00ff00;
-	--minus-color: #ff0000;
+	--plus-color: var(--main-green-color);
+	--minus-color: var(--main-red-color);
 
 	--boxes-bg-color: var(--sub-dark-color);
 	--boxes-hover-bg-color: var(--mid-dark-color);

@@ -125,8 +125,8 @@ export const convertUserCollectionsSnapshotToMap = (collections, email) => {
 export const addItems = async (collectionKey, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey);
     const newDocRef = collectionRef.doc();
-    newDocRef.set(objectsToAdd);
-    return newDocRef.id;;
+    await newDocRef.set(objectsToAdd);
+    return newDocRef.id;
 }
 
 export const updateItems = async (collectionKey, id, objectsToAdd) => {
@@ -138,10 +138,9 @@ export const updateItems = async (collectionKey, id, objectsToAdd) => {
 export const removeItem = async (collectionKey, id, redirect) => {
     const collectionRef = firestore.collection(collectionKey);
     const docRef = collectionRef.doc(id);
-    console.log(collectionKey);
     docRef.delete()
         .then(() => {
-            console.log('Deleted')
+            return
         })
         .catch((error) => {
             console.error("Error while deleting item: ", error);

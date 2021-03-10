@@ -1,10 +1,37 @@
 .custom-button {
+	--light-gray-button-bg: var(--main-light-color);
+	--light-gray-button-hover-bg: var(--main-light-color-dim);
+	--light-gray-button-border: var(--main-light-color);
+	--light-gray-button-text-color: var(--whitish-text-color);
+
+	--gray-button-bg: rgba(45, 49, 51, 0.1);
+	--gray-button-hover-bg: rgb(45, 49, 51);
+	--gray-button-border: 1px solid rgb(58, 63, 66);
+	--gray-button-text-color: var(--whitish-text-color);
+
+	--bluish-button-bg: rgb(53, 122, 232, 0.1);
+	--bluish-button-hover-bg: rgb(53, 122, 232);
+	--bluish-button-border: 1px solid rgb(53, 122, 232);
+	--bluish-button-text-color: var(--whitish-text-color);
+
+	--red-button-bg: var(--pale-red-color-pale);
+	--red-button-hover-bg: var(--pale-red-color);
+	--red-button-border: 1px solid var(--pale-red-color);
+	--red-button-text-color: rgb(244, 75, 75);
+
+	--green-button-bg: var(--pale-green-color-pale);
+	--green-button-hover-bg: var(--pale-green-color);
+	--green-button-border: 1px solid var(--pale-green-color);
+	--green-button-text-color: rgb(75, 244, 97);
+
+	--whitish-text-color: rgb(217, 214, 209);
+
 	align-items: center;
-	background-color: var(--main-light-color-dim);
-	border: 1px solid var(--main-light-color);
+	background-color: var(--gray-button-bg);
+	border: var(--gray-button-border);
 	border-radius: 2px;
 	box-shadow: 2px 2px 3px var(--sub-dark-color);
-	color: var(--main-light-color);
+	color: var(--gray-button-text-color);
 	cursor: pointer;
 	font-family: var(--main-font-family);
 	font-size: var(--normalSize);
@@ -21,41 +48,59 @@
 
 	&:hover {
 		transition: background-color 0.5s;
-		background-color: var(--main-light-color);
-		color: var(--sub-dark-color);
+		background-color: var(--gray-button-hover-bg);
 	}
 
-	&.google-sign-in {
-		background-color: #4285f4;
-		color: white;
-		border: 1px solid #4285f4;
+	&.blueish {
+		background-color: var(--bluish-button-bg);
+		color: var(--bluish-button-hover-bg);
+		border: 1px solid var(--bluish-button-hover-bg);
 
 		&:hover {
-			background-color: #357ae8;
-			border: 1px solid #357ae8;
+			background-color: var(--bluish-button-hover-bg);
+			color: var(--whitish-text-color);
 		}
 	}
 
 	&.red {
-		background-color: rgba(244, 66, 66, 0.1);
-		border: 1px solid #f44242;
-		color: #f44242;
+		background-color: var(--red-button-bg);
+		border: var(--red-button-border);
+		color: var(--red-button-text-color);
 
 		&:hover {
-			background-color: rgba(244, 66, 66, 1);
-			color: var(--sub-dark-color);
+			background-color: var(--red-button-hover-bg);
+			color: var(--whitish-text-color);
 		}
 	}
 
 	&.green {
-		background-color: rgba(53, 232, 62, 0.1);
-
-		border: 1px solid #35e83e;
-		color: #42f45a;
+		background-color: var(--green-button-bg);
+		border: var(--green-button-border);
+		color: var(--green-button-text-color);
 
 		&:hover {
-			background-color: rgba(53, 232, 62, 1);
-			color: var(--sub-dark-color);
+			background-color: var(--green-button-hover-bg);
+			color: var(--whitish-text-color);
 		}
+	}
+
+	&.lightGray {
+		background-color: var(--light-gray-button-bg);
+		border: var(--light-gray-button-border);
+		color: var(--main-bg-color);
+
+		&:hover {
+			background-color: var(--light-gray-button-hover-bg);
+			color: var(--light-gray-button-text-color);
+		}
+	}
+}
+
+.buttonsGroup {
+	display: flex;
+	flex-direction: column;
+
+	.custom-button {
+		margin-bottom: 10px;
 	}
 }

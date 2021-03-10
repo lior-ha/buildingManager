@@ -1,13 +1,12 @@
-import { useState, useEffect, useMemo } from 'react';
+//import { useState } from 'react';
 
-import { addItems, updateItems } from '../../../firebase/firebase.utils';
+import { addItems } from '../../../firebase/firebase.utils';
 
 import FormBox from '../../../components/form-box/form-box.component';
 import AddMessageForm from '../../../components/add-message-form/add-message-form.component';
 
-const AddMessage = ({building, user, handleClick}) => {
-
-    const messageDataInitiMessage = {
+const AddMessage = ({building, user, handleClick, setMesssageData}) => {
+    const messageData = {
         title: '',
         uid: '',
         aptId: '',
@@ -17,11 +16,8 @@ const AddMessage = ({building, user, handleClick}) => {
         createdAt: '',
         lastUpdated: ''
     }
-    const [ messageData, setMessageData ] = useState(messageDataInitiMessage);
-    
-    const [ messageId, setMessageId ] = useState('');
 
-    const getMessageData =  data => {
+    const getMessageData = data => {
         const now = new Date()
         const date = now.toISOString();
         let newDates;
@@ -35,33 +31,16 @@ const AddMessage = ({building, user, handleClick}) => {
                 lastUpdated: date
             }
         }
-        
-        setMessageData(prevState => ({
-            ...prevState,
+
+        addItems(`buildings/${building}/message-board/`, {
             ...data,
             ...newDates,
             aptId: user.apt,
             uid: user.id
-        }));
-    }
+        });
 
-    useEffect(() => {
-        let unsub;
-        if (messageData.title !== '') {
-            if (!messageId) {
-                unsub = addItems(`buildings/${building}/message-board/`, messageData)
-                    .then((result) => {
-                        setMessageId(result);
-                    });
-            } 
-            // else {
-            //     unsub = updateItems(`buildings/${building}/message-board/`, messageId, messageData);
-            // }
-            
-            handleClick('board');
-        }        
-        return unsub;
-    }, [messageId, building, messageData, handleClick]) 
+        handleClick('board');
+    }
     
     return (
         <FormBox form={
@@ -76,4 +55,8 @@ const AddMessage = ({building, user, handleClick}) => {
     );
 }
 
+// AddMessage.displayName = 'AddMessage'
+// AddMessage.whyDidYouRender = {
+//     logOnDifferentValues: true,
+// };
 export default AddMessage;

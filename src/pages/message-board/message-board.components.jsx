@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
-//import { firestore, getUser } from '../../firebase/firebase.utils';
+import { useState } from 'react';
 
 import { useSession } from '../../context/auth.context';
 import { useApartments } from '../../hooks/apartments.hook';
@@ -11,8 +9,7 @@ import MessageContent from '../../components/message-board/message-content/messa
 import AddMessage from './add-message/add-message.component';
 import AsideTenantsList from '../../components/aside/aside-tenants-list/aside-tenants-list.component';
 
-const MessageBoard = props => {
-    
+const MessageBoard = () => {
     const { loading, messagesData} = useMessages();
     const { building, user } = useSession();
     const { apartmentsLoading, apartmentsData} = useApartments();
@@ -35,7 +32,6 @@ const MessageBoard = props => {
 
    
     const [ comp, setComp ] = useState('board');
-
     let toBtn;
     if (comp === 'board') {
         toBtn = {
@@ -47,65 +43,42 @@ const MessageBoard = props => {
                     title: 'board',
                     text: 'חזור ללוח המודעות'
                 }
-    }    
-
-    useEffect(() => {
-
-        if (comp === 'board') {
-            props.history.push(`/message-board`);
-            
-        } else if (comp === 'addMsg' && !messageData) {
-            props.history.push('/message-board/addMessage')
-
-
-        } else if (comp === 'messagePage') {
-            if (!props.match.params.messageId) {
-                const messageId = messageData.id;
-                props.history.push(`/message-board/${messageId}`)
-                
-            } else {
-                const messageId = props.match.params.messageId;
-                setMesssageData(messagesData.find(msg => msg.id === messageId))
-            }            
-        }
-    }, [comp, messagesData, messageData, props.match.params.messageId, props.history]);
+    }
 
     return (        
         <main className="mainWrapper biggerAside">
             <section>
                 <div className="withButton">
                     <h2>לוח מודעות</h2>
-                    <button onClick={() => handleClick(toBtn.title)} className="custom-button">{toBtn.text}</button>
+                    <button onClick={() => handleClick(toBtn.title)} className="custom-button lightGray">{toBtn.text}</button>
                 </div>
-                <Switch>
-                    <Route path={`/message-board`} exact render={() => 
-                        <Board 
+                {comp === 'board' && <Board 
                             handleClick={handleClick} 
                             building={building} 
                             messagesData={messagesData} 
-                            loading={loading} />
-                    } />
+                            loading={loading} />}
 
-                    <Route path={`/message-board/addMessage`} render={() => 
-                        <AddMessage 
+                {comp === 'addMsg' && <AddMessage 
                             building={building} 
                             user={user} 
-                            handleClick={handleClick} />
-                    } />
+                            handleClick={handleClick}
+                            setMesssageData={setMesssageData} /> }
 
-                    <Route path={`/message-board/:id`} render={() => 
-                        <MessageContent 
+                {comp === 'messagePage' && <MessageContent 
                             handleClick={handleClick} 
                             building={building} 
                             messageData={messageData} 
                             user={user} 
-                            tenantData={tenantData} />
-                    } />
-                </Switch>
+                            tenantData={tenantData} />}
             </section>
             <AsideTenantsList loading={apartmentsLoading} apartments={apartmentsData} />
         </main>
     )
 }
+
+// MessageBoard.displayName = 'MessageBoard'
+// MessageBoard.whyDidYouRender = {
+//     logOnDifferentValues: true
+// };
 
 export default MessageBoard;

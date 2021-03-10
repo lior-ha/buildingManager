@@ -4,8 +4,8 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import './add-payment-form.styles.scss';
 
-const AddPaymentForm = props => {
-    const [ paymentDetails, setPaymentDetails ] = useState(props.paymentData);
+const AddPaymentForm = ({ changeParams, getPaymentData, paymentData }) => {
+    const [ paymentDetails, setPaymentDetails ] = useState(paymentData);
 
     const [ spec, setSpec ] = useState({class: '', text: ''});
     const [ formType, setFormType ] = useState('');
@@ -13,7 +13,12 @@ const AddPaymentForm = props => {
     const handleSubmit = e => {
         e.preventDefault();
         if (paymentDetails.description !== '' && paymentDetails.sum !== '' && paymentDetails.type !== '') {
-            props.getPaymentData(paymentDetails);
+            getPaymentData(paymentDetails);
+            setPaymentDetails({
+                description: '',
+                sum: '',
+                type: ''
+            })
         }
     }
 
@@ -31,7 +36,7 @@ const AddPaymentForm = props => {
             ...prevState,
             type: value
         }))
-        props.changeParams(value)
+        changeParams(value)
     }
 
     const handleSingleInputEvent = e => {
@@ -44,7 +49,7 @@ const AddPaymentForm = props => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form formonSubmit={handleSubmit}>
             <div className="group">
                 <label htmlFor="expense" className="custom-button red">הוצאה</label>
                 <input type="radio" name="type" id="expense" value="expense" onChange={onRadioChange} />

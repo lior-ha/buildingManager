@@ -9,11 +9,11 @@ const Card = ({data, handleClick}) => {
     return (
         <Fragment>
             {loading ? '' : 
-                <div onClick={() => handleClick('messagePage', data, tenantData, data.aptId)}  
+                <article onClick={() => handleClick('messagePage', data, tenantData, data.aptId)}  
                     className={`card ${data.sticky ? 'priority' : ''} ${data.suspended ? 'suspended' : ''}`}>
                     <h3>{data.title}</h3>
                     מאת: {`${tenantData.tenantFirstName} ${tenantData.tenantLastName}`}
-                </div>
+                </article>
             }
         </Fragment>
     )

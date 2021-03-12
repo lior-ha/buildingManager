@@ -43,20 +43,30 @@
 	}
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 800px) {
 	.formBox {
 		width: 100%;
 	}
-}
+	.messageBoard {
+		justify-content: space-between;
+		.card {
+			margin: 0 0 var(--smallSize) 0;
+			max-width: initial;
+			width: 100%;
 
-@media (max-width: 400px) {
+			&.priority {
+				width: 100%;
+			}
+		}
+	}
+}
+@media (min-width: 801px) and (max-width: 1000px) {
 	.messageBoard .card {
-		margin: 0 0 var(--smallSize) 0;
-		max-width: initial;
-		width: 100%;
+		max-width: 46%;
+		width: 46%;
 
 		&.priority {
-			width: 100%;
+			width: 46%;
 		}
 	}
 }

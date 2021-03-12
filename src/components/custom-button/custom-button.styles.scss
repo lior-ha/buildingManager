@@ -46,7 +46,8 @@
 	text-decoration: none;
 	width: auto;
 
-	&:hover {
+	&:hover,
+	&.active {
 		transition: background-color 0.5s;
 		background-color: var(--gray-button-hover-bg);
 	}
@@ -56,7 +57,8 @@
 		color: var(--bluish-button-hover-bg);
 		border: 1px solid var(--bluish-button-hover-bg);
 
-		&:hover {
+		&:hover,
+		&.active {
 			background-color: var(--bluish-button-hover-bg);
 			color: var(--whitish-text-color);
 		}
@@ -67,7 +69,8 @@
 		border: var(--red-button-border);
 		color: var(--red-button-text-color);
 
-		&:hover {
+		&:hover,
+		&.active {
 			background-color: var(--red-button-hover-bg);
 			color: var(--whitish-text-color);
 		}
@@ -78,7 +81,8 @@
 		border: var(--green-button-border);
 		color: var(--green-button-text-color);
 
-		&:hover {
+		&:hover,
+		&.active {
 			background-color: var(--green-button-hover-bg);
 			color: var(--whitish-text-color);
 		}
@@ -89,7 +93,8 @@
 		border: var(--light-gray-button-border);
 		color: var(--main-bg-color);
 
-		&:hover {
+		&:hover,
+		&.active {
 			background-color: var(--light-gray-button-hover-bg);
 			color: var(--light-gray-button-text-color);
 		}

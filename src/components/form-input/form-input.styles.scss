@@ -22,10 +22,6 @@
 		margin: 0 0 25px 0;
 		direction: ltr;
 
-		&.rtl {
-			direction: rtl;
-		}
-
 		&:focus {
 			outline: none;
 			background-color: var(--sub-dark-color);
@@ -41,6 +37,13 @@
 		resize: none;
 		height: 100px;
 		font-family: var(--main-font-family);
+	}
+
+	.form-input-select {
+		width: 100%;
+		option {
+			background-color: var(--main-bg-color);
+		}
 	}
 
 	input[type='password'] {

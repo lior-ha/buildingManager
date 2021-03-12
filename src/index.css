@@ -1,5 +1,4 @@
 :root {
-	box-sizing: border-box;
 	--main-font-family: 'Rubik', Arial, Helvetica, sans-serif;
 	--smallSize: 0.8em;
 	--normalSize: 1em;
@@ -41,8 +40,4 @@
 	--boxes-margin: 0 0 var(--midSize) 0;
 
 	font-family: var(--main-font-family);
-}
-
-* {
-	box-sizing: border-box;
 }

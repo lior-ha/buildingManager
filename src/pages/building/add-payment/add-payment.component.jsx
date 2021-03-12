@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { usePayments } from '../../../hooks/payments.hook';
+import { useApartments } from '../../../hooks/apartments.hook';
 import { useSession } from '../../../context/auth.context';
 
 import FormBox from '../../../components/form-box/form-box.component';
@@ -20,6 +21,7 @@ const formSchemes = {
 
 const AddPaymentPage = () => {
     const { building } = useSession();
+    const { apartmentsData } = useApartments();
 
     const [ resetForm, setResetForm ] = useState({});
     
@@ -37,6 +39,7 @@ const AddPaymentPage = () => {
             class: undefined,
             working: undefined
         });
+        
     }, [resetForm]);
 
     return (
@@ -49,6 +52,7 @@ const AddPaymentPage = () => {
                         setParams={setParams}
                         params={params}
                         building={building}
+                        apartmentsData={apartmentsData}
                     />} 
                     
                 title={params.text} 

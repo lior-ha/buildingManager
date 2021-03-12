@@ -100,3 +100,27 @@ export const FormTextArea = ({handleChange, rtl, label, ...otherProps}) => (
         
     </div> 
 );
+
+const sortByApt = (a, b) => {
+    return a.apartment - b.apartment;
+}
+
+export const FormSelect = ({handleChange, rtl, label, apartmentsData, ...otherProps}) => (
+    <div className="inputSet">
+        <select className={`form-input form-input-select ${rtl && 'rtl' }`} onChange={handleChange} {...otherProps}>
+            {/* name="incomeSource" 
+            
+            value={paymentDetails.incomeSource}
+            onChange={handleSelectEvent} */}
+            <option>{label}</option>
+            
+            {apartmentsData
+                .sort(sortByApt)
+                .map(apartment => (
+                <option key={apartment.apartment} value={`דירה ${apartment.apartment}`}>{`דירה ${apartment.apartment}`}</option>
+            ))}   
+
+            <option value="other">אחר</option>
+        </select>
+    </div>
+)

@@ -1,3 +1,17 @@
+.paymentFieldsBox {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	max-width: 50%;
+}
+
+@media (max-width: 1000px) {
+	.paymentFieldsBox {
+		display: grid;
+		grid-template-columns: 1fr;
+		max-width: 100%;
+	}
+}
+
 .contentBox.red .inputSet .form-input {
 	background-color: var(--pale-red-color-pale);
 }

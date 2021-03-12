@@ -19,9 +19,30 @@
 
 	.adminButtons {
 		text-align: left;
+		margin-top: 10px;
 
 		.custom-button {
 			margin-right: 10px;
 		}
+	}
+}
+
+@media (max-width: 800px) {
+	.messageBox .adminButtons {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		.custom-button {
+			width: 75%;
+			align-self: center;
+			margin: 10px 0 0;
+		}
+	}
+}
+
+@media (max-width: 400px) {
+	.messageBox .adminButtons .custom-button {
+		width: 100%;
 	}
 }

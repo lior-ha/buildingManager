@@ -37,8 +37,8 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
             } else {
                 newDates =  { lastUpdated: date }
             }
-
-            addItems(`buildings/${building}/${paymentDetails.type}s`, {...paymentDetails, ...newDates})
+            
+            addItems(`buildings/${building}/payments`, {...paymentDetails, ...newDates})
                 .then(() => {
                     setFormType('');
                     setResetForm('');

@@ -18,9 +18,15 @@
 		line-height: 50px;
 		padding: 0 var(--midSize);
 		position: relative;
+		color: var(--link-color);
+		&:hover {
+			background-color: var(--mid-dark-color);
+			color: var(--link-hover-color);
+		}
 
 		&.active {
 			background-color: var(--boxes-bg-color);
+			color: var(--link-color);
 		}
 	}
 }

@@ -24,3 +24,21 @@ export const validCheck = (val, check) => {
     
     return valid
 }
+
+export const getDates = (data) => {
+    const date = new Date().toISOString();
+    let newDates;
+    if (!data.createdAt) {
+        newDates =  {
+            createdAt: date,
+            lastUpdated: date
+        }
+    } else {
+        newDates =  {
+            createdAt: data.createdAt,
+            lastUpdated: date
+        }
+    }
+
+    return newDates
+}

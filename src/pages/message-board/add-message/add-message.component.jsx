@@ -1,6 +1,5 @@
-//import { useState } from 'react';
-
 import { addItems } from '../../../firebase/firebase.utils';
+import { getDates } from '../../../shared/js-utils';
 
 import FormBox from '../../../components/form-box/form-box.component';
 import AddMessageForm from '../../../components/add-message-form/add-message-form.component';
@@ -18,19 +17,7 @@ const AddMessage = ({building, user, handleClick, setMesssageData}) => {
     }
 
     const getMessageData = data => {
-        const now = new Date()
-        const date = now.toISOString();
-        let newDates;
-        if (data.createdAt === '' ) {
-            newDates =  {
-                createdAt: date,
-                lastUpdated: date
-            }
-        } else {
-            newDates =  {
-                lastUpdated: date
-            }
-        }
+        const newDates = getDates(data);
 
         addItems(`buildings/${building}/message-board/`, {
             ...data,

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { addItems, updateItems } from '../../../firebase/firebase.utils';
 import { useSession } from '../../../context/auth.context';
+import { getDates } from '../../../shared/js-utils';
 
 import AddBuildingForm from '../../../components/add-building-form/add-building-form.component';
 import FormBox from '../../../components/form-box/form-box.component';
@@ -22,30 +23,18 @@ const AddBuilding = () => {
     const [ buildingId, setBuildingId ] = useState('');
 
     const getBuildingData = data => {
-        const now = new Date()
-        const date = now.toISOString();
-        let newDates;
-        if (data.createdAt === '' ) {
-            newDates =  {
-                createdAt: date,
-                lastUpdated: date
-            }
-        } else {
-            newDates =  {
-                lastUpdated: date
-            }
-        }
+        const newDates = getDates(data)
+        console.log(newDates)
         setBuildingData(prevState => ({
             ...prevState,
             ...data,
             ...newDates
         }));
-    }
-
-    useEffect(() => {
+        console.log(buildingData)
+    
         let unsub;
-        if (buildingData.managers.length > 0) {
 
+        if (buildingData.managers.length > 0) {
             const newBuildingData = {
                 managers: buildingData.managers,
                 address: {
@@ -53,7 +42,8 @@ const AddBuilding = () => {
                     street: buildingData.street,
                     number: buildingData.number,
                     entrance: buildingData.entrance
-                }
+                },
+                createdAt: buildingData.createdAt
             }
 
             if (!buildingId) {
@@ -67,9 +57,8 @@ const AddBuilding = () => {
                 unsub = updateItems(`buildings`, buildingId, newBuildingData);
             }
             return unsub;
+        }
     }
-        
-    }, [buildingId, buildingData, building])
 
     return (
         <main className="mainWrapper">        

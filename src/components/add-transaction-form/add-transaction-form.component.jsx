@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 
 import { addItems } from '../../firebase/firebase.utils';
+import { getDates } from '../../shared/js-utils';
 
 import { FormInputSingle, FormSelect } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -28,15 +29,7 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
         e.preventDefault();
         
         if (transactionDetails.description !== '' && transactionDetails.sum !== '' && transactionDetails.type !== '') {
-            const date = new Date().toISOString();
-            
-            let newDates;
-            
-            if (transactionDetails.createdAt === '' ) {
-                newDates =  { createdAt: date, lastUpdated: date }
-            } else {
-                newDates =  { lastUpdated: date }
-            }
+            const newDates = getDates(transactionDetails);
             
             addItems(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
                 .then(() => {

@@ -3,10 +3,10 @@ import LinkListBox from '../link-list-box/link-list-box.component';
 
 import Loading from '../UI/loader/loader.component';
 
-import './income-payments.styles.scss';
+import './income-transactions.styles.scss';
 
-const IncomePayments = (props) => (
-    <div className="incomePayments">
+const IncomeTransactions = (props) => (
+    <div className="incomeTransactions">
         { props.loading ? 
             <Loading /> 
         : 
@@ -15,4 +15,4 @@ const IncomePayments = (props) => (
     </div>
 );
 
-export default IncomePayments;
+export default IncomeTransactions;

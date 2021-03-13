@@ -5,15 +5,15 @@ import { addItems } from '../../firebase/firebase.utils';
 import { FormInputSingle, FormSelect } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import './add-payment-form.styles.scss';
+import './add-transaction-form.styles.scss';
 
-const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmentsData }) => {
-    const [ paymentDetails, setPaymentDetails ] = useState({});
+const AddTransactionForm = ({ changeParams, setResetForm, params, building, apartmentsData }) => {
+    const [ transactionDetails, setTransactionDetails ] = useState({});
 
     const [ formType, setFormType ] = useState('');
 
     useEffect(() => {
-        setPaymentDetails(({
+        setTransactionDetails(({
             description: '',
             sum: '',
             incomeSource: '',
@@ -27,18 +27,18 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
     const handleSubmit = e => {
         e.preventDefault();
         
-        if (paymentDetails.description !== '' && paymentDetails.sum !== '' && paymentDetails.type !== '') {
+        if (transactionDetails.description !== '' && transactionDetails.sum !== '' && transactionDetails.type !== '') {
             const date = new Date().toISOString();
             
             let newDates;
             
-            if (paymentDetails.createdAt === '' ) {
+            if (transactionDetails.createdAt === '' ) {
                 newDates =  { createdAt: date, lastUpdated: date }
             } else {
                 newDates =  { lastUpdated: date }
             }
             
-            addItems(`buildings/${building}/payments`, {...paymentDetails, ...newDates})
+            addItems(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
                 .then(() => {
                     setFormType('');
                     setResetForm('');
@@ -54,7 +54,7 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
         const value = e.target.value;
         setFormType(value);
 
-        setPaymentDetails(prevState => ({
+        setTransactionDetails(prevState => ({
             ...prevState,
             type: value
         }));
@@ -64,7 +64,7 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
 
     const handleSingleInputEvent = e => {
         const {name, value} = e.target;
-        setPaymentDetails(prevState => ({
+        setTransactionDetails(prevState => ({
             ...prevState,
             [name]: value
         }));
@@ -72,7 +72,7 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
 
     const handleSelectEvent = e => {
         const value = e.target.value;
-        setPaymentDetails(prevState => ({
+        setTransactionDetails(prevState => ({
             ...prevState,
             incomeSource: value
         }))
@@ -83,18 +83,18 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
         <form onSubmit={handleSubmit}>
             <div className="group">
                 <label htmlFor="expense" className="custom-button red">הוצאה</label>
-                <input type="radio" name="type" checked={paymentDetails.type==='expense'} id="expense" value="expense" onChange={onRadioChange} />
+                <input type="radio" name="type" checked={transactionDetails.type==='expense'} id="expense" value="expense" onChange={onRadioChange} />
                 <label htmlFor="income" className="custom-button green">הכנסה</label>
-                <input type="radio" name="type" checked={paymentDetails.type==='income'} id="income" value="income" onChange={onRadioChange} />
+                <input type="radio" name="type" checked={transactionDetails.type==='income'} id="income" value="income" onChange={onRadioChange} />
             </div>
         
             {(formType==='expense' || formType==='income') && 
-                <div className="paymentFieldsBox">
+                <div className="transactionFieldsBox">
                         <FormInputSingle 
                             name="description" 
                             label="תיאור" 
                             type="text" 
-                            value={paymentDetails.description}
+                            value={transactionDetails.description}
                             handleChange={handleSingleInputEvent}
                             rtl
                             required
@@ -103,7 +103,7 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
                             name="sum" 
                             label="סכום" 
                             type="number" 
-                            value={paymentDetails.sum}
+                            value={transactionDetails.sum}
                             handleChange={handleSingleInputEvent}
                             required
                         />
@@ -113,17 +113,17 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
                             <FormSelect
                                     name="incomeSource"
                                     label="בחר מקור הכנסה"
-                                    value={paymentDetails.incomeSource}
+                                    value={transactionDetails.incomeSource}
                                     handleChange={handleSelectEvent}
                                     apartmentsData={apartmentsData}
                                     rtl
                             />                            
-                            {paymentDetails.incomeSource==='other' ? 
+                            {transactionDetails.incomeSource==='other' ? 
                                 <FormInputSingle
                                     name="other"
                                     label="הכנס מקור הכנסה"
                                     type="text"
-                                    value={paymentDetails.other}
+                                    value={transactionDetails.other}
                                     handleChange={handleSingleInputEvent}
                                     rtl
                                 />
@@ -139,4 +139,4 @@ const AddPaymentForm = ({ changeParams, setResetForm, params, building, apartmen
     )
 }
 
-export default AddPaymentForm;
+export default AddTransactionForm;

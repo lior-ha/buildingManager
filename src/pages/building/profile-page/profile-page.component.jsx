@@ -1,17 +1,17 @@
 import { Fragment } from 'react';
 
-import { usePayments } from '../../../hooks/payments.hook';
+import { useTransactions } from '../../../hooks/transactions.hook';
 import { useApartments } from '../../../hooks/apartments.hook';
 import { useTenants } from '../../../hooks/tenants.hook';
 
 import AsideLastActions from '../../../components/aside/aside-last-actions/aside-last-actions.component';
 import ApartmentContactsList from '../../../components/apartment-contacts-list/apartment-contacts-list.component';
-import MonthlyPaymentBox from '../../../components/monthlyPaymentBox/monthlyPaymentBox.component';
+import MonthlyTransactionsBox from '../../../components/monthlyTransactionsBox/monthlyTransactionsBox.component';
 import Loader from '../../../components/UI/loader/loader.component';
 
 const ProfilePage = props => {
     const apartmentId = props.match.params.profileId;
-    const {paymentLoading, payments} = usePayments();
+    const { transactionLoading, transactions } = useTransactions();
     const { apartmentData } = useApartments(apartmentId);
     const { tenantsData, loading } = useTenants(apartmentId);
 
@@ -21,11 +21,11 @@ const ProfilePage = props => {
                 {(!apartmentData || !tenantsData) ? <Loader /> :
                     <Fragment>
                         <ApartmentContactsList loading={loading} apartmentData={apartmentData} tenantsData={tenantsData} />
-                        <MonthlyPaymentBox />
+                        <MonthlyTransactionsBox />
                     </Fragment>
                 }
             </section>
-            <AsideLastActions loading={paymentLoading} payments={payments} />
+            <AsideLastActions loading={transactionLoading} transactions={transactions} />
         </main>
     )
 };

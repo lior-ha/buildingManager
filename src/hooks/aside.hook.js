@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSession } from '../context/auth.context';
-import { firestore, convertPaymentsCollectionsSnapshotToMap } from '../firebase/firebase.utils';
+import { firestore, convertTransactionsCollectionsSnapshotToMap } from '../firebase/firebase.utils';
 
 export const useAside = (type) => {
     const { building } = useSession();
@@ -15,7 +15,7 @@ export const useAside = (type) => {
                 .collection(`buildings/${building}/expenses`)
 
                 .onSnapshot(async snapshot => {
-                        const expensesArr = convertPaymentsCollectionsSnapshotToMap(snapshot, 'expense')
+                        const expensesArr = convertTransactionsCollectionsSnapshotToMap(snapshot, 'expense')
                         setExpenses([...expensesArr])
                         setLoading(false);
                     }, err => { setError(err) }
@@ -24,7 +24,7 @@ export const useAside = (type) => {
             const unSubIncomes = firestore
                 .collection(`buildings/${building}/incomes`)
                 .onSnapshot(async snapshot => { 
-                    const incomesArr = convertPaymentsCollectionsSnapshotToMap(snapshot, 'income')
+                    const incomesArr = convertTransactionsCollectionsSnapshotToMap(snapshot, 'income')
                     setIncomes([...incomesArr]);
                     setLoading(false);
                     }, err => { setError(err) }
@@ -36,12 +36,12 @@ export const useAside = (type) => {
             }
     }, [building]);
     
-    const payments = [...incomes, ...expenses];
-    payments.sort((a, b) => b.createdAt - a.createdAt);
+    const transactions = [...incomes, ...expenses];
+    transactions.sort((a, b) => b.createdAt - a.createdAt);
 
     return {
         error,
         loading,
-        payments
+        transactions
     }
 }

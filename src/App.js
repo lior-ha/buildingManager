@@ -20,7 +20,7 @@ import './index.scss';
 const ProfilePage = lazy(() => import('./pages/building/profile-page/profile-page.component'));
 const AddBuilding = lazy(() => import('./pages/building/add-building/add-building.component'));
 const AddApartment = lazy(() => import('./pages/building/add-apartment/add-apartment.component'));
-const AddPaymentPage = lazy(() => import('./pages/building/add-payment/add-payment.component'));
+const TransactionsPage = lazy(() => import('./pages/transactions/transactions.component'));
 const MessageBoard = lazy(() => import('./pages/message-board/message-board.components'));
 const SignOut = lazy(() => import('./pages/sign-in-and-sign-up/sign-out/sign-out.component'));
 
@@ -50,9 +50,9 @@ const App = () => {
                         <Route exact path='/' component={Homepage} />
                         
                         <Route path='/message-board' exact component={MessageBoard} />
+                        <Route path='/transactions' component={TransactionsPage} />
                         <Route path='/message-board/:messageId' component={MessageBoard} />
                         <Route path='/mainAdmin/addApartment' component={AddApartment} />
-                        <Route path='/mainAdmin/addPayment' component={AddPaymentPage} />
                         <Route path='/building/:profileId' component={ProfilePage} /> 
                         <Route path='/signout' component={SignOut} /> 
                         <Route exact path='/signin' render={() => 

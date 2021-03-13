@@ -1,0 +1,26 @@
+.income .sum {
+	color: var(--plus-color);
+}
+
+.expense .sum {
+	color: var(--minus-color);
+}
+
+.tabs {
+	display: flex;
+
+	.tab {
+		background-color: var(--main-dark-color);
+		border: 1px solid var(--mid-dark-color);
+		border-bottom: 0;
+		bottom: -1px;
+		cursor: pointer;
+		line-height: 50px;
+		padding: 0 var(--midSize);
+		position: relative;
+
+		&.active {
+			background-color: var(--boxes-bg-color);
+		}
+	}
+}

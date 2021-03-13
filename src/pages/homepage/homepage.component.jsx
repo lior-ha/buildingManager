@@ -1,20 +1,20 @@
-import { usePayments } from '../../hooks/payments.hook';
+import { useTransactions } from '../../hooks/transactions.hook';
 import { useApartments } from '../../hooks/apartments.hook';
 
 import AsideLastActions from '../../components/aside/aside-last-actions/aside-last-actions.component';
 import StatusBox from '../../components/status-box/status-box.components';
-import IncomePayments from '../../components/income-payments/income-payments.components';
+import IncomeTransactions from '../../components/income-transactions/income-transactions.component';
 
 const Homepage = () => {
-    const {paymentLoading, payments} = usePayments();
-    const {apartmentsLoading, apartmentsData} = useApartments();
+    const { transactionLoading, transactions } = useTransactions(undefined, 'createdAt', 'desc');
+    const { apartmentsLoading, apartmentsData } = useApartments();
     return (
-        <main className="mainWrapper">        
+        <main className="mainWrapper">
             <section>
-                <StatusBox loading={paymentLoading} payments={payments} />
-                <IncomePayments loading={apartmentsLoading} apartments={apartmentsData} />
+                <StatusBox loading={transactionLoading} transactions={transactions} />
+                <IncomeTransactions loading={apartmentsLoading} apartments={apartmentsData} />
             </section>
-            <AsideLastActions loading={paymentLoading} payments={payments} />
+            <AsideLastActions loading={transactionLoading} transactions={transactions} />
         </main>
     )
 };

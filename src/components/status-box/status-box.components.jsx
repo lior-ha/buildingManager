@@ -8,15 +8,19 @@ const StatusBox = props => {
     const [totalSum, setTotalSum] = useState('');
 
     useEffect(() => {
-        const calcSum = props.payments.reduce((acc, payment) => {
-            if (payment.type === 'income') {
-                return acc + parseFloat(payment.sum)
-            } else {
-                return acc - parseFloat(payment.sum)
-            }
-        }, 0)
-        setTotalSum(calcSum)
-    }, [props.payments]);
+        if (props.transactions) {
+            const calcSum = props.transactions.reduce((acc, transaction) => {
+                if (transaction.type === 'income') {
+                    return acc + parseFloat(transaction.sum)
+                } else {
+                    return acc - parseFloat(transaction.sum)
+                }
+            }, 0)
+            setTotalSum(calcSum)
+        } else {
+            setTotalSum(0)
+        }
+    }, [props.transactions]);
 
     return (
         <div className="contentBox statusBox">

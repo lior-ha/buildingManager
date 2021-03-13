@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 const NavItem = props => {
     return (
-        <li className={`tab ${props.extraClass ? props.extraClass : ''}`}>
+        <li className={`navItem ${props.extraClass ? props.extraClass : ''}`}>
             <NavLink 
                 to={props.link}
                 exact={props.exact}

@@ -168,9 +168,9 @@ export const removeItem = async (collectionKey, id, redirect) => {
 // }
 
 
-// PAYMENTS
-export const convertPaymentsCollectionsSnapshotToMap = (paymentCollection) => {
-    const transformedBuildingPayment = paymentCollection.docs.map(doc => {
+// TRANSACTIONS
+export const convertTransactionsCollectionsSnapshotToMap = (transactionCollection) => {
+    const transformedBuildingTransaction = transactionCollection.docs.map(doc => {
         const {description, sum, createdAt, incomeSource, other, type} = doc.data();
 
         return {
@@ -183,7 +183,7 @@ export const convertPaymentsCollectionsSnapshotToMap = (paymentCollection) => {
             type
         }
     });
-    return transformedBuildingPayment;
+    return transformedBuildingTransaction;
 }
 
 

@@ -1,11 +1,11 @@
-.paymentFieldsBox {
+.transactionFieldsBox {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	max-width: 50%;
 }
 
 @media (max-width: 1000px) {
-	.paymentFieldsBox {
+	.transactionFieldsBox {
 		display: grid;
 		grid-template-columns: 1fr;
 		max-width: 100%;

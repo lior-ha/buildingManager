@@ -1,31 +1,4 @@
 .custom-button {
-	--light-gray-button-bg: var(--main-light-color);
-	--light-gray-button-hover-bg: var(--main-light-color-dim);
-	--light-gray-button-border: var(--main-light-color);
-	--light-gray-button-text-color: var(--whitish-text-color);
-
-	--gray-button-bg: rgba(45, 49, 51, 0.1);
-	--gray-button-hover-bg: rgb(45, 49, 51);
-	--gray-button-border: 1px solid rgb(58, 63, 66);
-	--gray-button-text-color: var(--whitish-text-color);
-
-	--bluish-button-bg: rgb(53, 122, 232, 0.1);
-	--bluish-button-hover-bg: rgb(53, 122, 232);
-	--bluish-button-border: 1px solid rgb(53, 122, 232);
-	--bluish-button-text-color: var(--whitish-text-color);
-
-	--red-button-bg: var(--pale-red-color-pale);
-	--red-button-hover-bg: var(--pale-red-color);
-	--red-button-border: 1px solid var(--pale-red-color);
-	--red-button-text-color: rgb(244, 75, 75);
-
-	--green-button-bg: var(--pale-green-color-pale);
-	--green-button-hover-bg: var(--pale-green-color);
-	--green-button-border: 1px solid var(--pale-green-color);
-	--green-button-text-color: rgb(75, 244, 97);
-
-	--whitish-text-color: rgb(217, 214, 209);
-
 	align-items: center;
 	background-color: var(--gray-button-bg);
 	border: var(--gray-button-border);
@@ -48,8 +21,9 @@
 
 	&:hover,
 	&.active {
-		transition: background-color 0.5s;
 		background-color: var(--gray-button-hover-bg);
+		color: var(--whitish-text-color);
+		transition: background-color 0.5s;
 	}
 
 	&.blueish {

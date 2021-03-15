@@ -1,30 +1,82 @@
-import LinkListBox from '../link-list-box/link-list-box.component';
+import moment from 'moment';
+import 'moment/locale/he';
+import { useState } from 'react';
 
-const linkList = [
-    {key: 1, text: "ינואר", param: `jan`, status: 'paid'},
-    {key: 2, text: "פברואר", param: 'feb', status: 'paid'},
-    {key: 3, text: "מרץ", param: 'mar', status: 'paid'},
-    {key: 4, text: "אפריל", param: 'apr', status: 'debt'},
-    {key: 5, text: "מאי", param: 'may', status: 'paid'},
-    {key: 6, text: "יוני", param: 'jun', status: 'paid'},
-    {key: 7, text: "יולי", param: 'jul', status: 'paid'},
-    {key: 8, text: "אוגוסט", param: 'aug', status: 'debt'},
-    {key: 9, text: "ספטמבר", param: 'sep', status: null},
-    {key: 10, text: "אוקטובר", param: 'oct', status: null},
-    {key: 11, text: "נובמבר", param: 'nov', status: null},
-    {key: 12, text: "דצמבר", param: 'dec', status: null}
-]
+import './monthlyTransactionsBox.styles.scss';
 
-const MonthlyPaymentBox = () => {
+const MonthlyPaymentBox = ({ apartmentData }) => {
+    
+    const monthlyPaymentList = [];
+    const curYear = moment(new Date()).year();
+    const [ getYear, setGetYear ] = useState(curYear);
+
+    let curMonth;
+    if (getYear === curYear) {
+        curMonth = new Date().getMonth();
+    } else if (getYear < curYear) {
+        curMonth = 11; // Jan = 0
+    }
+
+    let monthlyPaymentArr = [];
+    if (apartmentData.paymentsStatus[getYear]) {
+        monthlyPaymentArr = apartmentData.paymentsStatus[getYear];
+    } else {
+        apartmentData.paymentsStatus = {
+            ...apartmentData.paymentsStatus,
+            [curYear]: [...Array(12).fill('')]
+        };
+        monthlyPaymentArr = apartmentData.paymentsStatus[getYear];
+    }
+
+    for (let i=0; i <= 11; i++) {
+        let status = '';
+        
+        if (curMonth >= i && monthlyPaymentArr[i] === '') {
+            status = 'debt'
+        } else {
+            status = monthlyPaymentArr[i]
+        }
+
+        monthlyPaymentList.push({
+            key: i+1,
+            text: moment(('0' + parseInt(i+1)).slice(-2), 'MM').format('MMMM'), 
+            params: i+1, 
+            status: status
+        })
+    }
+
+    let yearsDropDown = [];
+    for (let key in apartmentData.paymentsStatus) {
+        yearsDropDown.unshift(key);
+    }
+
+    const [ active, setActive ] = useState(false)
+
+    const handleYearClick = e => {
+        setGetYear(e.target.value);
+    }
+
+    const dropDown =    <div onClick={() => setActive(!active)} className={`dropDownWrapper ${active ? 'active' : ''}`}>
+                            <ul className="yearDropDown">
+                                {yearsDropDown.map(year => <li className={getYear===parseInt(year) ? 'selected' : ''} onClick={handleYearClick} key={year} value={year}>{year}</li>)}
+                            </ul>
+                            <i className="caretDown">&gt;</i>
+                        </div>
+    
+
     return (
-        <div className="contentBox infoBox">
-            <p className="genTitle">תשלומים - 2020</p>
-            {/* <div className="paymentDetails paid">
+        <div className="contentBox infoBox" style={{position: 'relative'}}>
+            <div className="genTitle withDropDown">תשלומים - {yearsDropDown.length > 1 ? dropDown : getYear}</div>
+            <div className="paymentDetails paid">
                 <p>סכום: 225 &#8362;</p>
                 <p>אמצעי תשלום: מזומן</p>
                 <p>תאריך תשלום: 01.10.20</p>
-            </div> */}
-            <LinkListBox linkList={linkList} cat={'#'} />
+            </div>
+            <div className="transactionBox">
+                {monthlyPaymentList.map(payment => (
+                    <span key={payment.key} className={`transactionItem ${payment.status}`}>{payment.text}</span>
+                ))}
+            </div>
         </div>
     )
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import moment from 'moment';
 
 import { FormInputSingle } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -7,8 +8,11 @@ const AddTenantForm = props => {
     
     const [apartmentData, setApartmentData] = useState({
         apartment: '',
-        apartmentName: ''
-    })
+        apartmentName: '',
+        paymentsStatus: {
+            [moment(new Date()).year()]: ['', '', '', '', '', '', '', '', '', '', '', '']
+        }
+    });
 
     const nextForm = e => {
         e.preventDefault();

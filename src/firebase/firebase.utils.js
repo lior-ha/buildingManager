@@ -98,20 +98,44 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     return transformedCollection;
 }
 
-// // Converts Collection to object
-export const getAddress = (collections, building) => {
+// Get Building Data
+export const getBuildingData = (collections, building) => {
     const findBuilding = collections.docs.find(doc => doc.id === building);
 
-    const addressData = () => {
-        const { address } = findBuilding.data();
-        return address;
+    const getData = () => {
+        const buildingData = findBuilding.data();
+        return buildingData;
+    }
+    return getData();
+}
+
+// Get Apartment
+export const getApartment = (collections, apartment) => {
+    console.log(collections, apartment)
+    const findApartment = collections.docs.find(doc => doc.id === apartment);
+
+    const apartmentData = () => {
+        const paymentsStatus = findApartment.data();
+        return paymentsStatus;
     }
 
-    return addressData();
+    return apartmentData();
+}
+
+// Get Create Date
+export const getCreatedAt = (collections, building) => {
+    const findBuilding = collections.docs.find(doc => doc.id === building);
+
+    const createdAtData = () => {
+        const { createdAt } = findBuilding.data();
+        return createdAt;
+    }
+
+    return createdAtData();
 }
 
 // Converts Collection to object
-export const convertUserCollectionsSnapshotToMap = (collections, email) => {
+export const convertUserCollectionsSnapshotToMap = (collections) => {
     const transformedCollection = collections.docs.map(doc => {
         const obj = doc.data();
         return {
@@ -120,6 +144,14 @@ export const convertUserCollectionsSnapshotToMap = (collections, email) => {
         }
     });
     return transformedCollection;
+}
+
+export const getItem = async (collectionKey, id) => {
+    const collectionRef = firestore.collection(collectionKey);
+    const newDocRef = collectionRef.doc();
+    await newDocRef.get(id).then(result => {
+        console.log(result.data());
+    })
 }
 
 export const addItems = async (collectionKey, objectsToAdd) => {
@@ -133,6 +165,12 @@ export const updateItems = async (collectionKey, id, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey);
     const docRef = collectionRef.doc(id);
     docRef.update(objectsToAdd)
+}
+
+export const updateProperty = async (collectionKey, id, property) => {
+    const collectionRef = firestore.collection(collectionKey);
+    const docRef = collectionRef.doc(id);
+    docRef.update(Object.assign({}, property))
 }
 
 export const removeItem = async (collectionKey, id, redirect) => {

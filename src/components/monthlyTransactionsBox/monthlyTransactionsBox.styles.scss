@@ -1,0 +1,118 @@
+.transactionBox {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.transactionItem {
+	align-items: center;
+	background-color: var(--gray-button-bg);
+	border: var(--gray-button-border);
+	border-radius: 2px;
+	box-shadow: 2px 2px 3px var(--sub-dark-color);
+	color: var(--gray-button-text-color);
+	font-family: var(--main-font-family);
+	font-size: var(--normalSize);
+	font-weight: 500;
+	height: 40px;
+	letter-spacing: 0.5px;
+	line-height: 40px;
+	margin: var(--smallSize);
+	outline: none;
+	padding: 0 35px;
+	text-align: center;
+	text-decoration: none;
+	width: 135px;
+
+	@media (max-width: 1000px) {
+		padding: 0 25px;
+		width: 115px;
+	}
+
+	&.paid {
+		background-color: var(--green-button-bg);
+		border: var(--green-button-border);
+		color: var(--green-button-text-color);
+	}
+
+	&.debt {
+		background-color: var(--red-button-bg);
+		border: var(--red-button-border);
+		color: var(--red-button-text-color);
+	}
+}
+
+.withDropDown {
+	display: flex;
+	position: relative;
+}
+
+.dropDownWrapper {
+	cursor: pointer;
+	display: inline-flex;
+	margin-right: 5px;
+	padding: 12px 5px 12px 0;
+	position: relative;
+	height: 20px;
+	width: 90px;
+	z-index: 2;
+
+	.yearDropDown {
+		display: flex;
+		flex-direction: column;
+		padding: 5px 0;
+		line-height: 30px;
+		max-height: 30px;
+		overflow: hidden;
+		position: absolute;
+		right: 2px;
+		top: -7px;
+
+		@media (min-width: 1000px) {
+			transition: all 0.3s;
+		}
+	}
+
+	&.active .yearDropDown {
+		background-color: var(--boxes-bg-color);
+		border: var(--boxes-border);
+		max-height: 200px;
+		right: -3px;
+		z-index: 3;
+
+		@media (max-width: 1000px) {
+			right: -118px;
+			z-index: 3;
+			line-height: 40px;
+			text-align: center;
+			width: 91vw;
+		}
+		LI {
+			cursor: pointer;
+			padding: 0 10px 0 40px;
+
+			&:hover {
+				background-color: var(--boxes-hover-bg-color);
+			}
+			&.selected {
+				order: 0;
+			}
+		}
+	}
+
+	LI.selected {
+		order: -1;
+	}
+
+	.caretDown {
+		font-size: var(--smallSize);
+		height: 30px;
+		padding: 0 5px 25px 0;
+		position: absolute;
+		right: 55px;
+		top: 0;
+		transform: rotate(270deg);
+		width: 23px;
+		z-index: 2;
+	}
+}

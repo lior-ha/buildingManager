@@ -24,13 +24,12 @@ const AddBuilding = () => {
 
     const getBuildingData = data => {
         const newDates = getDates(data)
-        console.log(newDates)
+        
         setBuildingData(prevState => ({
             ...prevState,
             ...data,
             ...newDates
         }));
-        console.log(buildingData)
     
         let unsub;
 

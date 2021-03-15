@@ -1,6 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 
-import { addItems } from '../../firebase/firebase.utils';
+import { addItems, updateProperty } from '../../firebase/firebase.utils';
+
 import { getDates } from '../../shared/js-utils';
 
 import { FormInputSingle, FormSelect } from '../form-input/form-input.component';
@@ -13,6 +14,26 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
 
     const [ formType, setFormType ] = useState('');
 
+    
+    const sortByApt = (a, b) => {
+        return a.apartment - b.apartment;
+    }
+
+    const paymentMethods = [
+        {id: 1, value: 'מזומן'},
+        {id: 2, value: 'אשראי'},
+        {id: 3, value: 'העברה בנקאית'},
+        {id: 4, value: 'אינטרנט'}
+    ];
+
+    const aptsData = apartmentsData
+                    .sort(sortByApt)
+                    .map(apartment => ({
+                            id: apartment.id,
+                            value: `דירה ${apartment.apartment}`,
+                            paymentsStatus: apartment.paymentsStatus
+                    }));
+                    
     useEffect(() => {
         setTransactionDetails(({
             description: '',
@@ -25,20 +46,55 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
         }))
     }, [formType])
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
         
         if (transactionDetails.description !== '' && transactionDetails.sum !== '' && transactionDetails.type !== '') {
             const newDates = getDates(transactionDetails);
-            
-            addItems(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
-                .then(() => {
-                    setFormType('');
-                    setResetForm('');
-                })
-                .catch((err) => {
-                    console.log(err);
-                });            
+
+            if(transactionDetails.incomeSource !== 'other') {
+                const year = new Date().getFullYear();
+                const month = new Date().getMonth();
+
+                // Get this apartment's data
+                const aptData = aptsData.find(apt => apt.id === transactionDetails.aptId);
+                let paymentsStatus = aptData.paymentsStatus;
+
+                // Check if this year exists in paymentsStatus Object
+                // If not, add empty year (should only happen on first payment in the current year)
+                if (!paymentsStatus[year]) {
+                    paymentsStatus = {
+                        ...paymentsStatus,
+                        [year]: [...Array(12).fill('')]
+                    };
+                } 
+
+                // Checks if value is already paid. If so return error.
+                if (paymentsStatus[year][month] === 'paid' ){
+                    console.log('error: already paid for this month')
+                    return 
+                }
+
+                // Mutate to paid
+                paymentsStatus[year][month] = 'paid';
+
+                updateProperty(`buildings/${building}/apartments`, transactionDetails.aptId, {paymentsStatus: {...paymentsStatus}})
+                    .then(() => {
+                        return
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
+                addItems(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
+                    .then(() => {
+                        setFormType('');
+                        setResetForm('');
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }         
         }
 
     }
@@ -63,14 +119,23 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
         }));
     }
 
-    const handleSelectEvent = e => {
+    const handleSelectSourceEvent = e => {
+        const value = e.target.value;
+        const aptId = e.target.children[e.target.selectedIndex].id;
+        setTransactionDetails(prevState => ({
+            ...prevState,
+            incomeSource: value,
+            aptId: aptId
+        }));
+    }
+
+    const handleSelectMethodEvent = e => {
         const value = e.target.value;
         setTransactionDetails(prevState => ({
             ...prevState,
-            incomeSource: value
+            paymentMethod: value
         }))
     }
-
 
     return (
         <form onSubmit={handleSubmit}>
@@ -107,9 +172,10 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                                     name="incomeSource"
                                     label="בחר מקור הכנסה"
                                     value={transactionDetails.incomeSource}
-                                    handleChange={handleSelectEvent}
-                                    apartmentsData={apartmentsData}
+                                    handleChange={handleSelectSourceEvent}
+                                    data={aptsData}
                                     rtl
+                                    required
                             />                            
                             {transactionDetails.incomeSource==='other' ? 
                                 <FormInputSingle
@@ -120,7 +186,15 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                                     handleChange={handleSingleInputEvent}
                                     rtl
                                 />
-                            :   <div></div>
+                            :   <FormSelect
+                                    name="paymentMethod"
+                                    label="בחר צורת תשלום"
+                                    value={transactionDetails.paymentMethod}
+                                    handleChange={handleSelectMethodEvent}
+                                    data={paymentMethods}
+                                    rtl
+                                    required
+                                />
                             }
                         </Fragment>
                     }

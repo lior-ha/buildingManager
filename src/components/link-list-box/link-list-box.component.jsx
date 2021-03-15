@@ -4,7 +4,7 @@ import './link-list-box.styles.scss';
 const LinkListBox = ({linkList, cat}) => (
     <div className="contentBox linkListBox">
         {linkList.map(({apartmentName, apartment, id, ...otherProps}, i) => (
-            <LinkListItem key={`apt${i}`} id={id} param={apartment} text={apartmentName} cat={cat} {...otherProps} />
+            <LinkListItem key={`apt${i}`} id={id} status="custom-button" param={apartment} text={apartmentName} cat={cat} {...otherProps} />
         ))}
     </div>
 );

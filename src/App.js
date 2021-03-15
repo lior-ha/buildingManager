@@ -40,12 +40,12 @@ const App = () => {
             <Route path='/' component={SignInAndSignUpPage} />
         </Switch>
     )
-
+    
     if (user) {
         routes =  (
             <Fragment>
                 <authContext.Provider value={{ user, building }}>
-                    <PageTitle address={buildingData} />
+                    {buildingData.address && <PageTitle address={buildingData.address} />}
                     <Switch>
                         <Route exact path='/' component={Homepage} />
                         

@@ -9,11 +9,8 @@ const AsideLastActions = props => (
             <Loading />
         :
             props.transactions
-            .map(({id, incomeSource, other, ...otherProps }) => {
-                if (incomeSource === 'other') {
-                    incomeSource = other;
-                }
-                return <AsideAction key={id} incomeSource={incomeSource} {...otherProps} />
+            .map(({id, ...otherProps }) => {
+                return <AsideAction key={id} {...otherProps} />
             })
         }
         </AsideWrapper>

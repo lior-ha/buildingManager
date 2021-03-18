@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import moment from 'moment';
 
 import { FormInputSingle } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -10,7 +9,7 @@ const AddTenantForm = props => {
         apartment: '',
         apartmentName: '',
         paymentsStatus: {
-            [moment(new Date()).year()]: ['', '', '', '', '', '', '', '', '', '', '', '']
+            [new Date().getFullYear()]: ['', '', '', '', '', '', '', '', '', '', '', '']
         }
     });
 

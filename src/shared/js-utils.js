@@ -1,3 +1,6 @@
+import moment from 'moment';
+import 'moment/locale/he';
+
 export const validCheck = (val, check) => {
     let valid = true;
 
@@ -23,6 +26,10 @@ export const validCheck = (val, check) => {
 
     
     return valid
+}
+
+export const monthName = (month) => {
+    return moment(('0' + month).slice(-2), 'MM').format('MMMM')
 }
 
 export const getDates = (data) => {

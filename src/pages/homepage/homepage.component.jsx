@@ -3,7 +3,7 @@ import { useApartments } from '../../hooks/apartments.hook';
 
 import AsideLastActions from '../../components/aside/aside-last-actions/aside-last-actions.component';
 import StatusBox from '../../components/status-box/status-box.components';
-import IncomeTransactions from '../../components/income-transactions/income-transactions.component';
+import AptsPaymentStatus from '../../components/apartments-payment-status/apartments-payment-status.component';
 
 const Homepage = () => {
     const { transactionLoading, transactions } = useTransactions(undefined, 'createdAt', 'desc');
@@ -12,7 +12,7 @@ const Homepage = () => {
         <main className="mainWrapper">
             <section>
                 <StatusBox loading={transactionLoading} transactions={transactions} />
-                <IncomeTransactions loading={apartmentsLoading} apartments={apartmentsData} />
+                <AptsPaymentStatus loading={apartmentsLoading} apartments={apartmentsData} />
             </section>
             <AsideLastActions loading={transactionLoading} transactions={transactions} />
         </main>

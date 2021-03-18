@@ -20,7 +20,8 @@
 	width: auto;
 
 	&:hover,
-	&.active {
+	&.active,
+	input:checked + & {
 		background-color: var(--gray-button-hover-bg);
 		color: var(--whitish-text-color);
 		transition: background-color 0.5s;
@@ -32,7 +33,8 @@
 		border: 1px solid var(--bluish-button-hover-bg);
 
 		&:hover,
-		&.active {
+		&.active,
+		input:checked + & {
 			background-color: var(--bluish-button-hover-bg);
 			color: var(--whitish-text-color);
 		}
@@ -44,9 +46,16 @@
 		color: var(--red-button-text-color);
 
 		&:hover,
-		&.active {
+		&.active,
+		input:checked + & {
 			background-color: var(--red-button-hover-bg);
 			color: var(--whitish-text-color);
+		}
+
+		&:disabled {
+			background-color: transparent;
+			color: var(--mid-light-color);
+			border-color: var(--mid-light-color);
 		}
 	}
 
@@ -56,9 +65,16 @@
 		color: var(--green-button-text-color);
 
 		&:hover,
-		&.active {
+		&.active,
+		input:checked + & {
 			background-color: var(--green-button-hover-bg);
 			color: var(--whitish-text-color);
+		}
+
+		&:disabled {
+			background-color: transparent;
+			color: var(--mid-light-color);
+			border-color: var(--mid-light-color);
 		}
 	}
 
@@ -68,7 +84,7 @@
 		color: var(--main-bg-color);
 
 		&:hover,
-		&.active {
+		input:checked + & {
 			background-color: var(--light-gray-button-hover-bg);
 			color: var(--light-gray-button-text-color);
 		}

@@ -114,10 +114,10 @@ export const FormSelect = ({handleChange, rtl, label, data, name, required}) => 
                 {data
                     .sort(sortByApt)
                     .map(item => (
-                    <option key={item.id} id={item.id} value={item.value}>{item.value}</option>
+                    <option key={item.id} id={item.id} text={item.text}>{item.text}</option>
                 ))}   
 
-                <option value="other">אחר</option>
+                {/* <option value="other">אחר</option> */}
             </select>
         </div>
     )

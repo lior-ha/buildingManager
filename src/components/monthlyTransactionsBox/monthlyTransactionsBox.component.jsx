@@ -1,13 +1,12 @@
-import moment from 'moment';
-import 'moment/locale/he';
 import { useState } from 'react';
+import { monthName } from '../../shared/js-utils';
 
 import './monthlyTransactionsBox.styles.scss';
 
 const MonthlyPaymentBox = ({ apartmentData }) => {
     
     const monthlyPaymentList = [];
-    const curYear = moment(new Date()).year();
+    const curYear = new Date().getFullYear();
     const [ getYear, setGetYear ] = useState(curYear);
 
     let curMonth;
@@ -39,7 +38,7 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
 
         monthlyPaymentList.push({
             key: i+1,
-            text: moment(('0' + parseInt(i+1)).slice(-2), 'MM').format('MMMM'), 
+            text: monthName(parseInt(i)+1), 
             params: i+1, 
             status: status
         })
@@ -55,6 +54,15 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
     const handleYearClick = e => {
         setGetYear(e.target.value);
     }
+    
+    // const handleHover = payment => {
+    //     console.log(apartmentData);
+    //     <div className="paymentDetails paid">
+    //         <p>סכום: 225 &#8362;</p>
+    //         <p>אמצעי תשלום: מזומן</p>
+    //         <p>תאריך תשלום: 01.10.20</p>
+    //     </div>
+    // }
 
     const dropDown =    <div onClick={() => setActive(!active)} className={`dropDownWrapper ${active ? 'active' : ''}`}>
                             <ul className="yearDropDown">
@@ -67,13 +75,9 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
     return (
         <div className="contentBox infoBox" style={{position: 'relative'}}>
             <div className="genTitle withDropDown">תשלומים - {yearsDropDown.length > 1 ? dropDown : getYear}</div>
-            <div className="paymentDetails paid">
-                <p>סכום: 225 &#8362;</p>
-                <p>אמצעי תשלום: מזומן</p>
-                <p>תאריך תשלום: 01.10.20</p>
-            </div>
+            
             <div className="transactionBox">
-                {monthlyPaymentList.map(payment => (
+                {monthlyPaymentList.map((payment) => (
                     <span key={payment.key} className={`transactionItem ${payment.status}`}>{payment.text}</span>
                 ))}
             </div>

@@ -12,3 +12,27 @@
 		min-width: fit-content;
 	}
 }
+
+// TEMP!!!
+.topText {
+	display: flex;
+	justify-content: space-around;
+	margin-top: 10px;
+	text-align: left;
+
+	&.contentBox {
+		margin-top: 10px;
+	}
+
+	h2 {
+		max-width: 50%;
+		margin: 0;
+		margin-right: 10px;
+	}
+
+	div {
+		text-align: right;
+		line-height: 30px;
+		align-self: center;
+	}
+}

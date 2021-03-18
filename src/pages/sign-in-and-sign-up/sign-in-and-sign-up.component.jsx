@@ -7,9 +7,18 @@ import './sign-in-and-sign-up.styles.scss';
 
 const SignInAndSignUpPage = () => (
     <main className="mainWrapper">        
-        <section className="signUpInPage">
-            <FormBox form={<SignIn />} title="אני ברשימה!" />
-            <FormBox form={<SignUp />} title="אני חייב להרשם!!!" />
+        <section>
+            <div className="contentBox topText">
+                <div>
+                    <p>Username: test@test.xyz</p> 
+                    <p>Password: qwer1234</p> 
+                </div>
+                <h2>This app is a work in progress and not close to being done</h2>
+            </div>
+            <div className="signUpInPage">
+                <FormBox form={<SignIn />} title="התחבר" />
+                <FormBox form={<SignUp />} title="הרשם" />
+            </div>
         </section>
     </main>   
 );

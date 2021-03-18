@@ -209,11 +209,13 @@ export const removeItem = async (collectionKey, id, redirect) => {
 // TRANSACTIONS
 export const convertTransactionsCollectionsSnapshotToMap = (transactionCollection) => {
     const transformedBuildingTransaction = transactionCollection.docs.map(doc => {
-        const {description, sum, createdAt, incomeSource, other, type} = doc.data();
+        const {apt, description, sum, month, createdAt, incomeSource, other, type} = doc.data();
 
         return {
             id: doc.id,
+            apt,
             sum,
+            month,
             description,
             createdAt,
             incomeSource,

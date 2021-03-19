@@ -22,7 +22,7 @@ const AptsPaymentStatus = ({loading, apartments}) => {
             for (let key in apartment.paymentsStatus) {
                 if (curYear !== parseInt(key)){
                     statusPos = apartment.paymentsStatus[key].find(debt => debt !== 'paid');
-                    console.log(apartment.apartment, 'prev year', key, statusPos);
+
                 } else if (curYear === parseInt(key)) {
                     statusPos = apartment.paymentsStatus[key].find((debt, i) => {
                         let result;
@@ -31,8 +31,8 @@ const AptsPaymentStatus = ({loading, apartments}) => {
                         }
                         return result
                     })
-                    console.log(apartment.apartment, 'cur year', key, statusPos)
                 }
+                
                 if (statusPos !== undefined) {
                     //console.log('statusPos', statusPos)
                     statusClass = 'red';

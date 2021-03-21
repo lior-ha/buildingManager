@@ -2,12 +2,11 @@
 
 Vaad Helper App (Hebrew only for now)
 
-# Tasks left for now
+# Tasks:
 
 ## Forms
 
 ### Payment Forms:
-- Add resolution behavior (cleanup and redirect?)
 - Edit payment
 - File upload (Google Picker?)
 - Validation
@@ -15,6 +14,10 @@ Vaad Helper App (Hebrew only for now)
 ### Building Form:
 - Edit building?
 - Validation
+
+### Apartment Form:
+- Add monthly-due sum
+- Multi-select months
 
 ### Tenants Forms:
 - Edit tenant
@@ -29,6 +32,7 @@ Vaad Helper App (Hebrew only for now)
 ## Data and reports
 
 ### Tenants payment status
+- Add partial pay?
 
 ### Monthly/Yearly Report
 
@@ -40,8 +44,8 @@ Vaad Helper App (Hebrew only for now)
 
 ### Message board (all users can write or managers decide who?)
 
-### Tickets to managers for malfunctions reporting and such (sends email/sms/whatsApp)
+### Tickets to managers for malfunctions reporting and such (sends email/sms/whatsApp-business)
 
-### Alert notifications from managers to tenants (sends email/sms/whatsApp)
+### Alert notifications from managers to tenants (sends email/sms/whatsApp-business)
 
 //Google Credentials?

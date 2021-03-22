@@ -45,7 +45,7 @@ const App = () => {
         routes =  (
             <Fragment>
                 <authContext.Provider value={{ user, building }}>
-                    {buildingData.address && <PageTitle address={buildingData.address} />}
+                    <PageTitle address={buildingData.address} />
                     <Switch>
                         <Route exact path='/' component={Homepage} />
                         

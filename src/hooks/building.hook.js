@@ -3,7 +3,7 @@ import { firestore, getBuildingData } from '../firebase/firebase.utils';
 
 export const useBuilding = (building) => {
     const [ buildingData, setBuildingData ] = useState({});
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(true);
     useEffect(() => {
         if (building) {
             const apartmentsRef = firestore.collection(`buildings`);

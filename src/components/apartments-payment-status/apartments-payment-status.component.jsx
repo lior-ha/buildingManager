@@ -14,16 +14,19 @@ const AptsPaymentStatus = ({loading, apartments}) => {
             let statusClass = 'green';
             let statusPos = '';
 
-            // If current year was't added yet
+            // Add curYear if it was't added yet (new users/new year)
             if (!apartment.paymentsStatus[curYear]) {
                 apartment.paymentsStatus[curYear] = [...Array(12).fill('')]
             }
             
+            // Go through all years in paymentsStatus
             for (let key in apartment.paymentsStatus) {
                 if (curYear !== parseInt(key)){
+                    // Go through the array on current year
                     statusPos = apartment.paymentsStatus[key].find(debt => debt !== 'paid');
 
                 } else if (curYear === parseInt(key)) {
+                    // Go through the array on previous years
                     statusPos = apartment.paymentsStatus[key].find((debt, i) => {
                         let result;
                         if (i <= curMonth) {
@@ -32,9 +35,8 @@ const AptsPaymentStatus = ({loading, apartments}) => {
                         return result
                     })
                 }
-                
+
                 if (statusPos !== undefined) {
-                    //console.log('statusPos', statusPos)
                     statusClass = 'red';
                 }
             }
@@ -43,6 +45,7 @@ const AptsPaymentStatus = ({loading, apartments}) => {
             )
         }
     )
+    
     return (
         <div className="aptsPaymentStatus">
             { loading ? 

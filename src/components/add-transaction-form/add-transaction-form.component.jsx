@@ -33,9 +33,10 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                     .map(apartment => ({
                             id: apartment.id,
                             text: `דירה ${apartment.apartment}`,
+                            var: apartment.monthlyDue,
                             paymentsStatus: apartment.paymentsStatus
                     }));
-
+                    
     const monthsList = [];
     for (let i=0; i<=11; i++) {
         monthsList.push({id: i, value: i+1, text: monthName(parseInt(i)+1)});
@@ -85,6 +86,7 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
             if (!paymentsStatus) {
                 paymentsStatus = {}
             }
+            
             // Check if this year exists in paymentsStatus Object
             // If not, add empty year (should only happen on first payment in the current year)
             if (!paymentsStatus[year]) {
@@ -110,9 +112,6 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                 .catch((err) => {
                     console.log(err);
                 });
-
-
-
         }        
 
         addItems(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
@@ -140,14 +139,21 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
     }
 
     const handleSelectSourceEvent = e => {
-        const aptId = e.target.children[e.target.selectedIndex].id;
-        const apt = e.target.children[e.target.selectedIndex].text;
+        const target = e.target.children[e.target.selectedIndex];
+        const aptId = target.id;
+        const apt = target.text;
         const month = transactionDetails.month;
         const description = `וועד`;
 
+        let due = '';
+        if (target.attributes['var']) {
+            due = target.attributes['var'].value
+        }
+        
         setTransactionDetails(prevState => ({
             ...prevState,
             month,
+            sum: due,
             apt,
             aptId,
             description

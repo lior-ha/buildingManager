@@ -12,7 +12,7 @@ const NavItems = props => {
     if (props.isAuth){
         navbar = <Fragment>
                     {version}
-                    <NavItem link='/' exact>Homepage</NavItem>
+                    <NavItem link='/' exact>עמוד ראשי</NavItem>
                     <NavItem link='/message-board'>לוח מודעות</NavItem>
                     <NavItem link='/transactions'>הכנסות/הוצאות</NavItem>
                     <NavItem link='/mainAdmin/addApartment'>ניהול דירות</NavItem>

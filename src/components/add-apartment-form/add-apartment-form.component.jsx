@@ -7,9 +7,10 @@ const AddTenantForm = props => {
     
     const [apartmentData, setApartmentData] = useState({
         apartment: '',
+        monthlyDue: '',
         apartmentName: '',
         paymentsStatus: {
-            [new Date().getFullYear()]: ['', '', '', '', '', '', '', '', '', '', '', '']
+            [new Date().getFullYear()]: [...Array(12).fill('')]
         }
     });
 
@@ -17,7 +18,7 @@ const AddTenantForm = props => {
         e.preventDefault();
         
         if (apartmentData.apartment !== '' && apartmentData.apartmentName !== '') {
-            handleEvent(e); //?
+            handleEvent(e);
             props.getApartmentData(apartmentData)
             props.setFormVisible({form1: false, form2: true, sumAndApprove: false});
         }
@@ -39,7 +40,7 @@ const AddTenantForm = props => {
                     <FormInputSingle 
                         name="apartment" 
                         label="מספר דירה" 
-                        type="apartment" 
+                        type="text" 
                         value={apartmentData.apartment}
                         handleChange={handleEvent}
                         required
@@ -48,10 +49,18 @@ const AddTenantForm = props => {
                     <FormInputSingle 
                         name="apartmentName" 
                         label="שם דירה" 
-                        type="apartmentName" 
+                        type="text" 
                         value={apartmentData.apartmentName}
                         handleChange={handleEvent}
                         required
+                        rtl
+                    />
+                    <FormInputSingle 
+                        name="monthlyDue" 
+                        label="תשלום חודשי" 
+                        type="text" 
+                        value={apartmentData.monthlyDue}
+                        handleChange={handleEvent}
                         rtl
                     />
                 </div>

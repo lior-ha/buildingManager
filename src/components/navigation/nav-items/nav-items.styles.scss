@@ -1,30 +1,48 @@
 .nav {
 	display: flex;
+	width: 100%;
 }
 
 .navItem {
-	border-left: 1px solid var(--mid-dark-color);
+	border-left: 1px solid var(--sub-dark-color);
 	line-height: 50px;
 	padding: 0 var(--midSize);
+	color: var(--text-color);
+	text-decoration: none;
 
-	&.end {
+	&:hover {
+		cursor: pointer;
+		color: white;
+		background-color: var(--mid-dark-color);
+	}
+
+	&:last-child {
 		margin: 0 auto 0 0;
+	}
+
+	&:nth-last-child(2),
+	&:last-child {
 		border: 0;
 	}
 
 	&.version {
 		color: red;
-		margin: 0 auto 0 0;
 		text-align: center;
-	}
-
-	A {
-		color: var(--text-color);
-		text-decoration: none;
-		cursor: pointer;
+		order: 1000;
+		border: 0;
 
 		&:hover {
-			color: white;
+			background-color: var(--main-dark-color);
+			cursor: unset;
+		}
+	}
+
+	&.active {
+		background-color: var(--sub-dark-color);
+		color: white;
+		&:hover {
+			background-color: var(--sub-dark-color);
+			cursor: unset;
 		}
 	}
 }

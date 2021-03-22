@@ -6,7 +6,7 @@ import './nav-items.styles.scss';
 
 const NavItems = props => {
     
-    const version = <li className="navItem version">גרסת אלפא</li>
+    const version = <div className="navItem version">גרסת אלפא</div>
     let navbar;
 
     if (props.isAuth){
@@ -27,9 +27,9 @@ const NavItems = props => {
     }
     
     return (
-        <ul className="nav">
+        <div className="nav">
             {navbar}
-        </ul>
+        </div>
     )
 }
 

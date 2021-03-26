@@ -27,6 +27,12 @@ A {
 	box-shadow: 2px 2px 3px var(--sub-dark-color);
 	padding: var(--boxes-padding);
 	margin: var(--boxes-margin);
+
+	.title {
+		margin: 0 0 var(--smallSize);
+		font-size: var(--largeSize);
+		color: var(--title-color);
+	}
 }
 
 .appWrapper.loading {

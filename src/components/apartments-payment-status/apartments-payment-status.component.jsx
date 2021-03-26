@@ -65,9 +65,12 @@ const AptsPaymentStatus = ({loading, apartments}) => {
             { loading ? 
                 <Loading /> 
             : 
-                <div className="contentBox linkListBox">
-                    {apartmentsList}
-                </div>
+                    <div className="contentBox">
+                        <div className="title">מצב תשלומים</div>
+                        <div className="linkListBox">
+                            {apartmentsList}
+                        </div>
+                    </div>
             }
         </div>
     )

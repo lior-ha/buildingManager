@@ -14,6 +14,9 @@
 	--pale-green-color: rgb(19, 167, 62);
 	--pale-green-color-pale: rgba(19, 167, 62, 0.1);
 
+	--pale-blue-color-pale: rgb(53, 122, 232, 0.1);
+	--pale-blue-color: rgb(53, 122, 232);
+
 	--main-dark-color: #252525;
 	--mid-dark-color: #454545;
 
@@ -49,10 +52,10 @@
 	--gray-button-border: 1px solid rgb(58, 63, 66);
 	--gray-button-text-color: var(--whitish-text-color);
 
-	--bluish-button-bg: rgb(53, 122, 232, 0.1);
-	--bluish-button-hover-bg: rgb(53, 122, 232);
-	--bluish-button-border: 1px solid rgb(53, 122, 232);
-	--bluish-button-text-color: var(--whitish-text-color);
+	--blue-button-bg: var(--pale-blue-color-pale);
+	--blue-button-hover-bg: var(--pale-blue-color);
+	--blue-button-border: 1px solid var(--pale-blue-color);
+	--blue-button-text-color: rgb(124, 132, 255);
 
 	--red-button-bg: var(--pale-red-color-pale);
 	--red-button-hover-bg: var(--pale-red-color);

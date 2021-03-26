@@ -49,3 +49,31 @@ export const getDates = (data) => {
 
     return newDates
 }
+
+
+export const checkDebt = (year, apartment) => {
+    const curYear = new Date().getFullYear();
+    const curMonth = new Date().getMonth();
+
+    const monthsArray = apartment.paymentsStatus[year].map((month, i) => {
+        let status;
+        if (year !== curYear) {
+            status =  month.status
+        } else {
+            if (i <= curMonth) {
+                status = month.status
+            }
+        }
+        return status
+    });
+
+    const aptStatuses = [...new Set(monthsArray)];
+
+    if (aptStatuses.includes('') || aptStatuses.length===0) {
+        return 'debt'
+    } else if (aptStatuses.includes('partial')) {
+        return 'partial'
+    } else {
+        return 'paid'
+    }
+}

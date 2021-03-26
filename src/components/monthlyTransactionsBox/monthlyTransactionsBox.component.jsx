@@ -16,31 +16,47 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
         curMonth = 11; // Jan = 0
     }
 
+
     let monthlyPaymentArr = [];
-    if (apartmentData.paymentsStatus[getYear]) {
+    if (!apartmentData.paymentsStatus[getYear]) {
+        apartmentData.paymentsStatus[getYear] = []
+    }
+
+    if (apartmentData.paymentsStatus[getYear].length === 12) {
         monthlyPaymentArr = apartmentData.paymentsStatus[getYear];
     } else {
+        const months = apartmentData.paymentsStatus[getYear].length;
+        const missingMonths = months ? 12-months : 12;
+
         apartmentData.paymentsStatus = {
             ...apartmentData.paymentsStatus,
-            [curYear]: [...Array(12).fill('')]
+            [curYear]: [
+                ...apartmentData.paymentsStatus[curYear],
+                ...Array(missingMonths).fill({
+                    status: '',
+                    sum: ''
+                })
+            ]
         };
         monthlyPaymentArr = apartmentData.paymentsStatus[getYear];
     }
 
     for (let i=0; i <= 11; i++) {
-        let status = '';
-        
-        if (curMonth >= i && monthlyPaymentArr[i] === '') {
-            status = 'debt'
-        } else {
-            status = monthlyPaymentArr[i]
+        let statusPos = '';
+        const monthlyPayment = monthlyPaymentArr[i]
+        if (curMonth >= i && monthlyPayment.status === '') {
+            statusPos = 'debt'
+        } else if (monthlyPayment && monthlyPayment.status === 'partial') {
+            statusPos = 'partial'
+        } else if (monthlyPayment && monthlyPayment.status === 'paid') {
+            statusPos = 'paid'
         }
 
         monthlyPaymentList.push({
             key: i+1,
             text: monthName(parseInt(i)+1), 
             params: i+1, 
-            status: status
+            statusPos: statusPos
         })
     }
 
@@ -78,7 +94,7 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
             
             <div className="transactionBox">
                 {monthlyPaymentList.map((payment) => (
-                    <span key={payment.key} className={`transactionItem ${payment.status}`}>{payment.text}</span>
+                    <span key={payment.key} className={`transactionItem ${payment.statusPos}`}>{payment.text}</span>
                 ))}
             </div>
         </div>

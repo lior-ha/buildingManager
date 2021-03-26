@@ -40,6 +40,12 @@
 		border: var(--red-button-border);
 		color: var(--red-button-text-color);
 	}
+
+	&.partial {
+		background-color: var(--blue-button-bg);
+		border: var(--blue-button-border);
+		color: var(--blue-button-text-color);
+	}
 }
 
 .withDropDown {

@@ -4,10 +4,10 @@ import { monthName } from '../../shared/js-utils';
 import './monthlyTransactionsBox.styles.scss';
 
 const MonthlyPaymentBox = ({ apartmentData }) => {
-    
     const monthlyPaymentList = [];
     const curYear = new Date().getFullYear();
     const [ getYear, setGetYear ] = useState(curYear);
+    const [ active, setActive ] = useState(false);
 
     let curMonth;
     if (getYear === curYear) {
@@ -65,7 +65,6 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
         yearsDropDown.unshift(key);
     }
 
-    const [ active, setActive ] = useState(false)
 
     const handleYearClick = e => {
         setGetYear(e.target.value);
@@ -90,7 +89,7 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
 
     return (
         <div className="contentBox infoBox" style={{position: 'relative'}}>
-            <div className="genTitle withDropDown">תשלומים - {yearsDropDown.length > 1 ? dropDown : getYear}</div>
+            <div className="genTitle withDropDown">תשלומים - {yearsDropDown.length > 1 ? dropDown : getYear} - דירה {apartmentData.apartment}</div>
             
             <div className="transactionBox">
                 {monthlyPaymentList.map((payment) => (

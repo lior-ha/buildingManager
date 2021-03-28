@@ -24,7 +24,7 @@ const StatusBox = props => {
 
     return (
         <div className="contentBox statusBox">
-            <div className="title">מצב נוכחי</div>
+            <div className="title">מצב חשבון נוכחי של הבניין</div>
             {props.loading ? 
                 <Loading />
             :

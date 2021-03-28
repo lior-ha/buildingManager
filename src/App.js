@@ -27,7 +27,7 @@ const SignOut = lazy(() => import('./pages/sign-in-and-sign-up/sign-out/sign-out
 const App = () => {
     const { user, building, loading } = useAuth();
     const { buildingData, isLoading } = useBuilding(building);
-    if (loading || isLoading) {
+    if (loading || (user && isLoading)) {
         return (
             <div className="appWrapper loading">
                 <Loader />

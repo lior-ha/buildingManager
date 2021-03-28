@@ -7,21 +7,23 @@ Vaad Helper App (Hebrew only for now)
 ## Forms
 
 ### Payment Forms:
-- Edit payment
-- File upload (Google Picker?)
-- Validation
+--- Edit payment
+-- File upload (Google Picker?)
+--- Validation
+- Recurring payments reminder (to regular service givers)
+- Reminder for residents who hasn't paid 10 days after the sch. day
+- Future payments (Cheques)
 
 ### Building Form:
-- Edit building?
-- Validation
+--- Edit building?
+--- Validation
 
 ### Apartment Form:
-- Add monthly-due sum
-- Multi-select months
+- Multi-select months?
 
 ### Tenants Forms:
-- Edit tenant
-- Validation
+--- Edit tenant
+--- Validation
 
 ### Add Building Form - Admin Only
 - Combining new builing with a user for auth and access own building only

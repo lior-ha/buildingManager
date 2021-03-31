@@ -42,6 +42,7 @@ const App = () => {
     )
     
     if (user) {
+        console.log(user.type)
         routes =  (
             <Fragment>
                 <authContext.Provider value={{ user, building }}>
@@ -61,9 +62,9 @@ const App = () => {
                                 : 
                                 (<SignInAndSignUpPage />)}
                         />
+                        {user.type === 'admin' ? <Route path='/mainAdmin/addBuilding' component={AddBuilding} /> : ''}
                     </Switch>
                 </authContext.Provider>
-                <Route path='/mainAdmin/addBuilding' component={AddBuilding} />
             </Fragment>
         );
     }

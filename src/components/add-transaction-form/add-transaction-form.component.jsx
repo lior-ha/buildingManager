@@ -1,6 +1,6 @@
 import { Fragment, useState, useEffect } from 'react';
 
-import { addItems, updateProperty } from '../../firebase/firebase.utils';
+import { addItems, updateItems, updateProperty } from '../../firebase/firebase.utils';
 
 import { getDates, monthName } from '../../shared/js-utils';
 
@@ -14,6 +14,7 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
 
     const [ formType, setFormType ] = useState('');
     const [ validity, setValidity ] = useState(true);
+    const [ transactionId, setTransactionId ] = useState('');
 
     
     const sortByApt = (a, b) => {
@@ -96,6 +97,9 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                 return;
 
             } else {
+
+                // Create transaction ID
+                addTransaction(`buildings/${building}/transactions`, {});
                 
                 // Mutate to paid/partial
                 let sum = transactionDetails.sum;
@@ -128,12 +132,14 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                         if (sum >= monthlyDue) {
                             paymentsStatus[year].push({
                                 status: 'paid',
-                                sum: monthlyDue
+                                sum: monthlyDue,
+                                transactionId: transactionId
                             })
                         } else if (sum < monthlyDue) {
                             paymentsStatus[year].push({
                                 status: 'partial',
-                                sum: sum
+                                sum: sum,
+                                transactionId: transactionId
                             })
                         }
                         sum -= monthlyDue;
@@ -141,6 +147,10 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                 }
             }
 
+            // Populate transaction's document with data
+            updateTransaction(`buildings/${building}/transactions`, transactionId, {...transactionDetails, ...newDates})
+
+            // Update apartments's document with changes
             updateProperty(`buildings/${building}/apartments`, transactionDetails.aptId, {paymentsStatus: {...paymentsStatus}})
                 .then(() => {
                     return
@@ -150,7 +160,27 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
                 });
         }        
 
-        addItems(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
+        if (!transactionId) {
+            addTransaction(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
+        } else {
+            updateTransaction(`buildings/${building}/transactions`, transactionId, {...transactionDetails, ...newDates})
+        }
+    }
+
+    const addTransaction = (path, content) => {
+        addItems(path, content)
+            .then((result) => {
+                setTransactionId(result)
+                setFormType('');
+                setResetForm('');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
+    const updateTransaction = (path, id, content) => {
+        updateItems(path, id, content)
             .then(() => {
                 setFormType('');
                 setResetForm('');

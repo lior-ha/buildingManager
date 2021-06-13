@@ -2,54 +2,70 @@ import { useState, useEffect } from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
+import { useStateWithLocalStorage } from './stateWithLocalStorage.hook';
+
 import { auth, createUserProfileDocument } from '../firebase/firebase.utils';
 
 export const useAuth = () => {
+
+    const [ holding, setHolding ] = useStateWithLocalStorage({localStorageKey:'currentHolding'});
+
     const [state, setState] = useState(() => {
-        const loading = true;
-        const building = '';
-        const user = firebase.auth().currentUser;
         return { 
-            user,
-            building,
-            loading
+            user: {
+                ...firebase.auth().currentUser,
+                building: '',
+            },
+            building: '',
+            loading: true,
+            setHolding
         }
     });
 
-    // AuthUser
     useEffect(() => {
-
         const unsubscribe = auth.onAuthStateChanged(async userAuth => {
             if (userAuth) {
                 const userRef = await createUserProfileDocument(userAuth);
-                userRef.onSnapshot(snapShot => {
-                    const holdings = {...snapShot.data().holdings}
-                    let building, apt;
-                    for (let i in holdings) {
-                        building = i;
-                        apt = holdings[i];
+                userRef.onSnapshot(async snapShot => {
+                    const holdings = await {...snapShot.data().holdings};
+                    if (holding.building.apt) {
+                        console.log('exists!');
+                        setHolding({
+                            building: Object.keys(holdings)[0], apt: holdings[Object.keys(holdings)[0]]
+                        });
+                    } else if (holding.apt === '') {
+                        setHolding({
+                            building: Object.keys(holdings)[0], apt: holdings[Object.keys(holdings)[0]]
+                        });
                     }
-                    
-                    setState({
-                        building: building,
-                        loading: false,
-                        user: {
-                            id: snapShot.id,
-                            apt: apt,
-                            buildings: [...snapShot.data().buildings],
-                            ...snapShot.data()
-                        }
-                    });
+
+                    if (holding) {
+                        setState(prevState => ({
+                            ...prevState,
+                            building: holding.building,
+                            loading: false,
+                            user: {
+                                ...prevState.user,
+                                id: snapShot.id,
+                                building: holding.building,
+                                holdings,
+                                apt: holding.apt,
+                                type: snapShot.data().type,
+                                email: snapShot.data().email,
+                                buildings: [...snapShot.data().buildings]
+                            }
+                        }));
+                    }
                 });
                 
                 
             } else {
-                setState({ user: null, building: '', apt: '', loading: false})
+                setState({ user: null, building: '', loading: false })
             }            
         });
 
         return unsubscribe;
 
-    }, []);
+    }, [holding, setHolding]);
     return state
 }

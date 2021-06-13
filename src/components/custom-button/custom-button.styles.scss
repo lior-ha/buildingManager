@@ -1,10 +1,9 @@
 .custom-button {
 	align-items: center;
-	background-color: var(--gray-button-bg);
-	border: var(--gray-button-border);
+	background: transparent;
+	border: none;
 	border-radius: 2px;
 	box-shadow: 2px 2px 3px var(--sub-dark-color);
-	color: var(--gray-button-text-color);
 	cursor: pointer;
 	font-family: var(--main-font-family);
 	font-size: var(--normalSize);
@@ -22,9 +21,15 @@
 	&:hover,
 	&.active,
 	input:checked + & {
-		background-color: var(--gray-button-hover-bg);
-		color: var(--whitish-text-color);
 		transition: background-color 0.5s;
+	}
+
+	&:disabled,
+	&.disabled {
+		cursor: not-allowed;
+		background-color: transparent !important;
+		color: var(--mid-dark-color) !important;
+		border-color: var(--mid-dark-color) !important;
 	}
 
 	&.blue {
@@ -51,12 +56,6 @@
 			background-color: var(--red-button-hover-bg);
 			color: var(--whitish-text-color);
 		}
-
-		&:disabled {
-			background-color: transparent;
-			color: var(--mid-light-color);
-			border-color: var(--mid-light-color);
-		}
 	}
 
 	&.green {
@@ -69,12 +68,6 @@
 		input:checked + & {
 			background-color: var(--green-button-hover-bg);
 			color: var(--whitish-text-color);
-		}
-
-		&:disabled {
-			background-color: transparent;
-			color: var(--mid-light-color);
-			border-color: var(--mid-light-color);
 		}
 	}
 
@@ -89,12 +82,26 @@
 			color: var(--light-gray-button-text-color);
 		}
 	}
+
+	&.gray {
+		background-color: var(--gray-button-bg);
+		border: var(--gray-button-border);
+		color: var(--whitish-text-color);
+
+		&:hover,
+		input:checked + & {
+			background-color: var(--gray-button-hover-bg);
+		}
+	}
 }
 
 .buttonsGroup {
 	display: flex;
 	flex-direction: column;
 
+	&.horiz {
+		flex-direction: row;
+	}
 	.custom-button {
 		margin-bottom: 10px;
 	}

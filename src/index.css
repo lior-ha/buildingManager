@@ -7,12 +7,12 @@
 	--hugeSize: 2em;
 
 	--main-red-color: #ff0000;
-	--pale-red-color: rgb(162, 9, 9);
-	--pale-red-color-pale: rgba(162, 9, 9, 0.1);
+	--pale-red-color: #df2020;
+	--pale-red-color-pale: #df20201a;
 
 	--main-green-color: #00ff00;
-	--pale-green-color: rgb(19, 167, 62);
-	--pale-green-color-pale: rgba(19, 167, 62, 0.1);
+	--pale-green-color: #2e8a48;
+	--pale-green-color-pale: #2e8a481a;
 
 	--pale-blue-color-pale: rgb(53, 122, 232, 0.1);
 	--pale-blue-color: rgb(53, 122, 232);
@@ -20,7 +20,7 @@
 	--main-dark-color: #252525;
 	--mid-dark-color: #454545;
 
-	--sub-dark-color: #181818;
+	--sub-dark-color: #1e1e1e; /* 181818 */
 
 	--main-light-color: rgba(218, 218, 218, 1);
 	--main-light-color-dim: rgba(218, 218, 218, 0.1);
@@ -29,8 +29,9 @@
 
 	--main-bg-color: var(--main-dark-color);
 
-	--title-color: #24aeff;
+	--title-color: #5ba0c8;
 	--text-color: var(--main-light-color);
+	--whitish-text-color: rgb(217, 214, 209);
 	--link-color: var(--mid-light-color);
 	--link-hover-color: var(--sub-light-color);
 	--plus-color: var(--main-green-color);
@@ -50,7 +51,7 @@
 	--gray-button-bg: rgba(45, 49, 51, 0.1);
 	--gray-button-hover-bg: rgb(45, 49, 51);
 	--gray-button-border: 1px solid rgb(58, 63, 66);
-	--gray-button-text-color: var(--whitish-text-color);
+	--gray-button-text-color: var(--mid-dark-color);
 
 	--blue-button-bg: var(--pale-blue-color-pale);
 	--blue-button-hover-bg: var(--pale-blue-color);
@@ -60,14 +61,12 @@
 	--red-button-bg: var(--pale-red-color-pale);
 	--red-button-hover-bg: var(--pale-red-color);
 	--red-button-border: 1px solid var(--pale-red-color);
-	--red-button-text-color: rgb(244, 75, 75);
+	--red-button-text-color: #d07171;
 
 	--green-button-bg: var(--pale-green-color-pale);
 	--green-button-hover-bg: var(--pale-green-color);
 	--green-button-border: 1px solid var(--pale-green-color);
-	--green-button-text-color: rgb(75, 244, 97);
-
-	--whitish-text-color: rgb(217, 214, 209);
+	--green-button-text-color: #71d07e;
 
 	font-family: var(--main-font-family);
 }

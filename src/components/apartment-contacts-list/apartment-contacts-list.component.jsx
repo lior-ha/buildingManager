@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect } from 'react';
 
 import TenantsContactInfo from '../contact-info-box/contact-info-box.component';
 
-import Loading from '../UI/loader/loader.component';
+import Loader from '../UI/loader/loader.component';
 
 import './apartment-contacts-list.styles.scss';
 
@@ -39,7 +39,7 @@ const ApartmentContactsList = ({tenantsData, loading, apartmentData}) => {
         <div>
             <div className="contacts">
                 {(loading || tenantsList.length===0) ? 
-                    <Loading /> 
+                    <Loader /> 
                 :
                     <Fragment>
                         {tenantsList || ownersList ?
@@ -47,7 +47,7 @@ const ApartmentContactsList = ({tenantsData, loading, apartmentData}) => {
                                 {(tenantsList.length > 0 ) && <TenantsContactInfo apartmentData={apartmentData} tenantsData={tenantsList} type="tenants" />}
                                 {(ownersList.length > 0) && <TenantsContactInfo apartmentData={apartmentData} tenantsData={ownersList} type="owners" />}
                             </Fragment>
-                        : <div className="contentBox contactInfoBox">אין פרטים</div>}
+                        : <div className="contentBox">אין פרטים</div>}
                     </Fragment>
                 }
             </div>

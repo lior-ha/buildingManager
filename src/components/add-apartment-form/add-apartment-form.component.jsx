@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { FormInputSingle } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 const AddTenantForm = props => {
-    
+    const [ buttonClass, setButtonClass] = useState('disabled');
     const [apartmentData, setApartmentData] = useState({
         apartment: '',
         monthlyDue: '',
@@ -13,6 +13,14 @@ const AddTenantForm = props => {
             [new Date().getFullYear()]: [...Array(12).fill('')]
         }
     });
+
+    useEffect(() => {
+        if (apartmentData.apartment !== '' && apartmentData.monthlyDue !== '' && apartmentData.apartmentName !== '') {
+            setButtonClass('green');
+        } else if (apartmentData.apartment === '' || apartmentData.monthlyDue === '' || apartmentData.apartmentName === '') {
+            setButtonClass('disabled');
+        }
+    }, [apartmentData]);
 
     const nextForm = e => {
         e.preventDefault();
@@ -64,7 +72,7 @@ const AddTenantForm = props => {
                         rtl
                     />
                 </div>
-                {!apartmentData.done && <CustomButton onClick={nextForm} name="done" value={true}> הוסף </CustomButton>}
+                {!apartmentData.done && <CustomButton onClick={nextForm} classes={buttonClass} name="done" value={true}> הוסף </CustomButton>}
             </div>
         </form>
     )

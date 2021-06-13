@@ -20,6 +20,7 @@
 	margin: var(--smallSize);
 	outline: none;
 	padding: 0 35px;
+	position: relative;
 	text-align: center;
 	text-decoration: none;
 	width: 135px;
@@ -45,6 +46,36 @@
 		background-color: var(--blue-button-bg);
 		border: var(--blue-button-border);
 		color: var(--blue-button-text-color);
+	}
+
+	.tooltip {
+		background-color: var(--main-dark-color);
+		border: var(--boxes-border);
+		bottom: 43px;
+		display: none;
+		font-size: var(--smallSize);
+		//height: 50px;
+		padding: 5px 10px;
+		position: absolute;
+		right: 0;
+		text-align: right;
+		width: 200px;
+		z-index: 3;
+
+		LI {
+			line-height: var(--midSize);
+			white-space: nowrap;
+		}
+	}
+
+	&:hover .tooltip {
+		display: block;
+	}
+
+	@media (max-width: 1000px) {
+		&:hover .tooltip {
+			display: none;
+		}
 	}
 }
 

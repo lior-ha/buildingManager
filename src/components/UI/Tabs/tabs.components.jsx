@@ -6,7 +6,7 @@ const Tabs = ({tabs, activeTab, setActiveTab}) => {
         <div className="tabs">
             {
                 tabs.map(tab => (
-                    <div key={tab.type} className={`tab ${activeTab===tab.type && 'active'}`} onClick={() => setActiveTab(tab.type)}>{tab.text}</div>
+                    <div key={tab.type} className={`tab ${activeTab===tab.type ? 'active' : ''}`} onClick={() => setActiveTab(tab.type)}>{tab.text}</div>
                 ))
             }
         </div>

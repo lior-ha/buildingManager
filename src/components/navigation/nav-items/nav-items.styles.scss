@@ -45,6 +45,13 @@
 			cursor: unset;
 		}
 	}
+
+	&.logo {
+		background-color: red;
+		color: white;
+		font-weight: 700;
+		letter-spacing: 0.2rem; //???
+	}
 }
 
 @media (max-width: 1000px) {

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import Loading from '../UI/loader/loader.component';
+import Loader from '../UI/loader/loader.component';
 import { checkDebt } from '../../shared/js-utils';
 
 import './apartments-payment-status.styles.scss';
@@ -63,7 +63,7 @@ const AptsPaymentStatus = ({loading, apartments}) => {
     return (
         <div className="aptsPaymentStatus">
             { loading ? 
-                <Loading /> 
+                <Loader /> 
             : 
                     <div className="contentBox">
                         <div className="title">מצב תשלומים</div>

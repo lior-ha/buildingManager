@@ -1,19 +1,27 @@
-import AsideWrapper from '../aside-wrapper/aside-wrapper.component';
+import { useSession } from '../../../context/auth.context';
+import { useTransactions } from '../../../hooks/transactions.hook';
+
 import AsideAction from './aside-action/aside-action.component';
 
-import Loading from '../../UI/loader/loader.component';
+import Loader from '../../UI/loader/loader.component';
 
-const AsideLastActions = props => (
-        <AsideWrapper extraClasses="lastActions" title="פעולות אחרונות">
-        {props.loading ?
-            <Loading />
-        :
-            props.transactions
-            .map(({id, ...otherProps }) => {
-                return <AsideAction key={id} {...otherProps} />
-            })
-        }
-        </AsideWrapper>
-);
+const AsideLastActions = () => {
+    const { building } = useSession()
+    const { transactionLoading, transactions } = useTransactions(undefined, 'createdAt', 'desc', building);
+
+    const transactionsList =  transactions.map(({id, ...otherProps }) => {
+        return <AsideAction key={id} {...otherProps} />
+    });
+
+    return (
+        <>
+            {transactionLoading ?
+                <Loader />
+            :
+                transactionsList
+            }
+        </>
+    )
+};
 
 export default AsideLastActions;

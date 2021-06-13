@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
-import { useTenant } from '../../../hooks/tenants.hook';
+import { useTenants } from '../../../hooks/tenants.hook';
 
 import './card.styles.scss'
 
 const Card = ({data, handleClick}) => {
-    const {tenantData, loading} = useTenant(data.aptId, data.uid);
-
+    const {tenantData, loading} = useTenants(undefined, data.aptId);
+console.log(tenantData)
     return (
         <Fragment>
             {loading ? '' : 

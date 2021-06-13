@@ -2,11 +2,12 @@ import React, { useContext } from 'react';
 
 export const authContext = React.createContext({
     user: null,
-    building: ''
+    building: '',
+    apartmentsData: []
 });
 
 export const useSession = () => {
-    const { user, building } = useContext(authContext);
-    return { user, building };
+    const { user, building, apartmentsData } = useContext(authContext);
+    return { user, building, apartmentsData };
 }
 

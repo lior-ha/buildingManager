@@ -41,7 +41,7 @@ const MessageContent = ({handleClick, messageData, tenantData, user, building}) 
                             :
                                 <button onClick={() => suspendMessage()} className="custom-button red">השהה</button>
                             }
-                            <button onClick={() => editMessage(messageData.id)} className="custom-button">ערוך</button>
+                            <button onClick={() => editMessage(messageData.id)} className="custom-button green">ערוך</button>
                         </div>
     }
 

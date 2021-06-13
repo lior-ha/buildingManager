@@ -1,13 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FormInputSingle, FormTextArea } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
 const AddMessageForm = props => {
     let manager;
-    if (props.manager === 'admin') {
+    if (props.manager === 'admin' || props.manager === 'manager') {
         manager = true;
     }
+
     const [ messageDetails, setMessageDetails ] = useState(props.messageData);
+    const [ buttonClass, setButtonClass] = useState('disabled')
+
+    useEffect(() => {
+        if (messageDetails.title !== '' && messageDetails.content !== '') {
+            setButtonClass('green');
+        } else if (messageDetails.title === '' || messageDetails.content === '') {
+            setButtonClass('disabled');
+        }
+    }, [messageDetails]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -30,9 +40,8 @@ const AddMessageForm = props => {
         setMessageDetails(prevState => ({
             ...prevState,
             [name]: value
-        }))
+        }));
     }
-
 
     return (
         <form onSubmit={handleSubmit}>
@@ -66,7 +75,7 @@ const AddMessageForm = props => {
                 </label>
             }
 
-            <CustomButton type="submit"> שלח </CustomButton>
+            <CustomButton type="submit" classes={buttonClass}> שלח </CustomButton>
             
         </form>
     )

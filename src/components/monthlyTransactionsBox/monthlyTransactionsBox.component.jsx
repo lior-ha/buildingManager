@@ -1,9 +1,10 @@
 import { useState } from 'react';
+import Moment from 'react-moment';
 import { monthName } from '../../shared/js-utils';
 
 import './monthlyTransactionsBox.styles.scss';
 
-const MonthlyPaymentBox = ({ apartmentData }) => {
+const MonthlyPaymentBox = ({ apartmentData, transactions }) => {
     const monthlyPaymentList = [];
     const curYear = new Date().getFullYear();
     const [ getYear, setGetYear ] = useState(curYear);
@@ -52,14 +53,26 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
             statusPos = 'paid'
         }
 
+        let transactionDetails = {};
+        const transactionDetailsObj = transactions.find(transaction => transaction.id === monthlyPayment.transactionId);
+        if (transactionDetailsObj) {
+            transactionDetails = {
+                sum: transactionDetailsObj.sum,
+                paymentMethod: transactionDetailsObj.paymentMethod,
+                createdAt: transactionDetailsObj.createdAt
+            }
+        }
+
         monthlyPaymentList.push({
             key: i+1,
             text: monthName(parseInt(i)+1), 
             params: i+1, 
-            statusPos: statusPos
+            statusPos: statusPos,
+            sum: monthlyPayment.sum,
+            transaction: transactionDetails
         })
     }
-
+    
     let yearsDropDown = [];
     for (let key in apartmentData.paymentsStatus) {
         yearsDropDown.unshift(key);
@@ -69,15 +82,6 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
     const handleYearClick = e => {
         setGetYear(e.target.value);
     }
-    
-    // const handleHover = payment => {
-    //     console.log(apartmentData);
-    //     <div className="paymentDetails paid">
-    //         <p>סכום: 225 &#8362;</p>
-    //         <p>אמצעי תשלום: מזומן</p>
-    //         <p>תאריך תשלום: 01.10.20</p>
-    //     </div>
-    // }
 
     const dropDown =    <div onClick={() => setActive(!active)} className={`dropDownWrapper ${active ? 'active' : ''}`}>
                             <ul className="yearDropDown">
@@ -93,7 +97,17 @@ const MonthlyPaymentBox = ({ apartmentData }) => {
             
             <div className="transactionBox">
                 {monthlyPaymentList.map((payment) => (
-                    <span key={payment.key} className={`transactionItem ${payment.statusPos}`}>{payment.text}</span>
+                    <span key={payment.key} className={`transactionItem ${payment.statusPos}`}>
+                    {payment.sum && 
+                        <ul className="tooltip paymentDetails paid">
+                            <li>סכום: {payment.sum}/{payment.transaction.sum} &#8362;</li>
+                            <li>אמצעי תשלום: {payment.transaction.paymentMethod}</li>
+                            <li>תאריך תשלום: <Moment format="DD/MM/YY">{payment.transaction.createdAt}</Moment></li>
+                            <li>מס קבלה: 1</li>
+                        </ul>
+                    }
+                    {payment.text}
+                    </span>
                 ))}
             </div>
         </div>

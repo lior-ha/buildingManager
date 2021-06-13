@@ -1,18 +1,16 @@
 import { useState } from 'react';
 
 import { useSession } from '../../context/auth.context';
-import { useApartments } from '../../hooks/apartments.hook';
 import { useMessages } from '../../hooks/message.hook';
 
 import Board from '../../components/message-board/board/board.component';
 import MessageContent from '../../components/message-board/message-content/message-content.component';
 import AddMessage from './add-message/add-message.component';
-import AsideTenantsList from '../../components/aside/aside-tenants-list/aside-tenants-list.component';
 
 const MessageBoard = () => {
+console.log('messageBoard')
     const { loading, messagesData} = useMessages();
     const { building, user } = useSession();
-    const { apartmentsLoading, apartmentsData} = useApartments();
 
     const handleClick = (compName, messageData, tenantData, aptId) => {
         
@@ -46,11 +44,11 @@ const MessageBoard = () => {
     }
 
     return (        
-        <main className="mainWrapper biggerAside">
+        <>
             <section>
                 <div className="withButton">
                     <h2>לוח מודעות</h2>
-                    <button onClick={() => handleClick(toBtn.title)} className="custom-button lightGray">{toBtn.text}</button>
+                    <button onClick={() => handleClick(toBtn.title)} className="custom-button gray">{toBtn.text}</button>
                 </div>
                 {comp === 'board' && <Board 
                             handleClick={handleClick} 
@@ -71,14 +69,8 @@ const MessageBoard = () => {
                             user={user} 
                             tenantData={tenantData} />}
             </section>
-            <AsideTenantsList loading={apartmentsLoading} apartments={apartmentsData} />
-        </main>
+        </>
     )
 }
-
-// MessageBoard.displayName = 'MessageBoard'
-// MessageBoard.whyDidYouRender = {
-//     logOnDifferentValues: true
-// };
 
 export default MessageBoard;

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 
-import { useApartments } from '../../../hooks/apartments.hook';
 import { useSession } from '../../../context/auth.context';
 
 import FormBox from '../../../components/form-box/form-box.component';
@@ -18,8 +17,7 @@ const formSchemes = {
 }
 
 const AddTransaction = () => {
-    const { building } = useSession();
-    const { apartmentsData } = useApartments();
+    const { building, apartmentsData } = useSession();
 
     const [ resetForm, setResetForm ] = useState({});
     

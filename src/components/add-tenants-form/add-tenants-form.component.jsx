@@ -27,6 +27,16 @@ const AddTenantForm = props => {
     };
     const [ personInfo, setPersonInfo] = useState(initialPersonInfoState);
 
+    const [ buttonClass, setButtonClass] = useState('disabled');
+
+    useEffect(() => {
+        //console.log(personInfo)
+        if (personInfo.tenantFirstName !== '' && personInfo.tenantLastName !== '') {
+            setButtonClass('green');
+        } else if (personInfo.tenantFirstName === '' || personInfo.tenantLastName === '') {
+            setButtonClass('disabled');
+        }
+    }, [personInfo.tenantFirstName, personInfo.tenantLastName]);
 
     const handleSubmit = tenantType => {
         // Get Some Validation
@@ -164,8 +174,8 @@ const AddTenantForm = props => {
             </div>
         </form>
         <div className="group buttons">
-            <CustomButton onClick={() => handleSubmit('tenant')}> הוסף כדייר </CustomButton>
-            <CustomButton onClick={() => handleSubmit('owner')}> הוסף כבעלים </CustomButton>
+            <CustomButton classes={buttonClass} onClick={() => handleSubmit('tenant')}> הוסף כדייר </CustomButton>
+            <CustomButton classes={buttonClass} onClick={() => handleSubmit('owner')}> הוסף כבעלים </CustomButton>
         </div>
         </Fragment>
     )

@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { useApartments } from '../../../hooks/apartments.hook';
 import { addItems, updateItems } from '../../../firebase/firebase.utils';
 import { useSession } from '../../../context/auth.context';
 import { useTenants } from '../../../hooks/tenants.hook';
 
-import AsideTenantsList from '../../../components/aside/aside-tenants-list/aside-tenants-list.component';
 import AddApartmentForm from '../../../components/add-apartment-form/add-apartment-form.component';
 import AddTenantForm from '../../../components/add-tenants-form/add-tenants-form.component';
 import ApartmentContactsList from '../../../components/apartment-contacts-list/apartment-contacts-list.component';
@@ -15,7 +13,6 @@ import CustomButton from '../../../components/custom-button/custom-button.compon
 
 const AddApartment = () => {
     const { building } = useSession();
-    const { apartmentsLoading, apartmentsData} = useApartments();
     
     const [ apartmentId, setApartmentId ] = useState(false);
 
@@ -70,41 +67,40 @@ const AddApartment = () => {
 
     // Aside Data
     return (
-        <main className="mainWrapper biggerAside">
-            <section className="formWrapper">
-                {/* APARTMENT FORM */}
-                {formVisible.form1 && 
-                    <FormBox 
-                        form={<AddApartmentForm
-                            setFormVisible={setFormVisible}
-                            getApartmentData={getApartmentData}
-                        />} 
-                        title="הוסף דירה"
-                    />}
+        <section className="formWrapper">
+            {/* APARTMENT FORM */}
+            {formVisible.form1 && 
+                <FormBox 
+                    form={<AddApartmentForm
+                        setFormVisible={setFormVisible}
+                        getApartmentData={getApartmentData}
+                    />} 
+                    title="הוסף דירה"
+                />}
 
-                {/* TENANT FORM */}
-                {formVisible.form2 && 
-                    <FormBox 
-                        form={<AddTenantForm 
-                            setApartmentData={setApartmentData}
-                            setFormVisible={setFormVisible}
-                            getTenantData={getTenantData}
-                        />} 
-                        title={`דירה מספר ${apartmentData.apartment} - ${apartmentData.apartmentName}`} 
-                    />}
+            {/* TENANT FORM */}
+            {formVisible.form2 && 
+                <FormBox 
+                    form={<AddTenantForm 
+                        setApartmentData={setApartmentData}
+                        setFormVisible={setFormVisible}
+                        getTenantData={getTenantData}
+                    />} 
+                    title={`דירה מספר ${apartmentData.apartment} - ${apartmentData.apartmentName}`} 
+                />}
 
-                {/* Sum and Approve */}
-                {formVisible.sumAndApprove && 
-                    <div>
-                        <div className="contacts">
-                            <ApartmentContactsList apartmentData={apartmentData} tenantsData={tenantsData} loading={loading} />
-                        </div>
-                        <CustomButton onClick={() => setFormVisible({form1: false, form2: true, sumAndApprove: false})}>הזן דייר/בעלים נוסף בדירה</CustomButton>
-                        <CustomButton onClick={addNewApartment}>סיים והוסף דירה חדשה</CustomButton>
-                    </div>}
-            </section>
-            <AsideTenantsList loading={apartmentsLoading} apartments={apartmentsData} />
-        </main>
+            {/* Sum and Approve */}
+            {formVisible.sumAndApprove && 
+                <div>
+                    <div className="contacts">
+                        <ApartmentContactsList apartmentData={apartmentData} tenantsData={tenantsData} loading={loading} />
+                    </div>
+                    <div className="buttonsGroup horiz">
+                        <CustomButton classes="gray" onClick={() => setFormVisible({form1: false, form2: true, sumAndApprove: false})}>הזן דייר/בעלים נוסף בדירה</CustomButton>
+                        <CustomButton classes="gray" onClick={addNewApartment}>סיים והוסף דירה חדשה</CustomButton>
+                    </div>
+                </div>}
+        </section>
     );
 };
 

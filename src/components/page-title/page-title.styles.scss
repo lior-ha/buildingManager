@@ -5,4 +5,32 @@
 	font-weight: 500;
 	margin-bottom: var(--smallSize);
 	padding: var(--smallSize) var(--midSize);
+	position: relative;
+
+	&.dropDownTitle {
+		cursor: pointer;
+	}
+
+	.dropDown {
+		background-color: var(--sub-dark-color);
+		box-shadow: 0 4px 5px var(--sub-dark-color);
+		//display: none;
+		line-height: var(--midSize);
+		padding: var(--smallSize) var(--midSize);
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+
+		DIV {
+			cursor: pointer;
+			margin: 10px 0;
+			padding: 5px 10px;
+		}
+
+		DIV:hover {
+			color: var(--title-color);
+		}
+	}
 }

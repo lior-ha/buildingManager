@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { addItems, updateItems } from '../../../firebase/firebase.utils';
-import { useSession } from '../../../context/auth.context';
+//import { useSession } from '../../../context/auth.context';
 import { getDates } from '../../../shared/js-utils';
 
 import AddBuildingForm from '../../../components/add-building-form/add-building-form.component';
 import FormBox from '../../../components/form-box/form-box.component';
 
 const AddBuilding = () => { 
-    const { building } = useSession();
+    //const { building } = useSession();
 
     const buildingDataInitialState = {
         street: '',
@@ -59,18 +59,16 @@ const AddBuilding = () => {
         }
     }
 
-    return (
-        <main className="mainWrapper">        
-            <section className="formWrapper">
-                <FormBox form={
-                    <AddBuildingForm 
-                        buildingData={buildingData}
-                        getBuildingData={getBuildingData}
-                    />} 
-                    
-                title="הוסף וועד" />
-            </section>
-        </main>
+    return (      
+        <section className="formWrapper">
+            <FormBox form={
+                <AddBuildingForm 
+                    buildingData={buildingData}
+                    getBuildingData={getBuildingData}
+                />} 
+                
+            title="הוסף וועד" />
+        </section>
     )
 }
 

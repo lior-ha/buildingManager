@@ -111,12 +111,11 @@ export const getBuildingData = (collections, building) => {
 
 // Get Apartment
 export const getApartment = (collections, apartment) => {
-    console.log(collections, apartment)
     const findApartment = collections.docs.find(doc => doc.id === apartment);
 
     const apartmentData = () => {
-        const paymentsStatus = findApartment.data();
-        return paymentsStatus;
+        const aptData = findApartment.data();
+        return aptData;
     }
 
     return apartmentData();
@@ -146,13 +145,16 @@ export const convertUserCollectionsSnapshotToMap = (collections) => {
     return transformedCollection;
 }
 
-export const getItem = async (collectionKey, id) => {
-    const collectionRef = firestore.collection(collectionKey);
-    const newDocRef = collectionRef.doc();
-    await newDocRef.get(id).then(result => {
-        console.log(result.data());
-    })
-}
+// export const getItem = (docKey) => {
+//     const findItem = docKey.find(doc => doc.id === id);
+
+//     const getData = () => {
+//         const itemData = findItem.data();
+//         return itemData;
+//     }
+//     return getData();
+    
+// }
 
 export const addItems = async (collectionKey, objectsToAdd) => {
     const collectionRef = firestore.collection(collectionKey);

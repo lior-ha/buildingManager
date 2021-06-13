@@ -1,16 +1,14 @@
 import { useState, useEffect } from 'react';
 import { firestore, convertTransactionsCollectionsSnapshotToMap } from '../firebase/firebase.utils';
 
-import { useSession } from '../context/auth.context';
-
-export const useTransactions = (limit, orderBy='createdAt', direction='asc') => {
-    const { building } = useSession();
+export const useTransactions = (limit, orderBy='createdAt', direction='asc', building) => {
 
     const [ error, setError ] = useState(false);
     const [ transactionLoading, setLoading ] = useState(true);
     const [ transactions, setTransactions ] = useState([]);
 
     useEffect(() => {
+        if (building) {
             const unSubTransactions = firestore.collection(`buildings/${building}/transactions`)
                 .limit(limit)
                 .orderBy(orderBy, direction)
@@ -24,6 +22,7 @@ export const useTransactions = (limit, orderBy='createdAt', direction='asc') => 
             return () => {
                 unSubTransactions();
             }
+        }
     }, [building, limit, orderBy, direction]);
     
     return {

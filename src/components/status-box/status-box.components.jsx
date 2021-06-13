@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import Loading from '../UI/loader/loader.component';
+import Loader from '../UI/loader/loader.component';
 
 import './status-box.styles.scss';
 
@@ -26,7 +26,7 @@ const StatusBox = props => {
         <div className="contentBox statusBox">
             <div className="title">מצב חשבון נוכחי של הבניין</div>
             {props.loading ? 
-                <Loading />
+                <Loader />
             :
                 <div className={`total ${totalSum >= 0 ? 'plusSum' : 'minusSum'}`}>&#8362; {totalSum}</div>
             }

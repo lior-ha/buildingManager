@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
@@ -8,6 +8,15 @@ import CustomButton from '../custom-button/custom-button.component';
 const SignIn = () => {
     const [ signInState, setSignInState ] = useState({ email: '', password: '' })
     const { email, password } = signInState;
+
+    const [ buttonClass, setButtonClass] = useState('disabled');
+    useEffect(() => {
+        if (email !== '' && password !== '' ) {
+            setButtonClass('green');
+        } else if (email === '' || password === '') {
+            setButtonClass('disabled');
+        }
+    }, [email, password]);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -46,7 +55,7 @@ const SignIn = () => {
                 required
             />
             <div className="buttonsGroup">
-                <CustomButton type="submit"> התחבר </CustomButton>
+                <CustomButton classes={buttonClass} type="submit"> התחבר </CustomButton>
                 <CustomButton classes="red" onClick={signInWithGoogle} isGoogleSignIn>
                     התחבר עם גוגל
                 </CustomButton>

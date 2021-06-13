@@ -1,8 +1,9 @@
-import React, { Fragment, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { useAuth } from './hooks/auth.hook';
-import { useBuilding } from './hooks/building.hook';
+import { useApartments } from './hooks/apartments.hook';
+import { useWindowSize } from './hooks/windowSize.hook';
 
 import { authContext } from './context/auth.context';
 
@@ -12,7 +13,9 @@ import Homepage from './pages/homepage/homepage.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
 import Loader from './components/UI/loader/loader.component'
+
 import PageTitle from './components/page-title/page-title.component';
+import AsideWrapper from './components/aside/aside-wrapper/aside-wrapper.component';
 
 import './index.scss';
 
@@ -25,9 +28,24 @@ const MessageBoard = lazy(() => import('./pages/message-board/message-board.comp
 const SignOut = lazy(() => import('./pages/sign-in-and-sign-up/sign-out/sign-out.component'));
 
 const App = () => {
-    const { user, building, loading } = useAuth();
-    const { buildingData, isLoading } = useBuilding(building);
-    if (loading || (user && isLoading)) {
+    const { user, building, loading, setHolding } = useAuth();
+    const { apartmentsData } = useApartments(building);
+
+    const [ activeSidebarTab, setSidebarActiveTab ] = useState('lastActions');
+
+    const [ wideScreen, setWideScreen ] = useState(true);
+
+    const [width] = useWindowSize();
+    useEffect(() => {
+        if (width >= 1200) {
+            setWideScreen(true)
+        } else {
+            setWideScreen(false)
+        }
+    }, [setWideScreen, width]);
+
+//console.log(activeSidebarTab)
+    if (loading) {
         return (
             <div className="appWrapper loading">
                 <Loader />
@@ -42,21 +60,18 @@ const App = () => {
     )
     
     if (user) {
-        console.log(user.type)
         routes =  (
-            <Fragment>
-                <authContext.Provider value={{ user, building }}>
-                    <PageTitle address={buildingData.address} />
+            <>
+                
                     <Switch>
-                        <Route exact path='/' component={Homepage} />
-                        
+                        <Route path='/' exact render={() => (<Homepage /> )}/>
                         <Route path='/message-board' exact component={MessageBoard} />
                         <Route path='/transactions' component={TransactionsPage} />
                         <Route path='/message-board/:messageId' component={MessageBoard} />
                         <Route path='/mainAdmin/addApartment' component={AddApartment} />
                         <Route path='/building/:profileId' component={ProfilePage} /> 
                         <Route path='/signout' component={SignOut} /> 
-                        <Route exact path='/signin' render={() => 
+                        <Route path='/signin' exact render={() => 
                             user ? 
                                 (<Redirect to="/" />) 
                                 : 
@@ -64,16 +79,29 @@ const App = () => {
                         />
                         {user.type === 'admin' ? <Route path='/mainAdmin/addBuilding' component={AddBuilding} /> : ''}
                     </Switch>
-                </authContext.Provider>
-            </Fragment>
+            </>
         );
     }
     return (
-        <Layout isAuthenticated={user}>
-            <Suspense fallback={<Loader />}>
-                {routes}
-            </Suspense>
-        </Layout>
+        <authContext.Provider value={{ user, building, apartmentsData }}>
+            <Layout isAuthenticated={user}>
+            
+                { user.building && building && 
+                    <PageTitle 
+                        user={user} 
+                        userHoldings={user.holdings} 
+                        building={building} 
+                        setHolding={setHolding}
+                    />
+                }
+                <main className="mainWrapper">
+                    <Suspense fallback={<Loader />}>
+                        {building && routes}
+                    </Suspense>
+                    <AsideWrapper wideScreen={wideScreen} setActiveTab={setSidebarActiveTab} activeTab={activeSidebarTab} />
+                </main>
+            </Layout>
+        </authContext.Provider>
     );
 
 }

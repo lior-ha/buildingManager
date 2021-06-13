@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { auth } from '../../firebase/firebase.utils';
 
@@ -7,6 +7,7 @@ import CustomButton from '../custom-button/custom-button.component';
 
 
 const SignUp = () => {
+
     const [userCredentials, setUserCredentials] = useState({
         email: '',
         password: '',
@@ -14,6 +15,15 @@ const SignUp = () => {
     })
 
     const { email, password, confirmPassword } = userCredentials;
+
+    const [ buttonClass, setButtonClass] = useState('disabled');
+    useEffect(() => {
+        if (email !== '' && password !== '' && confirmPassword !== '') {
+            setButtonClass('green');
+        } else if (email === '' || password === '' || confirmPassword === '') {
+            setButtonClass('disabled');
+        }
+    }, [email, password, confirmPassword]);
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -81,7 +91,7 @@ const SignUp = () => {
                 required
             />
             <div className="buttons">
-                <CustomButton type="submit"> התחבר </CustomButton>
+                <CustomButton classes={buttonClass} type="submit"> התחבר </CustomButton>
             </div>
         </form>
     )

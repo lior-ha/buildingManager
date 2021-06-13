@@ -3,6 +3,32 @@
 	position: relative;
 	height: 75vh;
 	overflow: auto;
+	direction: ltr;
+
+	> DIV {
+		direction: rtl;
+	}
+
+	&::-webkit-scrollbar {
+		width: 10px;
+		background-color: #1e2021;
+	}
+
+	&::-webkit-scrollbar-track {
+		-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px inset;
+		box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px inset;
+		background-color: #1e2021;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		-webkit-box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px inset;
+		box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 6px inset;
+		background-color: #404548;
+	}
+
+	&::-webkit-scrollbar-corner {
+		background-color: #181a1b;
+	}
 
 	.title,
 	.closeTab {
@@ -13,7 +39,6 @@
 
 	.top {
 		text-align: right;
-		border-bottom: 1px solid #fff;
 		margin-bottom: 20px;
 	}
 

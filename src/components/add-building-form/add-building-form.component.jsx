@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { FormInputSingle, FormInputIntoList } from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
@@ -39,10 +39,20 @@ import CustomButton from '../custom-button/custom-button.component';
 
 const AddBuildingForm = props => {
     const [ buildingData, setBuildingData ] = useState(props.buildingData);
+    const [ buttonClass, setButtonClass] = useState('disabled');
 
     const [ formInputs, setFormInputs] = useState({ 
         manager: ''
     });
+
+    useEffect(() => {
+        //console.log(buildingData)
+        if (buildingData.managers.length !== 0 && buildingData.city !== '' && buildingData.street !== '' && buildingData.number !== '') {
+            setButtonClass('green');
+        } else if (buildingData.managers >= 0 || buildingData.city === '' || buildingData.street === '' || buildingData.number === '') {
+            setButtonClass('disabled');
+        }
+    }, [formInputs, buildingData]);
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -134,7 +144,7 @@ const AddBuildingForm = props => {
                 />
                 
             </div>
-            <CustomButton type="submit"> הוסף בניין </CustomButton>
+            <CustomButton type="submit" classes={buttonClass}> הוסף בניין </CustomButton>
         </form>
     )
 }

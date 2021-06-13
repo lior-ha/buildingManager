@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 import NavItem from './nav-items/nav-item.component';
 
@@ -10,20 +10,21 @@ const NavItems = ({isAuth}) => {
     let navbar;
 
     if (isAuth){
-        navbar = <Fragment>
+        navbar = <>
                     {version}
+                    <Link className="navItem logo" to='/'>הוועדון</Link> {/* ??? */}
                     <NavItem link='/' exact>עמוד ראשי</NavItem>
                     <NavItem link='/message-board'>לוח מודעות</NavItem>
                     <NavItem link='/transactions'>הכנסות/הוצאות</NavItem>
                     <NavItem link='/mainAdmin/addApartment'>ניהול דירות</NavItem>
                     {isAuth.type === 'admin' && <NavItem link='/mainAdmin/addBuilding'>הוספת בניין</NavItem>}
                     <NavItem link='/signout' extraClass="end"> התנתק </NavItem>
-                </Fragment>
+                </>
     } else {
-        navbar =<Fragment>
+        navbar =<>
                     {version}
                     <NavItem link='/signin'> התחבר </NavItem>
-                </Fragment>
+                </>
     }
     
     return (

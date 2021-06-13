@@ -1,32 +1,36 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { useApartments } from '../../../../hooks/apartments.hook';
 import { useTenants } from '../../../../hooks/tenants.hook';
-import Loader from '../../../UI/loader/loader.component';
 
 import './aside-tenant.styles.scss';
 
-const AsideTenant = ({ id }) => {
-    const { apartmentsLoading, apartmentData} = useApartments(id);
-    const { tenantsData } = useTenants(id);
+const AsideTenant = (props) => {
+    console.log(props)
+    const { tenantsData } = useTenants(props.id);
     const [ tenantsList, setTenantsList ] = useState([]);
     const [ ownersList, setOwnersList ] = useState([]);
     
+    const stopProp = e => {
+        e.stopPropagation();
+    }
+    
     useEffect(() => {
+        console.log(tenantsData)
         let unsub;
         if (tenantsData.length > 0) {
+            const tenantsArr = [];
+            const ownersArr = [];
             for (let tenant of tenantsData) {
+                console.log(tenant.tenantFirstName);
                 if (tenant.tenantType === 'tenant') {
-                    unsub = setTenantsList(prevState => (
-                        [...prevState, tenant]
-                    ));
+                    tenantsArr.push(tenant);
                 } else if (tenant.tenantType === 'owner') {
-                    unsub = setOwnersList(prevState => (
-                        [...prevState, tenant]
-                    ));
+                    ownersArr.push(tenant);
                 }
             };
+            setTenantsList(tenantsArr)
+            setOwnersList(ownersArr)
         }
 
         return unsub;
@@ -35,32 +39,31 @@ const AsideTenant = ({ id }) => {
 
     
     return (
-        <div className={`asideTenants`}>
-            {apartmentsLoading ? <Loader /> : 
-                <Fragment>
-                    <p className="apartment"><Link to={`/building/${id}`}>דירה מס' {apartmentData.apartment} - {apartmentData.apartmentName}</Link></p>
-                    <div className="tenantsBox">
-                        <p className="tenantsTitle">דיירים</p>
+        <div className={`asideTenants ${props.showTenant ? 'open' : ''}`} onClick={props.onClick}>
+            <p className="apartment"><i className="toggleApartment"></i> דירה מס' {props.apartment} - {props.apartmentName}</p>
+            <div className="details">
+                <div className="tenantsBox">
+                    <p className="tenantsTitle">דיירים</p>
+                    <ul className="tenants">
+                        {tenantsList.map((tenant, i) => (
+                            <li key={`t${i}`}>{tenant.tenantFirstName}</li>
+                        ))}
+                    </ul>
+                </div>
+
+            
+                {ownersList.length !== 0  && 
+                    <div className="tenantsBox ownersBox">
+                        <p className="tenantsTitle">בעלים</p>
                         <ul className="tenants">
-                            {tenantsList.map((tenant, i) => (
-                                <li key={`t${i}`}>{tenant.tenantFirstName}</li>
+                            {ownersList.map((owner, i) => (
+                                    <li key={`o${i}`}>{owner.tenantFirstName}</li>
                             ))}
                         </ul>
                     </div>
-
-                
-                    {ownersList.length !== 0  && 
-                        <div className="tenantsBox ownersBox">
-                            <p className="tenantsTitle">בעלים</p>
-                            <ul className="tenants">
-                                {ownersList.map((owner, i) => (
-                                        <li key={`o${i}`}>{owner.tenantFirstName}</li>
-                                ))}
-                            </ul>
-                        </div>
-                    }
-                </Fragment>
-            }
+                }
+            </div>
+            <Link onClick={stopProp} to={`/building/${props.id}`} className="moreDetails">לפרטים מלאים</Link>
         </div>
     )
 };

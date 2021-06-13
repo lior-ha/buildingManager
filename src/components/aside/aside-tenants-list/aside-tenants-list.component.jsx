@@ -1,30 +1,53 @@
-import AsideWrapper from '../aside-wrapper/aside-wrapper.component';
+import { useState, useCallback, useEffect } from 'react';
+
+import { useSession } from '../../../context/auth.context';
+
 import AsideTenant from './aside-tenant/aside-tenant.component';
 
-import Loading from '../../UI/loader/loader.component';
+import Loader from '../../UI/loader/loader.component';
 
 const sortApts = (aptA, aptB) => {
     return aptA.apartment - aptB.apartment;
 }
 
-const AsideTenantsList = ({ loading, apartments }) => {
-    return (
-        <AsideWrapper extraClasses="lastTenants" title="דירות">
-        {loading ?
-            <Loading />
-        :
+const AsideTenantsList = ({loading}) => {
+    const { apartmentsData } = useSession();
 
-            apartments.length===0 ? 
-                <div>לא הוזנו דירות</div>
+    const [ tenants, setTenants ] = useState([])
+    const [ showTenant, setShowTenant ] = useState(false);
+
+    useEffect(() => {
+        setTenants(() => apartmentsData.length ? apartmentsData : [apartmentsData])
+    }, [apartmentsData])
+
+    const clickHandler = useCallback(id => {
+        setShowTenant(prev => {
+            if (id === prev) {
+                return '';
+            } else {
+                return id;
+            }
+        })
+    }, []);
+
+    
+    return (
+        <>
+            {loading ?
+                <Loader />
             :
-            
-                apartments
-                .sort(sortApts)
-                .map(({id, ...otherProps }) => (                    
-                    <AsideTenant key={id} id={id} {...otherProps} />
-                ))
-        }
-        </AsideWrapper>
+
+            apartmentsData.length===0 ? 
+                    <div>לא הוזנו דירות</div>
+                :
+                
+                tenants
+                        .sort(sortApts)
+                        .map(({id, ...otherProps }) => (                    
+                            <AsideTenant key={id} id={id} showTenant={id === showTenant} onClick={() => clickHandler(id)} {...otherProps} />
+                        ))
+            }
+        </>
 )};
 
 export default AsideTenantsList;

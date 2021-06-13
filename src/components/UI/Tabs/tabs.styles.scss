@@ -3,18 +3,12 @@
 
 	.tab {
 		background-color: var(--main-dark-color);
-		border-top: 1px solid var(--mid-dark-color);
-		border-right: 1px solid var(--mid-dark-color);
 		bottom: -1px;
 		cursor: pointer;
 		line-height: 50px;
 		padding: 0 var(--midSize);
 		position: relative;
 		color: var(--link-color);
-
-		&:last-child {
-			border-left: 1px solid var(--mid-dark-color);
-		}
 
 		&:hover {
 			background-color: var(--mid-dark-color);
@@ -24,6 +18,12 @@
 		&.active {
 			background-color: var(--boxes-bg-color);
 			color: var(--link-color);
+		}
+	}
+
+	@media (min-width: 1200px) {
+		.sidebar & {
+			display: none;
 		}
 	}
 }

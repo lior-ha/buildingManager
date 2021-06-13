@@ -6,7 +6,7 @@ import { useTenants } from '../../../../hooks/tenants.hook';
 import './aside-tenant.styles.scss';
 
 const AsideTenant = (props) => {
-    console.log(props)
+    //console.log(props)
     const { tenantsData } = useTenants(props.id);
     const [ tenantsList, setTenantsList ] = useState([]);
     const [ ownersList, setOwnersList ] = useState([]);
@@ -16,13 +16,13 @@ const AsideTenant = (props) => {
     }
     
     useEffect(() => {
-        console.log(tenantsData)
+        //console.log(tenantsData)
         let unsub;
         if (tenantsData.length > 0) {
             const tenantsArr = [];
             const ownersArr = [];
             for (let tenant of tenantsData) {
-                console.log(tenant.tenantFirstName);
+                //console.log(tenant.tenantFirstName);
                 if (tenant.tenantType === 'tenant') {
                     tenantsArr.push(tenant);
                 } else if (tenant.tenantType === 'owner') {

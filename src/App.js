@@ -86,7 +86,7 @@ const App = () => {
         <authContext.Provider value={{ user, building, apartmentsData }}>
             <Layout isAuthenticated={user}>
             
-                { user.building && building && 
+                { user && user.building && building && 
                     <PageTitle 
                         user={user} 
                         userHoldings={user.holdings} 
@@ -96,9 +96,11 @@ const App = () => {
                 }
                 <main className="mainWrapper">
                     <Suspense fallback={<Loader />}>
-                        {building && routes}
+                        {routes}
                     </Suspense>
-                    <AsideWrapper wideScreen={wideScreen} setActiveTab={setSidebarActiveTab} activeTab={activeSidebarTab} />
+                    { user && user.building && building && 
+                        <AsideWrapper wideScreen={wideScreen} setActiveTab={setSidebarActiveTab} activeTab={activeSidebarTab} />
+                    }
                 </main>
             </Layout>
         </authContext.Provider>

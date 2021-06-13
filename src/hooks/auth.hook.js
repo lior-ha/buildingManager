@@ -14,9 +14,9 @@ export const useAuth = () => {
         return { 
             user: {
                 ...firebase.auth().currentUser,
-                building: '',
+                building: null,
             },
-            building: '',
+            building: null,
             loading: true,
             setHolding
         }
@@ -28,12 +28,8 @@ export const useAuth = () => {
                 const userRef = await createUserProfileDocument(userAuth);
                 userRef.onSnapshot(async snapShot => {
                     const holdings = await {...snapShot.data().holdings};
-                    if (holding.building.apt) {
+                    if (holding.building.apt || holding.apt === '') {
                         console.log('exists!');
-                        setHolding({
-                            building: Object.keys(holdings)[0], apt: holdings[Object.keys(holdings)[0]]
-                        });
-                    } else if (holding.apt === '') {
                         setHolding({
                             building: Object.keys(holdings)[0], apt: holdings[Object.keys(holdings)[0]]
                         });
@@ -60,7 +56,7 @@ export const useAuth = () => {
                 
                 
             } else {
-                setState({ user: null, building: '', loading: false })
+                setState({ user: null, building: null, loading: false })
             }            
         });
 

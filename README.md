@@ -1,53 +1,40 @@
-# Building Manager
+# Building Manager (In the works)
 
 Vaad Helper App (Hebrew only for now)
+Can be used by management only or by all residents
 
-# Tasks:
+## Transactions management
+Follow the building incomes & expenses. Full transperancy!
 
-## Forms
+### Transactions page:
+- Current Status
+- List of all expenses
+- Income:
+   - Either resident's payments or other.
+   - Can preset payment sum for each apartment (editable)
+ - Expense:
+    - Any reason, any sum
 
-### Payment Forms:
-- *** Edit payment
-- ** File upload (Google Picker?)
-- *** Validation
-- ** Recurring payments reminder (to regular service givers)
-- ** Reminder for residents who hasn't paid 10 days after the sch. day
-- ** Future payments (Cheques)
+### Message Board:
+Messages for everyone!
+- Important/Regular message type (Important can be set by managers only)
+- Can be edited suspended or deleted by either manager or writer.
 
-### Building Form:
-- *** Edit building?
-- *** Validation
+### Apartments Management
+- Adding/editing/removing(?) apartments to the building.
+- Can add multiple tenants with multiple emails/phones (optional)
+- Can separate between tenants and owners
 
-### Apartment Form:
-- Multi-select months?
+### Apartment's profile page
+Shows all tenant's details
+Yearly payments (red - missing, green - paid, blue - partial);
 
-### Tenants Forms:
-- *** Edit tenant
-- *** Validation
+### Multiple apartments per users. 
+- Title is clickable if user has more than one apartment and can switch between them (either apartments in the same building or not)
 
-### Add Building Form - Admin Only
-- Combining new builing with a user for auth and access own building only
-- ** Edit Vaad managers?
-- ** Resolution behavior
-- ** Validation
+## //Adding building by Admin only//.
 
-## Data and reports
-
-### Tenants payment status
-- Add partial pay?
-
-### Monthly/Yearly Report
-
-### Invoices list
-
-## Interactions
-
-### Online payments (Bit or something?)
-
-### Message board (all users can write or managers decide who?)
-
-### Tickets to managers for malfunctions reporting and such (sends email/sms/whatsApp-business)
-
-### Alert notifications from managers to tenants (sends email/sms/whatsApp-business)
-
-//Google Credentials?
+## Future features
+- Online payments
+- Whatsapp messaging (Managers to Residents - push notifications?)
+- Report Cards (burnt bulb, broken glass, etc.)

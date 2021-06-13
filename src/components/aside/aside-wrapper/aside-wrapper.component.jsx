@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import Tabs from '../../UI/Tabs/tabs.components';
 import AsideLastActions from '../aside-last-actions/aside-last-actions.component';
 import AsideTenantsList from '../aside-tenants-list/aside-tenants-list.component';
@@ -29,17 +28,19 @@ const AsideWrapper = ({wideScreen , activeTab, setActiveTab}) => {
                                     </aside>
             return asideTemplate
         });
-            return (
-                <Fragment>
-                    {!wideScreen && <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />}
-                    {asideStructure}
-                </Fragment>
-            )
-        // return asideStructure;
+
+        return asideStructure;
+        
     }
     return (
         <>
-            {!wideScreen ? <div className='sidebar'>{getContent([activeTab])}</div> : getContent(['lastActions', 'lastTenants'])}
+            {!wideScreen ?
+                <div className="sidebar">
+                    <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+                    {getContent([activeTab])}
+                </div> 
+            : 
+                getContent(['lastActions', 'lastTenants'])}
         </>
 
         

@@ -18,22 +18,24 @@ const AsideWrapper = ({wideScreen , activeTab, setActiveTab}) => {
     ];
 
     const getContent = (asides) => {
-        const tabsStucture = asides.map(aside => {
-            let tabText = tabs.find(i => i.type === aside);
+        const asideStructure = asides.map(aside => {
+            const tabText = tabs.find(tab => tab.type === aside);
+            const asideTemplate =   <aside key={aside} className={`contentBox asideBox ${aside==='lastTenants' ? 'asideLeft' : 'asideRight'} `}>
+                                        <div className="top">
+                                            <p className="title">{tabText.text}</p>
+                                        </div>
+                                        {aside==='lastActions' && <AsideLastActions />}
+                                        {aside==='lastTenants' && <AsideTenantsList />}
+                                    </aside>
+            return asideTemplate
+        });
             return (
-                <Fragment key={aside}>
+                <Fragment>
                     {!wideScreen && <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />}
-                    <aside className={`contentBox asideBox ${aside==='lastTenants' ? 'asideLeft' : 'asideRight'} `}>
-                        <div className="top">
-                            <p className="title">{tabText.text}</p>
-                        </div>
-                        {aside==='lastActions' && <AsideLastActions />}
-                        {aside==='lastTenants' && <AsideTenantsList />}
-                    </aside>
+                    {asideStructure}
                 </Fragment>
             )
-        });
-        return tabsStucture;
+        // return asideStructure;
     }
     return (
         <>

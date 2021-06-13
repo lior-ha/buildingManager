@@ -17,10 +17,8 @@ export const useTenants = (apartmentId, tenantId) => {
                     .onSnapshot(async snapshot => {
                             const tenantsResponse = await convertCollectionsSnapshotToMap(snapshot, building);
                             if (apartmentId) {
-                                console.log('apartmentId')
                                 setTenantsData([...tenantsResponse]);
                             } else {
-                                console.log('tenantsId')
                                 setTenantsData(...tenantsResponse);
                             }
                             setLoading(false);

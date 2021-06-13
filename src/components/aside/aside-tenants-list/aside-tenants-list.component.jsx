@@ -38,14 +38,14 @@ const AsideTenantsList = ({loading}) => {
             :
 
             apartmentsData.length===0 ? 
-                    <div>לא הוזנו דירות</div>
+                    <div key='empty'>לא הוזנו דירות</div>
                 :
                 
                 tenants
-                        .sort(sortApts)
-                        .map(({id, ...otherProps }) => (                    
-                            <AsideTenant key={id} id={id} showTenant={id === showTenant} onClick={() => clickHandler(id)} {...otherProps} />
-                        ))
+                    .sort(sortApts)
+                    .map(({id, ...otherProps }) => (                    
+                        <AsideTenant key={`aside-${id}`} id={id} showTenant={id === showTenant} onClick={() => clickHandler(id)} {...otherProps} />
+                    ))
             }
         </>
 )};

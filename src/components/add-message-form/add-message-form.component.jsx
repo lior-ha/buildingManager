@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FormInputSingle, FormTextArea } from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButton from '../UI/custom-button/custom-button.component';
 
 const AddMessageForm = props => {
     let manager;

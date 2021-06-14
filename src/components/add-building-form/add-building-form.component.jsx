@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { FormInputSingle, FormInputIntoList } from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButton from '../UI/custom-button/custom-button.component';
 
 // var searchData = {
 //     resource_id: 'a7296d1a-f8c9-4b70-96c2-6ebb4352f8e3', // the resource id

@@ -1,12 +1,13 @@
 import { Fragment, useState, useEffect } from 'react';
 
-import { addItems, updateItems, updateProperty } from '../../firebase/firebase.utils';
+import { addItems, updateItems, updateProperty } from '../../../firebase/firebase.utils';
 
-import { getDates, monthName } from '../../shared/js-utils';
+import { getDates, monthName } from '../../../shared/js-utils';
 
-import { FormInputSingle, FormSelect } from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import { FormInputSingle, FormSelect } from '../../form-input/form-input.component';
+import CustomButton from '../../UI/custom-button/custom-button.component';
 
+import { residentsPayments } from './residentsPaymentsUtil.js';
 import './add-transaction-form.styles.scss';
 
 const AddTransactionForm = ({ changeParams, setResetForm, params, building, apartmentsData }) => {
@@ -16,10 +17,18 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
     const [ validity, setValidity ] = useState(true);
     const [ transactionId, setTransactionId ] = useState('');
 
-    
     const sortByApt = (a, b) => {
         return a.apartment - b.apartment;
     }
+
+    const aptsData = apartmentsData
+        .sort(sortByApt)
+        .map(apartment => ({
+                id: apartment.id,
+                text: `דירה ${apartment.apartment}`,
+                var: apartment.monthlyDue,
+                paymentsStatus: apartment.paymentsStatus
+        }));
 
     const paymentMethods = [
         {id: 1, value: 'מזומן', text: 'מזומן'},
@@ -28,15 +37,6 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
         {id: 4, value: 'אינטרנט', text: 'אינטרנט'},
         {id: 5, value: 'צ\'ק', text: 'צ\'ק'}
     ];
-
-    const aptsData = apartmentsData
-                    .sort(sortByApt)
-                    .map(apartment => ({
-                            id: apartment.id,
-                            text: `דירה ${apartment.apartment}`,
-                            var: apartment.monthlyDue,
-                            paymentsStatus: apartment.paymentsStatus
-                    }));
                     
     const monthsList = [];
     for (let i=0; i<=11; i++) {
@@ -59,6 +59,8 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
         }))
     }, [formType]);
 
+
+    // Validation
     useEffect(() => {
         const {type, sum, apt, month, paymentMethod, description, other, incomeSource } = transactionDetails;
         if (
@@ -78,117 +80,50 @@ const AddTransactionForm = ({ changeParams, setResetForm, params, building, apar
         
         const newDates = getDates(transactionDetails);
 
-        if (transactionDetails.incomeSource === 'buildingPayment') {
-            const year = new Date().getFullYear();
-
-            // Get this apartment's data
-            const aptData = aptsData.find(apt => apt.id === transactionDetails.aptId);
-            let paymentsStatus = aptData.paymentsStatus;
-            
-            // Check if there's any paymentsStatus for this apt
-            if (Object.keys(paymentsStatus).length === 0 || !paymentsStatus[year]) {
-                paymentsStatus[year] = [];
-            }
-
-            // Checks if value is already paid. If so return error.
-            if (paymentsStatus[year][transactionDetails.month] && paymentsStatus[year][transactionDetails.month].status === 'paid' ) {
-
-                console.log('error: already paid for this month');
-                return;
-
-            } else {
-
-                // Create transaction ID
-                addTransaction(`buildings/${building}/transactions`, {});
-                
-                // Mutate to paid/partial
-                let sum = transactionDetails.sum;
-                const monthlyDue = parseInt(aptData.var);
-                let curMonth = parseInt(transactionDetails.month);
-
-                for (let key in paymentsStatus[year]) {
-                    let partialSum = 0;
-
-                    if (paymentsStatus[year][key].status === 'partial') {
-                        const initialSum = sum;
-                        partialSum = parseInt(paymentsStatus[year][key].sum);
-                        sum -= (monthlyDue - partialSum);
-
-                        if (sum >= 0) {
-                            paymentsStatus[year][key].status = 'paid';
-                            paymentsStatus[year][key].sum = monthlyDue;
-                        } else {
-                            paymentsStatus[year][key].sum = partialSum + initialSum;
-                        }
-                    }
-
-                    curMonth++;
-                }
-
-                if (sum > 0) {
-                    const paidMonths = Math.ceil(sum/monthlyDue);
-
-                    for (let i=curMonth; i < (curMonth + paidMonths); i++) {
-                        if (sum >= monthlyDue) {
-                            paymentsStatus[year].push({
-                                status: 'paid',
-                                sum: monthlyDue,
-                                transactionId: transactionId
-                            })
-                        } else if (sum < monthlyDue) {
-                            paymentsStatus[year].push({
-                                status: 'partial',
-                                sum: sum,
-                                transactionId: transactionId
-                            })
-                        }
-                        sum -= monthlyDue;
-                    } 
-                }
-            }
-
-            // Populate transaction's document with data
-            updateTransaction(`buildings/${building}/transactions`, transactionId, {...transactionDetails, ...newDates})
-
-            // Update apartments's document with changes
-            updateProperty(`buildings/${building}/apartments`, transactionDetails.aptId, {paymentsStatus: {...paymentsStatus}})
-                .then(() => {
-                    return
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        }        
-
+        // RESIDENTS PAYMENTS
         if (!transactionId) {
-            addTransaction(`buildings/${building}/transactions`, {...transactionDetails, ...newDates})
-        } else {
-            updateTransaction(`buildings/${building}/transactions`, transactionId, {...transactionDetails, ...newDates})
+            addTransaction(`buildings/${building}/transactions`, {...transactionDetails, ...newDates});
         }
+        // } else {
+        //     console.log(transactionId);
+        //     updateTransaction(`buildings/${building}/transactions`, transactionId, {...transactionDetails, ...newDates})
+        // }
     }
 
     const addTransaction = (path, content) => {
         addItems(path, content)
             .then((result) => {
                 setTransactionId(result)
+            }).then(() => {
                 setFormType('');
                 setResetForm('');
+                setTransactionId('');
             })
             .catch((err) => {
                 console.log(err);
             });
     }
 
-    const updateTransaction = (path, id, content) => {
-        updateItems(path, id, content)
-            .then(() => {
-                setFormType('');
-                setResetForm('');
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
+    useEffect(() => {
+        if (transactionDetails.incomeSource === 'buildingPayment' && transactionId) {
+            residentsPayments(transactionDetails, aptsData, building, transactionId, addTransaction, updateProperty);
+        }
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [transactionId]);
+
+
+
+    // const updateTransaction = (path, id, content) => {
+    //     updateItems(path, id, content)
+    //         .then(() => {
+    //             setFormType('');
+    //             setResetForm('');
+    //         })
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    // }
 
 
     const handleSingleInputEvent = e => {

@@ -1,4 +1,4 @@
-import LinkListItem from '../link-list-item/link-list-item.component';
+import LinkListItem from './link-list-item/link-list-item.component';
 import './link-list-box.styles.scss';
 
 const LinkListBox = ({linkList, cat}) => (

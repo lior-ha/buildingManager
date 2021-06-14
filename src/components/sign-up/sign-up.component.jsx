@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { auth } from '../../firebase/firebase.utils';
 
 import { FormInputSingle } from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButton from '../UI/custom-button/custom-button.component';
 
 
 const SignUp = () => {

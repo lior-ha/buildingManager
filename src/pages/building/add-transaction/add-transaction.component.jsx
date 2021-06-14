@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from '../../../context/auth.context';
 
 import FormBox from '../../../components/form-box/form-box.component';
-import AddTransactionForm from '../../../components/add-transaction-form/add-transaction-form.component';
+import AddTransactionForm from '../../../components/transactions/add-transaction-form/add-transaction-form.component';
 
 const formSchemes = {
     income: {

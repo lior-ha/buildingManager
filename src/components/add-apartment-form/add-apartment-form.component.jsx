@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import { FormInputSingle } from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButton from '../UI/custom-button/custom-button.component';
 
 const AddTenantForm = props => {
     const [ buttonClass, setButtonClass] = useState('disabled');
@@ -10,7 +10,7 @@ const AddTenantForm = props => {
         monthlyDue: '',
         apartmentName: '',
         paymentsStatus: {
-            [new Date().getFullYear()]: [...Array(12).fill('')]
+            [new Date().getFullYear()]: []
         }
     });
 

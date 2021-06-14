@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, Fragment } from 'react';
 
 import {FormInputSingle, FormInputIntoList} from '../form-input/form-input.component';
-import CustomButton from '../custom-button/custom-button.component';
+import CustomButton from '../UI/custom-button/custom-button.component';
 
 import './add-tenants-form.styles.scss';
 //import { validCheck } from '../../shared/js-utils';

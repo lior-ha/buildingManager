@@ -9,7 +9,7 @@ import AddTenantForm from '../../../components/add-tenants-form/add-tenants-form
 import ApartmentContactsList from '../../../components/apartment-contacts-list/apartment-contacts-list.component';
 import FormBox from '../../../components/form-box/form-box.component';
 
-import CustomButton from '../../../components/custom-button/custom-button.component';
+import CustomButton from '../../../components/UI/custom-button/custom-button.component';
 
 const AddApartment = () => {
     const { building } = useSession();
